@@ -1,0 +1,30 @@
+<div class="btn-close-container">
+	<button class="btn-close" type="button" mat-mini-fab color="" (click)="closeDialog()" [disabled]="disabledBtn"
+			title="Đóng">
+		<mat-icon>clear</mat-icon>
+	</button>
+</div>
+<div class="kt-portlet" [ngClass]="{ 'kt-portlet--body-progress kt-portlet--body-progress-overlay' : viewLoading }">
+	<div class="kt-portlet__head kt-portlet__head__custom">
+		<div class="col-md-{{isZoomSize ? '9' : '7'}} kt-margin-bottom-10-mobile" style="margin-top: 20px;">
+			<h3 class="kt-portlet__head-title">{{title}}</h3>
+		</div>
+		<div class="col-md-{{isZoomSize ? '3' : '5'}} kt-margin-bottom-10-mobile"
+			 style="margin-top: 10px; text-align: right;">
+		</div>
+	</div>
+	<!-- end::Header -->
+	<kt-portlet-body>
+		<div class="kt-portlet__body-progress">
+			<mat-spinner [diameter]="20"></mat-spinner>
+		</div>
+		<form class="kt-form" id="print-section-review-export">
+			<div class="form-group kt-form__group row">
+				<div class="col-md-12" *ngIf="strHtml">
+					<span [innerHtml]="strHtml"></span>
+				</div>
+			</div>
+		</form>
+	</kt-portlet-body>
+	<!-- end::Body -->
+</div>

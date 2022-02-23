@@ -1,0 +1,301 @@
+<div class="row" *ngIf="ThongKeDashboard&&ThongKeDashboard.length>0">
+	<div class="col-xl-12">
+		<div class="dl-tk-dashboard">
+			<ng-container *ngFor="let item of ThongKeDashboard">
+				<div class="dl-tk-item {{item.color}}" *ngIf="item.list&&item.list.length>0">
+					<div class="title">
+						<i class="{{item.icon}}"></i> {{item.name}}
+					</div>
+					<div class="item-status" *ngFor="let st of item.list">
+						<div class="txt">
+							{{st.Description}}
+						</div>
+						<div class="num">
+							{{st.Quantity}}
+						</div>
+					</div>
+				</div>
+			</ng-container>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-xl-12">
+		<div class="dl-tk-dashboard row">
+			<ng-container>
+				<div class="dl-tk-item success col-xl-6">
+
+					<div style="display: block;">
+						<div class="row">
+							<div class="col-xl-6">
+								<div class="title">
+									Biểu đồ phân tích hồ sơ NCC
+								</div>
+								<canvas baseChart [data]="pieChartData" [labels]="pieChartLabels"
+										[chartType]="pieChartType" [options]="pieChartOptions" [plugins]="pieChartPlugins"
+										[legend]="pieChartLegend">
+								</canvas>
+							</div>
+							<div class="col-xl-6">
+								<div class="title">
+									Biểu đồ phân tích đề xuất tặng quà
+								</div>
+								<canvas baseChart [data]="pieChartData_1" [labels]="pieChartLabels_1"
+										[chartType]="pieChartType_1" [options]="pieChartOptions_1"
+										[plugins]="pieChartPlugins_1" [legend]="pieChartLegend_1">
+								</canvas>
+							</div>
+							<div class="col-xl-6">
+								<div class="title">
+									Biểu đồ phân tích số liệu hàng năm
+								</div>
+								<canvas baseChart [data]="pieChartData_2" [labels]="pieChartLabels_2"
+										[chartType]="pieChartType_2" [options]="pieChartOptions_2"
+										[plugins]="pieChartPlugins_2" [legend]="pieChartLegend_2">
+								</canvas>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</ng-container>
+			<ng-container>
+				<div class="dl-tk-item col-xl-6" style="padding-left: 0; padding-right: 0;">
+					<div style="display: block;" class="feedback-dashboard">
+						<div class="title fb-title" style="padding:0 15px;">
+							<span matBadge="{{pageTotalFB}}" matBadgeColor="warn"><i class="fa fa-comment"></i>&nbsp; Phản hồi mới nhất &nbsp;&nbsp;</span>
+						</div>
+						<div class="list-feedback" (scroll)="scrollViewHandler($event, 'ThongBao')" #scrollView [perfectScrollbar]="{wheelPropagation: true}" [ngStyle]="{'max-height': '450px', 'position': 'relative', 'padding':'0 15px'}">
+							<!--style="height: 900px;"-->
+							<div class="item-feedback" *ngFor="let item of lastestFeedback" (click)="ReadFeedBack(item)">
+								<div class="fd-avt">
+									<img src="{{item.Avata}}" />
+								</div>
+								<div class="fr-feedback">
+									<div class="item-name">
+										<div class="name">{{item.NguoiGui}}</div>
+										<div class="date"><i class="fa fa-clock" aria-hidden="true"></i>&nbsp;{{item.CreatedDate}}</div>
+									</div>
+									<div class="item-content">
+										{{item.NoiDung}}
+									</div>
+									<div class="btn-detail" matTooltip="Xem chi tiết">
+										<i class="fa fa-share"></i>
+									</div>
+								</div>
+							</div>
+							<!-- <div class="custom-pagination">
+								<mat-paginator [length]="pageTotalFB"
+								[pageSize]="queryFB.pageSize"
+								[pageSizeOptions]="[3,5,10]"
+								(page)="onChangePage($event)">
+								</mat-paginator>
+							</div> -->
+						</div>
+						<div *ngIf="scrollTop" class="new-notify" (click)="ScrollTop($event)" matTooltip="Xem tin mới nhất">
+							<i class="fa fa-angle-up"></i>
+						</div>
+					</div>
+				</div>
+			</ng-container>
+
+		</div>
+	</div>
+</div>
+
+
+<!-- <div class="row">
+	<div class="col-xl-6">
+		<div class="row row-full-height">
+			<div class="col-sm-12 col-md-12 col-lg-6">
+				<kt-portlet [class]="'kt-portlet--height-fluid-half kt-portlet--border-bottom-brand'">
+					<kt-portlet-body [class]="'kt-portlet__body--fluid'">
+						<kt-widget26 [value]="570" [desc]="'Total Sales'" [options]="chartOptions1"></kt-widget26>
+					</kt-portlet-body>
+				</kt-portlet>
+
+				<div class="kt-space-20"></div>
+
+				<kt-portlet [class]="'kt-portlet--height-fluid-half kt-portlet--border-bottom-brand'">
+					<kt-portlet-body [class]="'kt-portlet__body--fluid'">
+						<kt-widget26 [value]="640" [desc]="'Completed Transactions'" [options]="chartOptions2"></kt-widget26>
+					</kt-portlet-body>
+				</kt-portlet>
+			</div>
+
+			<div class="col-sm-12 col-md-12 col-lg-6">
+				<kt-portlet [class]="'kt-portlet--height-fluid-half kt-portlet--border-bottom-brand'">
+					<kt-portlet-body [class]="'kt-portlet__body--fluid'">
+						<kt-widget26 [value]="'234+'" [desc]="'Transactions'" [options]="chartOptions3"></kt-widget26>
+					</kt-portlet-body>
+				</kt-portlet>
+
+				<div class="kt-space-20"></div>
+
+				<kt-portlet [class]="'kt-portlet--height-fluid-half kt-portlet--border-bottom-brand'">
+					<kt-portlet-body [class]="'kt-portlet__body--fluid'">
+						<kt-widget26 [value]="'4.4M$'" [desc]="'Paid Comissions'" [options]="chartOptions4"></kt-widget26>
+					</kt-portlet-body>
+				</kt-portlet>
+			</div>
+		</div>
+	</div>
+	<div class="col-xl-6">
+		<kt-portlet [class]="'kt-portlet--height-fluid'">
+			<kt-portlet-header [title]="'Order Statistics'">
+				<ng-container ktPortletTools>
+					<kt-context-menu2></kt-context-menu2>
+				</ng-container>
+			</kt-portlet-header>
+			<kt-portlet-body>
+				<kt-widget12></kt-widget12>
+			</kt-portlet-body>
+		</kt-portlet>
+	</div>
+</div>
+
+
+<kt-portlet>
+	<kt-portlet-body [class]="'kt-portlet__body--fit'">
+		<div class="row row-no-padding row-col-separator-xl">
+			<div class="col-xl-4">
+				<kt-widget1></kt-widget1>
+			</div>
+			<div class="col-xl-4">
+				<kt-widget14 [title]="'Daily Sales'" [desc]="'Check out each collumn for more details'"></kt-widget14>
+			</div>
+			<div class="col-xl-4">
+				<kt-widget14 [title]="'Revenue Change'" [desc]="'Revenue change breakdown by cities'"></kt-widget14>
+			</div>
+		</div>
+	</kt-portlet-body>
+</kt-portlet>
+
+
+<div class="row">
+	<div class="col-xl-4">
+		<kt-portlet [class]="'kt-portlet--height-fluid'">
+			<kt-portlet-header [title]="'Download Files'">
+				<ng-container ktPortletTools>
+					<kt-context-menu2></kt-context-menu2>
+				</ng-container>
+			</kt-portlet-header>
+			<kt-portlet-body>
+				<kt-widget4 [data]="widget4_1">
+					<ng-template #actionTemplate let-item="item">
+						<div class="kt-widget4__tools">
+							<a href="javascript:;" class="btn btn-clean btn-icon btn-sm">
+								<i class="flaticon2-download-symbol-of-down-arrow-in-a-rectangle"></i>
+							</a>
+						</div>
+					</ng-template>
+				</kt-widget4>
+			</kt-portlet-body>
+		</kt-portlet>
+	</div>
+	<div class="col-xl-4">
+		<kt-portlet [class]="'kt-portlet--height-fluid'">
+			<kt-portlet-header [title]="'New Users'">
+				<ng-container ktPortletTools>
+					<kt-context-menu2></kt-context-menu2>
+				</ng-container>
+			</kt-portlet-header>
+			<kt-portlet-body>
+				<kt-widget4 [data]="widget4_2">
+					<ng-template #actionTemplate let-item="item">
+						<a href="javascript:;" class="btn btn-sm" [ngClass]="item.buttonClass">Follow</a>
+					</ng-template>
+				</kt-widget4>
+			</kt-portlet-body>
+		</kt-portlet>
+	</div>
+	<div class="col-xl-4">
+		<kt-portlet [class]="'kt-portlet--height-fluid'">
+			<kt-portlet-header [title]="'Latest Updates'">
+				<ng-container ktPortletTools>
+					<kt-context-menu2></kt-context-menu2>
+				</ng-container>
+			</kt-portlet-header>
+			<kt-portlet-body>
+				<kt-widget4 [data]="widget4_3">
+					<ng-template #actionTemplate let-item="item">
+						<span class="kt-widget4__number" [ngClass]="item.valueColor">{{item.value}}</span>
+					</ng-template>
+				</kt-widget4>
+			</kt-portlet-body>
+		</kt-portlet>
+	</div>
+</div>
+
+
+<div class="row">
+	<div class="col-xl-8">
+		<kt-portlet [class]="'kt-portlet--height-fluid'">
+			<kt-portlet-header [title]="'Exclusive Datatable'" [class]="'kt-portlet__head--lg kt-portlet__head--noborder kt-portlet__head--break-sm'">
+				<ng-container ktPortletTools>
+					<kt-context-menu></kt-context-menu>
+				</ng-container>
+			</kt-portlet-header>
+			<kt-portlet-body [class]="'kt-portlet__body--fit'">
+				<kt-data-table></kt-data-table>
+			</kt-portlet-body>
+		</kt-portlet>
+	</div>
+	<div class="col-xl-4">
+		<kt-portlet [class]="'kt-portlet--height-fluid'">
+			<kt-portlet-header [title]="'Authors Profit'">
+				<ng-container ktPortletTools>
+					<kt-context-menu2></kt-context-menu2>
+				</ng-container>
+			</kt-portlet-header>
+			<kt-portlet-body>
+				<kt-widget4 [data]="widget4_4">
+					<ng-template #actionTemplate let-item="item">
+						<span class="kt-widget4__number" [ngClass]="item.valueColor">{{item.value}}</span>
+					</ng-template>
+				</kt-widget4>
+			</kt-portlet-body>
+		</kt-portlet>
+	</div>
+</div>
+
+
+<div class="row">
+	<div class="col-xl-8">
+		<kt-portlet [class]="'kt-portlet--height-fluid'">
+			<kt-portlet-header [title]="'Best Sellers'">
+				<ng-container ktPortletTools>
+					<kt-context-menu2></kt-context-menu2>
+				</ng-container>
+			</kt-portlet-header>
+			<kt-portlet-body>
+				<kt-widget5></kt-widget5>
+			</kt-portlet-body>
+		</kt-portlet>
+	</div>
+	<div class="col-xl-4">
+		<kt-portlet [class]="'kt-portlet--height-fluid'">
+			<kt-portlet-header [title]="'Recent Activities'">
+				<ng-container ktPortletTools>
+					<kt-context-menu2></kt-context-menu2>
+				</ng-container>
+			</kt-portlet-header>
+			<kt-portlet-body>
+				<kt-timeline2></kt-timeline2>
+			</kt-portlet-body>
+		</kt-portlet>
+	</div>
+</div>
+ -->
+<!--
+<kt-portlet>
+	<kt-portlet-header>
+		<ng-container ktPortletTitle>
+		</ng-container>
+		<ng-container ktPortletTools>
+		</ng-container>
+	</kt-portlet-header>
+	<kt-portlet-body></kt-portlet-body>
+	<kt-portlet-footer></kt-portlet-footer>
+</kt-portlet> -->

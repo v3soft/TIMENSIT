@@ -1,0 +1,226 @@
+{
+	"folder_path": "/views/pages/Timensit/",
+	"name": "ThongBao",
+	"text": "Thông báo",
+	"Sub_menu_tree": "",
+	"modulePage": "",
+	"listOptions": {
+		"nColumnsFilterInOneRow": 2,
+		"sortOrder": "desc",
+		"sortField": "BatDau"
+	},
+	"editOptions": {
+		"nColumnsFilterInOneRow": 2
+	},
+	"numberOfFixedPoint": 0,
+	"attributes": [
+		{
+			"className": "ThongBao",
+			"tableName": "Tbl_ThongBao",
+			"content": [
+				{
+					"name": "IdRow",
+					"type": "number",
+					"required": false,
+					"title": "Id",
+					"display": {
+						"isDisplay": false,
+						"isShow": false
+					},
+					"formtype": "input",
+					"control_type": "",
+					"css_status": false,
+					"sortable": false,
+					"filter": 0,
+					"updateOnGrid": false,
+					"haveDrpFilter": false,
+					"filterGrp": [],
+					"isKeyModel": true
+				},
+				{
+					"name": "ThongBao",
+					"type": "string",
+					"required": true,
+					"maxLength": 500,
+					"title": "Thông báo",
+					"display": {
+						"isDisplay": true,
+						"isShow": true
+					},
+					"control_type": "",
+					"formtype": "input",
+					"css_status": false,
+					"sortable": true,
+					"filter": 0,
+					"updateOnGrid": false,
+					"haveDrpFilter": true,
+					"filterGrp": []
+				},
+				{
+					"name": "NoiDung",
+					"type": "string",
+					"required": false,
+					"title": "Nội dung",
+					"display": {
+						"isDisplay": true,
+						"isShow": false
+					},
+					"control_type": "",
+					"formtype": "textarea",
+					"css_status": false,
+					"sortable": true,
+					"filter": 0,
+					"updateOnGrid": false,
+					"haveDrpFilter": false,
+					"filterGrp": []
+				},
+				{
+					"name": "BatDau",
+					"type": "string",
+					"required": true,
+					"title": "Bắt đầu",
+					"display": {
+						"isDisplay": true,
+						"isShow": true
+					},
+					"control_type": "",
+					"formtype": "input",
+					"css_status": false,
+					"sortable": true,
+					"filter": 0,
+					"updateOnGrid": false,
+					"haveDrpFilter": false,
+					"filterGrp": []
+				},
+				{
+					"name": "KetThuc",
+					"type": "string",
+					"required": true,
+					"title": "Kết thúc",
+					"display": {
+						"isDisplay": true,
+						"isShow": true
+					},
+					"control_type": "",
+					"formtype": "input",
+					"css_status": false,
+					"sortable": true,
+					"filter": 0,
+					"updateOnGrid": false,
+					"haveDrpFilter": false,
+					"filterGrp": []
+				},
+				{
+					"name": "SMS",
+					"type": "boolean",
+					"required": false,
+					"title": "Gửi SMS",
+					"display": {
+						"isDisplay": true,
+						"isShow": true
+					},
+					"formtype": "checkbox",
+					"control_type": "",
+					"css_status": false,
+					"sortable": true,
+					"filter": 0,
+					"updateOnGrid": false,
+					"haveDrpFilter": true,
+					"filterGrp": [
+						{
+							"name": "Không",
+							"value": "False"
+						},
+						{
+							"name": "Có",
+							"value": "True"
+						}
+					]
+				},
+				{
+					"name": "Email",
+					"type": "boolean",
+					"required": false,
+					"title": "Gửi email",
+					"display": {
+						"isDisplay": true,
+						"isShow": true
+					},
+					"control_type": "",
+					"formtype": "checkbox",
+					"css_status": true,
+					"sortable": true,
+					"filter": 0,
+					"updateOnGrid": false,
+					"haveDrpFilter": true,
+					"filterGrp": [
+						{
+							"name": "Không",
+							"value": "False"
+						},
+						{
+							"name": "Có",
+							"value": "True"
+						}
+					]
+				},
+				{
+					"name": "Locked",
+					"type": "boolean",
+					"required": false,
+					"title": "Tình trạng",
+					"display": {
+						"isDisplay": true,
+						"isShow": true
+					},
+					"control_type": "",
+					"formtype": "checkbox",
+					"css_status": true,
+					"sortable": true,
+					"filter": 0,
+					"updateOnGrid": false,
+					"haveDrpFilter": true,
+					"filterGrp": [
+						{
+							"name": "Hoạt động",
+							"value": "False"
+						},
+						{
+							"name": "Khóa",
+							"value": "True"
+						}
+					]
+				}
+			]
+		}
+	],
+	"methods": {
+		"api": "/thong-bao",
+		"list": {
+			"api": "/list",
+			"option": "POST"
+		},
+		"create": "/create",
+		"update": "/update",
+		"delete": "/delete?id=${itemId}",
+		"delete_multi": "",
+		"getbyid": "/detail?id=${itemId}",
+		"loadDataImport": "",
+		"ImportFile": "",
+		"Export": "",
+		"DownloadFileMau": ""
+	},
+	"classbuttons": {
+		"import": "accent",
+		"export": "info",
+		"print": "info",
+		"add": "primary",
+		"back": "default",
+		"reset": "accent",
+		"saveAndBack": "primary",
+		"saveAndAdd": "primary",
+		"zoom": "accent",
+		"delete": "warn",
+		"edit": "primary"
+	}
+}

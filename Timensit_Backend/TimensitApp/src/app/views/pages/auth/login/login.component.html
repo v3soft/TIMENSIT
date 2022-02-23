@@ -1,0 +1,110 @@
+<!--begin::Body-->
+<div class="kt-login__body" [ngStyle]="{'background-image': 'url(' + constants.background + ')','background-size':'cover'}">
+    <div class="row view-login">
+        <div class="col-sm-12 col-md-4 cover-left-info">
+            <div class="logo-dv">
+                <img src="./assets/images/logo_login.png" alt="{{constants.title}}" title="{{constants.title}}" style="max-height: 250px;width: 100%;max-width:100px ;"/>
+                <!--<img src="./assets/images/logo.png" alt="Hệ thống CSDL Sở Lao động - Thương bình và Xã hội" title="Hệ thống CSDL Sở Lao động - Thương bình và Xã hội" style="max-height: 100px;">
+                <h3 style="color: white;font-size: 40px;"><span style="font-size: 35px;color:#00923f">Hệ thống CSDL</span> Sở Lao động - Thương binh và Xã hội</h3>-->
+            </div>
+            <div class="static-info">
+                <div class="item-info">
+                    <div class="img-info">
+                        <img src="./assets/images/phone.png" alt="Hỗ trợ" title="Hỗ trợ" />
+                    </div>
+                    <div class="i-text">
+                        <div><b>Hỗ trợ</b></div>
+                        <div>Điện thoại: <b>{{constants.phone}}</b></div>
+                        <div>Email: <b>{{constants.email}}</b></div>
+                    </div>
+                </div>
+                <div class="item-info">
+                    <div class="img-info">
+                        <img src="./assets/images/cert.png" alt="Hỗ trợ" title="Hỗ trợ" />
+                    </div>
+                    <div class="i-text">
+                        <div>{{constants.license}}</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-4">
+            <!--begin::Signin-->
+            <div class="cover-form-login">
+                <div class="kt-login__form dl-login-form">
+                    <!-- <div class="login-logo">
+                        <img src="{{constants.logo}}" alt="{{constants.title}}" title="{{constants.title}}" style="max-height:100px"/>
+                    </div> -->
+                    <h3 class="text-center">ĐĂNG NHẬP</h3>
+                    <div class="error-message" *ngIf="expression">
+                        <div class="text-danger"></div>
+                    </div>
+                    <kt-auth-notice></kt-auth-notice>
+                    <!--begin::Form-->
+                    <form class="kt-form" [formGroup]="loginForm">
+                        <div class="form-group">
+                            <input type="text" style="background: url(./assets/images/user.png) left 8px center no-repeat #fff;" placeholder="{{ 'AUTH.INPUT.USERNAME' | translate }}" formControlName="username" autocomplete="off" />
+                            <div class="error-message" *ngIf="error_txt.username">{{ error_txt.username }}</div>
+                            <!-- <mat-form-field class="login-form-field">
+                                <mat-label>{{ 'AUTH.INPUT.USERNAME' | translate }}</mat-label>
+                                <input matInput type="email" placeholder="{{ 'AUTH.INPUT.USERNAME' | translate }}" formControlName="email" autocomplete="off" />
+                                <mat-error *ngIf="isControlHasError('email','required')">
+                                    <strong>{{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}</strong>
+                                </mat-error>
+                                <mat-error *ngIf="isControlHasError('email','email')">
+                                    <strong>{{ 'AUTH.VALIDATION.INVALID_FIELD' | translate }}</strong>
+                                </mat-error>
+                                <mat-error *ngIf="isControlHasError('email','minlength')">
+                                    <strong>{{ 'AUTH.VALIDATION.MIN_LENGTH_FIELD' | translate }} 3</strong>
+                                </mat-error>
+                                <mat-error *ngIf="isControlHasError('email','maxlength')">
+                                    <strong>{{ 'AUTH.VALIDATION.MAX_LENGTH_FIELD' | translate }} 320</strong>
+                                </mat-error>
+                            </mat-form-field> -->
+                        </div>
+                        <div class="form-group">
+                            <input type="password" style="background: url(./assets/images/lock.png) left 8px center no-repeat #fff;" placeholder="{{ 'AUTH.INPUT.PASSWORD' | translate }}" formControlName="password" autocomplete="off" />
+                            <div class="error-message" *ngIf="error_txt.password">{{ error_txt.password }}</div>
+                            <!-- <mat-form-field class="login-form-field">
+                                <mat-label>{{ 'AUTH.INPUT.PASSWORD' | translate }}</mat-label>
+                                <input matInput type="password" placeholder="{{ 'AUTH.INPUT.PASSWORD' | translate }}" formControlName="password" autocomplete="off" />
+                                <mat-error *ngIf="isControlHasError('password','required')">
+                                    <strong>{{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}</strong>
+                                </mat-error>
+                                <mat-error *ngIf="isControlHasError('password','minlength')">
+                                    <strong>{{ 'AUTH.VALIDATION.MIN_LENGTH_FIELD' | translate }} 3</strong>
+                                </mat-error>
+                                <mat-error *ngIf="isControlHasError('password','maxlength')">
+                                    <strong>{{ 'AUTH.VALIDATION.MAX_LENGTH_FIELD' | translate }} 100</strong>
+                                </mat-error>
+							</mat-form-field> -->
+                        </div>
+                        <div class="form-group" *ngIf="showCaptcha">
+                            <re-captcha #recaptcha (captchaResponse)="handleCorrectCaptcha($event)" size="normal" language="vi" [site_key]="YOUR_SITE_KEY"></re-captcha>
+                        </div>
+                        <!--begin::Action-->
+                        <div>
+                            <a href="javascript:;" style="color: black;" routerLink="/auth/forgot-password" class="kt-link kt-login__link-forgot">
+                                {{ 'AUTH.GENERAL.FORGOT_BUTTON' | translate }}
+                            </a>
+                        </div>
+                        <br>
+                        <div>
+                            <!-- <a href="javascript:;" routerLink="/auth/forgot-password" class="kt-link kt-login__link-forgot">
+					{{ 'AUTH.GENERAL.FORGOT_BUTTON' | translate }}
+				</a> -->
+                            <button (click)="submit()" [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}" id="kt_login_signin_submit" class="btn btn-primary btn-elevate  btn-login">{{ 'AUTH.LOGIN.BUTTON' | translate }}</button>
+                        </div>
+                        <!--end::Action-->
+                    </form>
+                    <!--end::Form-->
+                </div>
+
+            </div>
+            <!--end::Signin-->
+        </div>
+    </div>
+
+</div>
+<!--end::Body-->

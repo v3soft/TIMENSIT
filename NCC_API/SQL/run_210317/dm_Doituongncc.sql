@@ -1,0 +1,2 @@
+alter table dm_Doituongncc
+add Id_LoaiQuyetDinh bigint

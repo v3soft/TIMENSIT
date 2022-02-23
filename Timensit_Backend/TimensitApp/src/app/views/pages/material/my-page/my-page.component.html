@@ -1,0 +1,44 @@
+
+<form class="kt-form" [formGroup]="ItemForm">
+	<div class="kt-portlet__body">
+		<kt-alert *ngIf="hasFormErrors" type="warn" [duration]="0" [showCloseButton]="true"
+				  (close)="onAlertClose($event)">
+			Không thể lưu, vui lòng kiểm tra lại thông tin!
+		</kt-alert>
+
+		<div class="form-group kt-form__group row">
+			<div class="col-md-3 kt-margin-bottom-10-mobile">
+				<m-dropdown-tree [data]="datatree" [FieldTitle]="'title'" [FieldId]="'id'"
+								 [FieldChildren]="'data'" [DropdownTitle]="'Dropdown tree'" [disabled]="!allowEdit" required
+								 formControlName="dropdowntreeControl" (SelectedItemTree)="GetValueNode($event)" [FieldDisable]="'disabled'">
+				</m-dropdown-tree>
+			</div>
+			<div class="col-md-3 kt-margin-bottom-10-mobile">
+				<dl-image-control [data]="imagedata" formControlName="imageControl" type="image/*" nameButton="Chọn ảnh" [multiple]="true" [disabled]="false" [required]="true">
+				</dl-image-control>
+			</div>
+			<div class="col-md-3 kt-margin-bottom-10-mobile">
+				<m-datetime-picker formControlName="datetimeControl" placeholder="Datetime picker" [required]="true">
+				</m-datetime-picker>
+			</div>
+			<div class="col-md-3 kt-margin-bottom-10-mobile">
+				<mat-form-field class="mat-form-field-fluid" floatLabel="always">
+					<mat-select disableOptionCentering placeholder="Select with filter" formControlName="selectfilterControl">
+						<mat-option>
+							<ngx-mat-select-search [placeholderLabel]="'Tìm kiếm...'" [noEntriesFoundLabel]="'Không tìm thấy kết quả phù hợp'" [(ngModel)]="FilterCtrl" [ngModelOptions]="{standalone: true}" (ngModelChange)="filter()">
+							</ngx-mat-select-search>
+						</mat-option>
+						<mat-option *ngFor="let tmp of filteredListOpt | async " value="{{tmp.id}}">
+							{{tmp.title}}
+						</mat-option>
+					</mat-select>
+				</mat-form-field>
+			</div>
+		</div>
+		<div class="form-group kt-form__group row">
+			<div class="col-md-12 text-center">
+				<button mat-raised-button color="primary" (click)="onSubmit(false)">Submit</button>
+			</div>
+		</div>
+	</div>
+</form>

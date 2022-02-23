@@ -1,0 +1,91 @@
+<div class="btn-close-container">
+    <button class="btn-close" type="button" mat-mini-fab color="" (click)="closeDialog()" [disabled]="disabledBtn" title="Đóng">
+		<mat-icon>clear</mat-icon>
+	</button>
+</div>
+<div class="kt-portlet" [ngClass]="{ 'kt-portlet--body-progress kt-portlet--body-progress-overlay' : viewLoading }">
+    <div class="kt-portlet__head kt-portlet__head__custom">
+        <div class="col-md-{{NhomNguoiDungDPS.IdGroup == 0 ? (isZoomSize ? '7' : '5') : (isZoomSize ? '9' : '7')}} kt-margin-bottom-10-mobile" style="margin-top: 20px;">
+            <h3 class="kt-portlet__head-title">{{getTitle()}}</h3>
+        </div>
+        <div class="col-md-{{NhomNguoiDungDPS.IdGroup == 0 ? (isZoomSize ? '5' : '7') : (isZoomSize ? '3' : '5')}} kt-margin-bottom-10-mobile" style="margin-top: 10px; text-align: right;" *ngIf="allowEdit">
+            <button type="button" mat-raised-button (click)="onSubmit(true)" color="primary" title="Lưu">
+				Lưu
+			</button>
+            <button class="hide-view-625"  *ngIf="NhomNguoiDungDPS.IdGroup == 0" type="button" mat-raised-button color="primary" (click)="onSubmit(false)" title="Lưu và thêm mới">
+				Lưu và thêm mới
+			</button>
+            <!--<button type="button" color="accent" mat-icon-button (click)="resizeDialog()" title="{{isZoomSize ? 'Thu nhỏ' : 'Phóng to'}}">
+				<mat-icon>zoom_out_map</mat-icon>
+			</button>-->
+        </div>
+    </div>
+    <form class="kt-form" [formGroup]="NhomNguoiDungDPSForm">
+        <div class="kt-portlet__body">
+            <div class="kt-portlet__body-progress">
+                <mat-spinner [diameter]="20"></mat-spinner>
+            </div>
+            <kt-alert *ngIf="hasFormErrors" type="warn" [duration]="0" [showCloseButton]="true" (close)="onAlertClose($event)">
+                Không thể lưu, vui lòng kiểm tra lại thông tin!
+            </kt-alert>
+
+            <div class="form-group kt-form__group row">
+                <div class="col-md-6 kt-margin-bottom-10-mobile">
+                    <mat-form-field class="mat-form-field-fluid">
+                        <input matInput placeholder="Mã vai trò" required formControlName="ma" type="text">
+                        <mat-error *ngIf="NhomNguoiDungDPSForm.controls['ma'].errors">
+                            Mã vai trò
+                            <strong *ngIf="NhomNguoiDungDPSForm.controls['ma'].errors.required"> bắt buộc nhập</strong>
+                            <strong *ngIf="NhomNguoiDungDPSForm.controls['ma'].errors.maxlength"> tối đa 250 ký tự</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6 kt-margin-bottom-10-mobile">
+                    <mat-form-field class="mat-form-field-fluid">
+                        <input matInput placeholder="Tên vai trò" required formControlName="groupName" type="text">
+                        <mat-error *ngIf="NhomNguoiDungDPSForm.controls['groupName'].errors">
+                            Vai trò
+                            <strong *ngIf="NhomNguoiDungDPSForm.controls['groupName'].errors.required"> bắt buộc nhập</strong>
+                            <strong *ngIf="NhomNguoiDungDPSForm.controls['groupName'].errors.maxlength"> tối đa 250 ký tự</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6 kt-margin-bottom-10-mobile">
+                    <mat-form-field class="mat-form-field-fluid">
+                        <input matInput placeholder="Thứ tự" formControlName="displayOrder" type="number">
+                        <mat-error>
+                            Thứ tự
+                            <strong> lớn hơn 0</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6 kt-margin-bottom-10-mobile">
+                    <m-dropdown-tree [data]="datatree" [FieldTitle]="'title'" [FieldId]="'id'" [FieldChildren]="'data'" [FieldDisable]="'disabled'" [DropdownTitle]="'Đơn vị'" formControlName="donVi" (SelectedItemTree)="GetValueNode($event)" [disabled]="true"></m-dropdown-tree>
+                </div>
+                <div class="col-md-6 kt-margin-bottom-10-mobile" hidden>
+                    <mat-form-field class="mat-form-field-fluid">
+                        <mat-select matInput placeholder="Chức vụ" formControlName="chucVu">
+                            <mat-option value="0">-- Chọn --</mat-option>
+                            <mat-option *ngFor="let opt of lstChucVu" value="{{opt.id}}">{{opt.title}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6 kt-margin-bottom-10-mobile" [hidden]="NhomNguoiDungDPS.IdGroup == 0">
+                    <mat-checkbox matInput formControlName="locked">Khóa</mat-checkbox>
+                </div>
+                <div class="col-md-6 kt-margin-bottom-10-mobile" hidden >
+                    <mat-checkbox matInput formControlName="isDefault">Vai trò mặc định</mat-checkbox>
+                </div>
+                <div class="col-md-12 kt-margin-bottom-10-mobile">
+                    <mat-form-field class="mat-form-field-fluid">
+                        <input matInput placeholder="Mô tả" formControlName="ghiChu" type="text">
+                        <mat-error *ngIf="NhomNguoiDungDPSForm.controls['ghiChu'].errors">
+                            Mô tả
+                            <strong *ngIf="NhomNguoiDungDPSForm.controls['ghiChu'].errors.maxlength"> tối đa 500 ký tự</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

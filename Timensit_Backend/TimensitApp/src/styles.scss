@@ -1,0 +1,389 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "~material-design-icons/iconfont/material-icons.css";
+@import "~highlight.js/styles/googlecode.css";
+//fullcalendar
+@import '~@fullcalendar/core/main.css';
+@import '~@fullcalendar/daygrid/main.css';
+@import '~@fullcalendar/timegrid/main.css';
+// header base skins
+.kt-header-base-light {
+	@import "sass/global/layout/header/skins/base/light.scss";
+}
+
+.kt-header-base-dark {
+	@import "sass/global/layout/header/skins/base/dark.scss";
+}
+
+// header menu skins
+.kt-header-menu-light {
+	@import "sass/global/layout/header/skins/menu/light.scss";
+}
+
+.kt-header-menu-dark {
+	@import "sass/global/layout/header/skins/menu/dark.scss";
+}
+
+// brand skins
+.kt-brand-dark {
+	@import "sass/global/layout/brand/skins/dark.scss";
+}
+
+.kt-brand-light {
+	@import "sass/global/layout/brand/skins/light.scss";
+}
+
+// aside skins
+.kt-aside-dark {
+	@import "sass/global/layout/aside/skins/dark.scss";
+}
+
+.kt-aside-light {
+	@import "sass/global/layout/aside/skins/light.scss";
+}
+
+// hide bootstrap dropdown arrow globally
+.dropdown-toggle::after {
+	display: none !important;
+}
+
+.mat-table__wrapper { //xổ filter không bị khuất
+	display: contents;
+	height: fit-content;
+
+	@media screen and (max-width:1024px) {
+		display: block;
+	}
+}
+
+.mat-table__wrapper--dashboard .mat-table {
+	min-width: 600px !important;
+	width: 100% !important;
+}
+
+.position-static {
+	position: static;
+}
+
+mat-form-field {
+	font-size: 14px !important;
+}
+
+/*#filter*/
+
+.dl-table-flt .mat-header-cell {
+	position: relative;
+}
+
+.dl-table-flt .mat-header-cell .dl-flt-drop {
+	position: absolute;
+	left: 0;
+	margin-top: -12px;
+	top: 50%;
+}
+
+.dl-border-bottom {
+	margin-bottom: 5px;
+	border-bottom: 1px solid #aaa
+}
+
+.dl-table-flt .mat-header-cell .dl-flt-drop .dropdown-menu.show .drop-area {
+	max-height: 190px;
+	overflow: auto;
+}
+
+.dl-table-flt .mat-header-cell .dl-flt-drop .drop-btn {
+	padding: 0;
+}
+
+.dl-table-flt .mat-header-cell .dl-flt-drop .drop-btn.flt-focus .fa-filter {
+	color: #5d5f61;
+}
+
+.dl-table-flt .mat-header-cell .dl-flt-drop .drop-btn .fa-filter {
+	color: #c5c4c4;
+}
+
+.flt-btn-action {
+	width: 100%;
+	display: inline-flex;
+}
+
+.flt-btn-action .btn {
+	width: 50%;
+	text-align: center;
+}
+
+.exist-flt.mat-table__bottom {
+	align-items: baseline;
+	justify-content: flex-start;
+}
+
+.exist-flt.mat-table__bottom .flt-page {
+	display: flex;
+	margin-left: auto;
+	width: 40%;
+	justify-content: flex-end;
+	margin-top: 1px;
+
+	.mat-spinner {
+		&.mat-progress-spinner {
+			margin-top: 20px;
+		}
+	}
+}
+
+.exist-flt.mat-table__bottom .flt-selected {
+	display: flex;
+	max-width: 60%;
+	margin-top: 10px;
+}
+
+.exist-flt.mat-table__bottom .flt-selected .mat-chip {
+	margin: 5px 0;
+	font-size: 11px;
+	padding: 0 5px 0 10px;
+	min-height: 24px;
+}
+
+.exist-flt.mat-table__bottom .flt-selected .mat-chip.flt-clear {
+	padding: 0 10px;
+	background-color: #1a75f3;
+	color: #fff;
+}
+
+.exist-flt.mat-table__bottom .flt-selected .mat-chip.flt-clear .mat-chip-remove.mat-icon {
+	margin: 0;
+	color: #fff;
+}
+
+
+/*end css filter*/
+
+
+/*#region format cell mat-table*/
+
+th.mat-header-cell.stt-cell,
+.stt-cell,
+th.mat-header-cell.select-cell,
+.select-cell {
+	text-align: center;
+	width: 50px;
+	padding-left: 0 !important;
+}
+
+.num-cell {
+	text-align: right
+}
+
+th.mat-header-cell .cdk-drop-list.cdk-drag {
+	cursor: pointer;
+	padding-left: 30px;
+}
+
+
+/*#endregion*/
+
+
+/*#region portlet header, button dialog*/
+
+.kt-portlet__head__custom {
+	div {
+		padding: 0;
+
+		.kt-portlet__head-title {
+			font-size: medium;
+			font-family: sans-serif;
+			font-weight: bold;
+		}
+
+		button {
+			margin-left: 5px;
+		}
+	}
+}
+
+.kt-portlet .kt-portlet__head .kt-portlet__head-toolbar {
+	button {
+		margin-left: 5px;
+	}
+}
+
+
+/*#endregion*/
+
+
+/*#region style close dialog button*/
+
+.btn-close-container {
+	text-align: right;
+	padding-right: 20px;
+}
+
+.btn-close-container .btn-close {
+	position: absolute;
+	margin-top: -20px;
+	z-index: 2;
+}
+
+.btn-close-container .btn-close .mat-icon {
+	height: auto;
+	width: auto;
+}
+
+
+/*#endregion*/
+
+//===***Info***/
+$info_BgColor: #4CAF50;
+
+.mat-button.mat-info,
+.mat-icon-button.mat-info,
+.mat-stroked-button.mat-info {
+	color: $info_BgColor;
+}
+
+.mat-button.mat-info .mat-button-focus-overlay,
+.mat-icon-button.mat-info .mat-button-focus-overlay,
+.mat-stroked-button.mat-info .mat-button-focus-overlay {
+	background-color: $info_BgColor;
+}
+
+.mat-flat-button.mat-info,
+.mat-raised-button.mat-info,
+.mat-fab.mat-info,
+.mat-mini-fab.mat-info {
+	color: white;
+}
+
+.mat-flat-button.mat-info,
+.mat-raised-button.mat-info,
+.mat-fab.mat-info,
+.mat-mini-fab.mat-info {
+	background-color: $info_BgColor;
+}
+
+
+/*#region green*/
+
+.mat-chip.mat-standard-chip.mat-chip-selected.mat-green {
+	background-color: #43a047;
+	color: white;
+}
+
+.mat-checkbox-indeterminate.mat-green .mat-checkbox-background,
+.mat-checkbox-checked.mat-green .mat-checkbox-background {
+	background-color: #43a047;
+}
+
+.mat-icon.mat-green {
+	color: #43a047
+}
+
+.kt-badge.kt-badge--green {
+	color: #ffffff;
+	background: #43a047;
+}
+
+.kt-badge.kt-badge--warn {
+	color: #ffffff;
+	background: #fd397a;
+}
+
+.kt-portlet .mat-form-field {
+	line-height: 1.5;
+}
+
+
+/*#endregion*/
+/*Notification css*/
+.mat-tab-label {
+	opacity: 1 !important;
+}
+// .num-menu{
+//     position: absolute;
+//     right: 0;
+//     top: 0;
+//     color: #fff;
+//     background-color: orange;
+//     padding: 1px 6px;
+//     border-radius: 50%;
+// }
+.num-menu.mat-badge-medium.mat-badge-overlap.mat-badge-after .mat-badge-content {
+	z-index: 999;
+	background-color: orange;
+	right: 2px;
+	top: 2px;
+}
+
+.tab-menu.mat-badge-medium.mat-badge-overlap.mat-badge-after .mat-badge-content {
+	right: -20px;
+	z-index: 999;
+	background-color: orange;
+}
+/*#region porlet body loading*/
+kt-portlet {
+	background-color: white;
+
+	.kt-portlet {
+		min-height: 99%;
+	}
+
+	&.kt-portlet--body-progress {
+		.mat-progress-bar {
+			display: block;
+		}
+	}
+
+	.mat-progress-bar {
+		display: none;
+	}
+}
+/*#endregion*/
+
+.title-header {
+	font-size: 1.2rem;
+	font-weight: 500;
+	color: #48465b;
+}
+//show error
+.mat-snack-bar-container.error {
+	background: #fd397a;
+}
+//style button
+.action-cell {
+	white-space: nowrap;
+	text-align: left;
+
+	.button-text {
+		display: none;
+	}
+
+	&.list-button {
+		.mat-button {
+			margin-right: 5px;
+		}
+
+		.mat-icon {
+			display: none;
+		}
+
+		.button-text {
+			display: block;
+		}
+	}
+}
+// ẩn khi print
+@media print {
+	.hiden-print,
+	.mat-sort-header-arrow {
+		display: none !important;
+	}
+}
+
+@media print {
+	@page {
+		orientation: landscape !important;
+	}
+}

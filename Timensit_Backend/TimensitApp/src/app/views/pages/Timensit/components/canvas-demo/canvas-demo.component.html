@@ -1,0 +1,67 @@
+<p class="text-center" style="color: #5d78ff;" *ngIf="data">
+    <b>{{data.arrNode?data.arrNode.length:0}}</b> bước được thiết lập &nbsp;
+    <button type="button" (click)="initCreateStep()" mat-icon-button color="primary" matTooltip="Thêm bước mới" *ngIf="!ReadOnly">
+        <mat-icon>add</mat-icon>
+    </button>
+</p>
+<div class="canvas-cover" [hidden]="data==undefined">
+    <div style="position: absolute; z-index:1">
+        <button mat-raised-button (click)="ScaleReset()" color="primary">Đặt lại</button>
+    </div>
+    <div class="canvas">
+        <canvas [width]="width" [height]="height" #DemoCanvas (wheel)="diagram_canvas.trackWheel($event)" (mousedown)="diagram_canvas.move($event)" (mouseover)="diagram_canvas.move($event)" (mouseout)="diagram_canvas.move($event)" (mouseup)="diagram_canvas.move($event)"
+            (mousemove)="diagram_canvas.move($event)"></canvas>
+        <div #tooltip class="cv-tooltip"></div>
+    </div>
+    <div class="canvas-info" *ngIf="selectedNode">
+        <h5 align="center" class="cv-node-title-cover">
+            <div class="cv-node-title" *ngIf="!disableTitle">
+                <!--Content Tiltle-->
+                {{selectedNode.Title}}
+            </div>
+            <!--begin::Form-->
+            <form [formGroup]="formNode" class="kt-form kt-form--group-seperator-dashed" *ngIf="disableTitle" style="width: 100%">
+                <mat-form-field class="mat-form-field-fluid">
+                    <input matInput placeholder="Nhập tiêu đề" formControlName="Title" type="text">
+                    <mat-error>
+                        Tiêu đề không được rỗng
+                    </mat-error>
+                </mat-form-field>
+            </form>
+            <div class="fas fa-times cv-trl-delete" title="Đóng" (click)="selectedNode=undefined" style="position:absolute; right:0;"></div>
+            <!--<div class="kt-menu__section-icon flaticon-edit cv-trl-edit" title="Chỉnh sửa" (click)="editStep()" *ngIf="!disableTitle"></div>-->
+            <!--<div class="fas fa-save cv-trl-save" title="Lưu tiêu đề" (click)="EditNodeSubmit($event)" *ngIf="disableTitle"></div>-->
+        </h5>
+        <div style="display: flex; flex-wrap: wrap;">
+            <strong>Thông tin chi tiết liên kết: </strong>
+            <div class="kt-menu__section-icon  flaticon2-add-square cv-trl-add " title="Thêm" (click)="StartEditArrow($event, item,0)" *ngIf="!ReadOnly"></div>
+        </div>
+        <div class="cv-arrows-content">
+            <!--Content Arrows-->
+            <!--Arrow swept can add and edit-->
+            <div *ngFor="let item of selectedNode.arrows; let i=index" class="cv-arr-item">
+                {{i+1}}. <span [ngStyle]="{'color': item.start_node.BorderColor}">{{item.start_node.Title}}</span> <i style="padding: 0 10px" class="fas fa-arrow-right"></i> <span [ngStyle]="{'color': item.end_node.BorderColor}">{{item.end_node.Title}}</span>                (<b [ngClass]="{'p-mark-comeback': item.arrow.IsComeBack}">{{item.arrow.ButtonText}}</b>)
+                <div class="action-cover" *ngIf="!ReadOnly">
+                    <div class="kt-menu__section-icon  flaticon-edit cv-trl-edit" title="Chỉnh sửa" (click)="StartEditArrow($event, item,1)"></div>
+                    <div class="kt-menu__section-icon  flaticon2-trash cv-trl-delete" title="Xóa" (click)="StartDeleteArrow($event, item)"></div>
+                </div>
+            </div>
+            <!--Arrow reverse not edit-->
+            <div *ngFor="let item of selectedNode.arrows_inverse; let i=index" class="cv-arr-item">
+                {{selectedNode.arrows? selectedNode.arrows.length + i+1: i+1}}. <span [ngStyle]="{'color': item.start_node.BorderColor}">{{item.start_node.Title}}</span> <i style="padding: 0 10px" class="fas fa-arrow-right"></i> <span [ngStyle]="{'color': item.end_node.BorderColor}">{{item.end_node.Title}}
+                </span>(<b>{{item.arrow.ButtonText}}</b>)
+            </div>
+        </div>
+        <p class="text-center">
+            <button type="button" (click)="viewCheckers()" mat-raised-button color="primary" matTooltip="Xem người xử lý" *ngIf="showViewCheckers">
+                Xem người xử lý
+            </button>&nbsp;
+            <button type="button" (click)="editStep()" mat-raised-button color="primary" matTooltip="Sửa" *ngIf="!ReadOnly">
+                <mat-icon>create</mat-icon>
+            </button>&nbsp;
+            <button type="button" (click)="deleteStep()" mat-raised-button color="warn" matTooltip="Xóa" *ngIf="selectedNode.data.Loai>0 && !ReadOnly">
+                <mat-icon>deleted</mat-icon>
+            </button>&nbsp;
+        </p>
+    </div>
+</div>

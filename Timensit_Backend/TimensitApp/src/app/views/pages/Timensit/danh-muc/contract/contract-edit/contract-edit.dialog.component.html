@@ -1,0 +1,113 @@
+<div class="btn-close-container">
+	<button class="btn-close" type="button" mat-mini-fab color="" (click)="close()" [disabled]="disabledBtn"
+		title="Đóng">
+		<mat-icon>clear</mat-icon>
+	</button>
+</div>
+<div class="kt-portlet"
+	[ngClass]="{ 'kt-portlet--body-progress' : viewLoading, 'kt-portlet--body-progress-overlay' : loadingAfterSubmit }">
+	<div class="kt-portlet__head kt-portlet__head__custom">
+		<div class="col-md-{{item.Id_row == 0 ? (isZoomSize ? '7' : '5') : (isZoomSize ? '9' : '7')}} kt-margin-bottom-10-mobile"
+			style="margin-top: 20px;">
+			<h3 class="kt-portlet__head-title">{{getTitle()}}</h3>
+		</div>
+		<div class="col-md-{{item.Id_row == 0 ? (isZoomSize ? '5' : '7') : (isZoomSize ? '3' : '5')}} kt-margin-bottom-10-mobile"
+			style="margin-top: 10px; text-align: right;" *ngIf="allowEdit">
+			<button type="button" mat-raised-button color="accent" (click)="onSubmit(true)" [disabled]="disabledBtn"
+				matTooltip="{{'COMMON.LUU_DONG' | translate}}">
+				<span translate="COMMON.LUU_DONG"></span>&nbsp;&nbsp;<div *ngIf="disabledBtn"
+					class="spinner-button-pad"></div>
+			</button>
+			<button class="hide-view-sm" type="button" mat-raised-button color="primary" (click)="onSubmit(false)"
+				[disabled]="disabledBtn" *ngIf="item.Id_row == 0" matTooltip="{{'COMMON.LUU_TIEPTUC' | translate}}">
+				<span translate="COMMON.LUU_TIEPTUC"></span>&nbsp;&nbsp;<div *ngIf="disabledBtn"
+					class="spinner-button-pad"></div>
+			</button>
+		</div>
+	</div>
+	<form class="kt-form" [formGroup]="itemForm">
+		<div class="kt-portlet__body">
+			<kt-alert *ngIf="hasFormErrors" type="warn" [showCloseButton]="true" [duration]="10000"
+				(close)="onAlertClose($event)">
+				Không thể lưu, vui lòng nhập đủ thông tin!
+			</kt-alert>
+			<div class="form-group kt-form__group row">
+				<div class="col-lg-12 m--margin-bottom-20-mobile">
+					<mat-form-field class="mat-form-field-fluid ">
+						<input matInput placeholder="{{ 'CONTRACT.code' | translate }}" formControlName="ContractCode"
+							class="require" required #focusInput />
+					</mat-form-field>
+				</div>
+				<div class="col-lg-12 m--margin-bottom-20-mobile">
+					<mat-form-field class="mat-form-field-fluid ">
+						<mat-select placeholder="{{ 'Investor.NAME' | translate }}" formControlName="InvestorID"
+							class="mat-form-field-fluid require" required>
+							<mat-option value="{{_list.ID}}" *ngFor="let _list of list_Investor;">
+								{{_list.Name}}
+							</mat-option>
+						</mat-select>
+						<button (click)="$event.stopPropagation();Add_Investor();" style="color: green; background: transparent;
+						border: none;" mat-stroked-button-pad matTooltip="Thêm mới nhà đầu tư" type="button" matSuffix>
+							<mat-icon>add</mat-icon>
+						</button>
+					</mat-form-field>
+				</div>
+				<div class="col-lg-6 m--margin-bottom-20-mobile">
+					<mat-form-field class="mat-form-field-fluid ">
+						<input matInput placeholder="{{ 'CONTRACT.Amount' | translate }}" formControlName="Amount"
+							class="require" required mask="separator,3"
+							thousandSeparator="{{danhMucService.thousandSeparator}}" />
+					</mat-form-field>
+				</div>
+				<div class="col-lg-6 m--margin-bottom-20-mobile">
+					<mat-form-field class="mat-form-field-fluid">
+						<mat-select placeholder="{{ 'CONTRACT.DepositPeriod' | translate }}"
+							formControlName="DepositPeriod">
+							<mat-option value="MONTHLY">MONTHLY</mat-option>
+							<mat-option value="YEARLY">YEARLY</mat-option>
+							<mat-option value="DAILY">DAILY</mat-option>
+							<mat-option value="ONCE">ONCE</mat-option>
+
+						</mat-select>
+					</mat-form-field>
+				</div>
+				<div class="col-lg-6 m--margin-bottom-20-mobile">
+
+					<mat-form-field class="mat-form-field-fluid ">
+						<input matInput type="text" placeholder="{{ 'CONTRACT.StartDate' | translate }}"
+							formControlName="StartDate" [matDatepicker]="picker" />
+						<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+						<mat-datepicker #picker></mat-datepicker>
+					</mat-form-field>
+				</div>
+				<div class="col-lg-6 m--margin-bottom-20-mobile">
+
+					<mat-form-field class="mat-form-field-fluid ">
+						<input matInput type="text" placeholder="{{ 'CONTRACT.EndDate' | translate }}"
+							formControlName="EndDate" [matDatepicker]="picker1" />
+						<mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+						<mat-datepicker #picker1></mat-datepicker>
+					</mat-form-field>
+				</div>
+				
+				<div class="col-lg-6 m--margin-bottom-20-mobile">
+					<mat-form-field class="mat-form-field-fluid">
+						<mat-select placeholder="{{ 'CONTRACT.Fund' | translate }}" formControlName="Fund">
+							<mat-option value="Timensit">Timensit</mat-option>
+							<mat-option value="TimensitQu">TimensitQu</mat-option>
+						</mat-select>
+					</mat-form-field>
+				</div>
+				<div class="col-lg-6 m--margin-bottom-20-mobile">
+					<mat-form-field class="mat-form-field-fluid ">
+						<input matInput placeholder="Chia sẻ lợi nhuận" formControlName="ProfitShare" class="require"
+							required mask="separator,3" thousandSeparator="{{danhMucService.decimalSeperator}}" />
+					</mat-form-field>
+				</div>
+			</div>
+			<div class="form-group kt-form__group row">
+				<!-- <angular-editor [(ngModel)]="entity.description" [config]="editorConfig" [ngModelOptions]="{standalone: true}"></angular-editor> -->
+			</div>
+		</div>
+	</form>
+</div>

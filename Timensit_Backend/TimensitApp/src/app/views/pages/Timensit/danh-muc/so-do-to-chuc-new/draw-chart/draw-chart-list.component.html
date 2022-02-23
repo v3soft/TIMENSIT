@@ -1,0 +1,165 @@
+<kt-portlet [options]="{headLarge: true}" [ngClass]="{ 'kt-portlet--body-progress' : viewLoading}">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    <kt-portlet-header [sticky]="true" [title]="getTitle()" [class]="'kt-portlet__head--lg'">
+		<ng-container ktPortletTools>
+            <button  color="primary" mat-raised-button type="button" (click)="PrintAndExport()"> {{getTitlePrint()}} </button>
+			<button class="d-none" color="primary" mat-raised-button type="button" (click)="printMePls()" >
+				<span translate="COMMON.PRINT"></span>
+            </button>
+            <button class="d-none" [useExistingCss]="true"  printSectionId="print-table" ngxPrint #printme></button>
+            <button (click)="goBack()" mat-raised-button type="button">
+				<span translate="COMMON.CANCEL"></span>
+			</button>
+		</ng-container>
+	</kt-portlet-header>
+	<div  class="kt-portlet-body" [ngClass]="{ 'kt-portlet--body-progress kt-portlet--body-progress-overlay' : viewLoading }"  >
+		<div class="wrapper1" (scroll)="updateScroll()"  #scrollOne>
+        <div class="div1" [style.width.px]="GetwidthPage()" ></div>
+      </div>
+      <div id="print-table" class="dl-center-chart" style="overflow: auto; font-family: Tahoma;font-size:10px; padding-bottom: 100px;" #scrollTwo (scroll)="updateScroll(true)">
+            <table id="print-drawchart" style="text-align:center" cellspacing="0" cellpadding="0" >
+                <tr *ngFor="let item of ListItemChart; let i=index; let last_row= last" >
+                    <td *ngFor="let box of item; let j=index; let last_col= last" [attr.colspan]="box&&box.width"
+                        valign="top" [ngClass]="{'cnn':box &&  (box.children.length>0 || box.fake)}">
+                        <!--Root Nodes-->
+                        <div class="data dl-center-chart" *ngIf="i===0 && box">
+                            <table id="tbl{{box.ID}}" style="position: relative">
+                                <tbody>
+                                    <tr>
+                                        <td colspan="4" class="dl-br-box">
+                                            <div class="dragCD" id="cd{{box.ID}}" style="position: relative; color:#fd7e14; font-weight: bold;
+                                                font-size: 11px">
+                                                <!-- <span title="Di chuyển" class="icon-pre"></span>												 -->
+                                                <!-- <img src="/assets/images/move_icon_hover.png" alt="Di chuyển" title="Di chuyển" style="padding-right: 5px;"> -->
+                                                <span innerHTML="{{box.Name}}"></span>
+                                            </div>
+                                            <div class="dlListNv" dndDropzone dndEffectAllowed="copyMove"
+                                                (dndDrop)="onDrop_Staff($event, box, box.Data_Emp)"
+                                                id="lstNV{{box.ID}}">
+                                                <div dndPlaceholderRef class="row align-items-center dndPlaceholder">
+                                                </div>
+                                                <div class="dl-align-items-center"
+                                                    *ngFor="let nv of box.Data_Emp;  let i = index" [dndDraggable]="nv"
+                                                    dndEffectAllowed="copyMove"
+                                                    (dndMoved)="onMoved_Sorting(nv, box.Data_Emp,box, 'move')">
+                                                    <div class=" m--margin-bottom-5-mobile">
+                                                        <img src="/assets/images/move_icon_hover.png" alt="Di chuyển"
+                                                            title="Di chuyển" style="padding-right: 5px;" dndHandle>
+                                                    </div>
+                                                    <!-- <td mat-cell *matCellDef="let r" style="flex: 0 0 5%">
+                                                        <button mat-icon-button color="primary" matTooltip="Xem lý lịch nhân viên"
+                                                            (click)="XemLyLich(r)">
+                                                            <mat-icon>visibility</mat-icon>
+                                                        </button>
+                                                    </td> -->
+                                                    <div class="m--margin-bottom-5-mobile">
+                                                        <span target="_blank" (click)="XemLyLich(nv.ID_NV)" class="dl_nv"
+                                                            style="color: darkgreen; font-size: 11px;">{{nv.Name}}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="dl-apply">
+                                                    Đang tuyển
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="c1">{{box.SumCan ? box.SumCan: 0}}</td>
+                                        <td class="c2">{{box.SumCo ? (box.SumCo > 9 ? box.SumCo : '0'+box.SumCo ): 0}}
+                                        </td>
+                                        <td class="c3">{{box.SumCB ? box.SumCB: 0}}</td>
+                                        <td class="c4">{{box.SumKD ? box.SumKD: 0}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!--Children Nodes-->
+                        <div [ngClass]="{'dl-center-chart': box && box.width>1}" *ngIf="i!==0 && box && !box.isfake">
+                            <table cellspacing="0" style="text-align:center" cellpadding="0" class="w10"
+                                *ngIf="box.fake">
+                                <tbody>
+                                    <tr>
+                                        <td [ngClass]="{'bt w5': !box.firstchild}">&nbsp;</td>
+                                        <td [ngClass]="{'bt w5': !box.lastchild}">&nbsp;</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table cellspacing="0" style="text-align:center" cellpadding="0" class="w10 cd"
+                                *ngIf="!box.fake">
+                                <tbody>
+                                    <tr>
+                                        <td [ngClass]="{'bt w5': !box.firstchild}">&nbsp;</td>
+                                        <td [ngClass]="{'bt w5': !box.lastchild}">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" class="pa5">
+                                            <div class="pf cd">
+                                                <div class="data dl-center-chart">
+                                                    <table id="tbl{{box.ID}}" style="position: relative">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td colspan="4" class="dl-br-box">
+
+                                                                    <div class="dragCD" id="cd{{box.ID}}" style="position: relative; color:#fd7e14; font-weight: bold;
+                                                                        font-size: 11px">
+                                                                        <!-- <img src="/assets/images/move_icon_hover.png" alt="Di chuyển" title="Di chuyển" style="padding-right: 5px;"> -->
+                                                                        <span innerHTML="{{box.Name}}"></span>
+                                                                    </div>
+                                                                    <div class="dlListNv" dndDropzone
+                                                                        dndEffectAllowed="copyMove"
+                                                                        (dndDrop)="onDrop_Staff($event, box, box.Data_Emp)"
+                                                                        id="lstNV{{box.ID}}">
+                                                                        <div dndPlaceholderRef
+                                                                            class="row align-items-center dndPlaceholder">
+                                                                        </div>
+                                                                        <div class="dl-align-items-center"
+                                                                            *ngFor="let nv of box.Data_Emp;  let i = index"
+                                                                            [dndDraggable]="nv"
+                                                                            dndEffectAllowed="copyMove"
+                                                                            (dndMoved)="onMoved_Staff(nv, box.Data_Emp,box, 'move')">
+                                                                            <div class=" m--margin-bottom-5-mobile">
+                                                                                <img src="/assets/images/move_icon_hover.png"
+                                                                                    alt="Di chuyển" title="Di chuyển"
+                                                                                    style="padding-right: 5px;"
+                                                                                    dndHandle>
+                                                                            </div>
+                                                                            <div class=" m--margin-bottom-5-mobile">
+                                                                                <a target="_blank"
+                                                                                    (click)="XemLyLich(nv.ID_NV)"
+                                                                                    class="dl_nv"
+                                                                                    style="color: darkgreen; font-size: 11px;">{{nv.Name}}</a>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="dl-apply"
+                                                                            [ngStyle]="{'display': box.Data_Emp&&box.Data_Emp.length>0?'none':'block' }">
+                                                                            Đang tuyển
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="c1">{{box.SumCan ? box.SumCan: 0}}
+                                                                </td>
+                                                                <td class="c2">
+                                                                    {{box.SumCo ? (box.SumCo > 9 ? box.SumCo : '0'+box.SumCo ): 0}}
+                                                                </td>
+                                                                <td class="c3">{{box.SumCB ? box.SumCB: 0}}
+                                                                </td>
+                                                                <td class="c4">{{box.SumKD ? box.SumKD: 0}}
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+	</div>
+</kt-portlet>

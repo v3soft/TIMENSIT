@@ -1,0 +1,27 @@
+<!-- begin:: Content Head -->
+<div class=" kt-subheader kt-grid__item" [ngClass]="{'kt-container--clear': clear, 'sub-collapse': collapse}">
+    <div class="kt-container" [ngClass]="{'kt-container--fluid': fluid}">
+        <div class="kt-subheader__main">
+            <div class="group-tab-submenu">
+                <div class="tab-button">
+                    <button class="button-summary" (click)="collapseSubmenu()"><i  [ngClass]="collapse?'fa fa-angle-double-down': 'fa fa-angle-double-up'"></i></button>
+                </div>
+                <a matBadge="{{item.num}}" [matBadgeHidden]="item.num<=0"  [routerLink]="item.page" class="tab-submenu num-menu view-pc" matTooltip="{{item.title}}" *ngFor="let item of data; let i = index" [ngClass]="getItemCssClasses(item)">
+                    <!--[ngClass]="{'active': i==0}" [ngClass]="getItemCssClasses(item)"-->
+                    <div [ngClass]="item.icon? item.icon: 'flaticon-layers'" class="icon-menu" aria-hidden="true"></div>
+                    <div class="menu-title" *ngIf="!collapse">{{item.title}}</div> 
+                    <!-- <div class="num-menu" *ngIf="item.num>0">{{item.num}}</div> -->
+                    <b class="arrow"></b>
+                </a>  
+                <a matBadge="{{item.num}}" [matBadgeHidden]="item.num<=0"  [routerLink]="item.page" class="tab-submenu num-menu view-mobile" *ngFor="let item of data; let i = index" [ngClass]="getItemCssClasses(item)">
+                    <!--[ngClass]="{'active': i==0}" [ngClass]="getItemCssClasses(item)"-->
+                    <div [ngClass]="item.icon? item.icon: 'flaticon-layers'" class="icon-menu" aria-hidden="true"></div>
+                    <div class="menu-title" *ngIf="!collapse">{{item.title}}</div> 
+                    <!-- <div class="num-menu" *ngIf="item.num>0">{{item.num}}</div> -->
+                    <b class="arrow"></b>
+                </a>                   
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end:: Content Head --> 

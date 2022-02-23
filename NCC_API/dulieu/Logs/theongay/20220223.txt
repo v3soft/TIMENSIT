@@ -1,0 +1,27 @@
+5(huytran) - 23/02/2022 09:25:56 - (Id_Log:183798)Xóa người dùng: {"id":41,"title":"xatuongloc","disabled":null,"data":null,"IsDefault":null}
+5(huytran) - 23/02/2022 09:26:00 - (Id_Log:183800)Xóa người dùng: {"id":49,"title":"xatanloc","disabled":null,"data":null,"IsDefault":null}
+5(huytran) - 23/02/2022 10:06:01 - (Id_Log:183829)Cập nhật danh mục investor: {"ID":3,"Name":"Vũ Văn Việt","Email":"vietvv@gmail.com","Phone":"0779955755","Address":"Bình Duong","CitizenID":"280998930"}
+5(huytran) - 23/02/2022 10:10:54 - (Id_Log:183853)Cập nhật danh mục investor: {"ID":3,"Name":"Vũ Văn Việt","Email":"vietvv@gmail.com","Phone":"0779955755","Address":"Bình Duong","CitizenID":"280998930-1"}
+5(huytran) - 23/02/2022 10:13:34 - (Id_Log:183861)Xóa danh mục investor: {"id":7,"title":"Lý Thị C","disabled":null,"data":null,"IsDefault":null}
+5(huytran) - 23/02/2022 10:21:45 - (Id_Log:183865)Xóa danh mục investor: {"id":2,"title":"Nguyễn Văn A","disabled":null,"data":null,"IsDefault":null}
+5(huytran) - 23/02/2022 10:28:21 - (Id_Log:183872)Xóa danh mục hợp đồng: {"id":1,"title":"TSQ06-1903","disabled":null,"data":null,"IsDefault":null}
+5(huytran) - 23/02/2022 10:35:51 - (Id_Log:183884)Thêm mới danh mục hợp đồng: {"ID":6,"InvestorID":1,"ContractCode":"TSC-6664","Amount":100000000.0,"StartDate":"2022-02-23T00:00:00","EndDate":"2022-06-26T00:00:00","DepositPeriod":"MONTHLY","Fund":"Timensit","ProfitShare":0.75}
+5(huytran) - 23/02/2022 10:40:24 - (Id_Log:183890)Thêm mới danh mục investor: {"ID":12804,"Name":"jskfjk","Email":"sfksj@gmail.com","Phone":"09218301983","Address":"123123","CitizenID":"53535345"}
+5(huytran) - 23/02/2022 11:22:43 - (Id_Log:183995)Thêm mới danh mục Chức vụ: {"ID":25,"ContractID":5,"ContractCode":null,"Amount":2000000000.0,"ReceiptDate":"2022-02-01T00:00:00","EffectiveDate":"2022-02-10T00:00:00","Type":"DEPOSIT"}
+5(huytran) - 23/02/2022 11:26:26 - (Id_Log:183998)Thêm mới danh mục investor: {"ID":12804,"Name":"Nguyễn Văn A","Email":"jsk@gmai.com","Phone":"8394820320","Address":"sdfsfskd fjskldf","CitizenID":"8230948209482"}
+5(huytran) - 23/02/2022 11:26:37 - (Id_Log:184000)Cập nhật danh mục investor: {"ID":10,"Name":"jskfjk","Email":"abc123@gmail.com","Phone":"09218301983","Address":"123123","CitizenID":"53535345"}
+5(huytran) - 23/02/2022 11:26:49 - (Id_Log:184002)Xóa danh mục investor: {"id":10,"title":"jskfjk","disabled":null,"data":null,"IsDefault":null}
+5(huytran) - 23/02/2022 11:27:17 - (Id_Log:184004)Thêm mới danh mục investor: {"ID":12804,"Name":"Nhà đầu tư 1","Email":"sjfskl@gmail.com","Phone":"ádjajsd","Address":"sadfadfsasdf","CitizenID":"ádfsdf"}
+5(huytran) - 23/02/2022 11:27:34 - (Id_Log:184006)Xóa danh mục investor: {"id":12,"title":"Nhà đầu tư 1","disabled":null,"data":null,"IsDefault":null}
+5(huytran) - 23/02/2022 11:28:21 - (Id_Log:184010)Thêm mới danh mục hợp đồng: {"ID":7,"InvestorID":11,"ContractCode":"HDMB-0001","Amount":10000000000.0,"StartDate":"2022-02-24T00:00:00","EndDate":"2050-02-24T00:00:00","DepositPeriod":"YEARLY","Fund":"Timensit","ProfitShare":0.7}
+5(huytran) - 23/02/2022 11:29:05 - (Id_Log:184015)Thêm mới danh mục hợp đồng: {"ID":8,"InvestorID":11,"ContractCode":"HDMB-0002","Amount":50000000.0,"StartDate":"2022-02-24T00:00:00","EndDate":"2025-02-28T00:00:00","DepositPeriod":"MONTHLY","Fund":"TimensitQu","ProfitShare":1.0}
+5(huytran) - 23/02/2022 11:29:22 - (Id_Log:0)Cập nhật danh mục hợp đồng: {"ID":0,"InvestorID":11,"ContractCode":"HDMB-0001","Amount":2000000000.0,"StartDate":"2022-02-24T00:00:00","EndDate":"2050-02-24T00:00:00","DepositPeriod":"YEARLY","Fund":"Timensit","ProfitShare":0.7}
+5(huytran) - 23/02/2022 11:29:28 - (Id_Log:0)Cập nhật danh mục hợp đồng: {"ID":0,"InvestorID":11,"ContractCode":"HDMB-0002","Amount":50000000.0,"StartDate":"2022-02-24T00:00:00","EndDate":"2025-02-28T00:00:00","DepositPeriod":"ONCE","Fund":"TimensitQu","ProfitShare":1.0}
+5(huytran) - 23/02/2022 11:29:33 - (Id_Log:0)Cập nhật danh mục hợp đồng: {"ID":0,"InvestorID":11,"ContractCode":"HDMB-0002","Amount":50000000.0,"StartDate":"2022-02-24T00:00:00","EndDate":"2025-02-28T00:00:00","DepositPeriod":"ONCE","Fund":"Timensit","ProfitShare":1.0}
+5(huytran) - 23/02/2022 11:29:40 - (Id_Log:184027)Xóa danh mục hợp đồng: {"id":3,"title":"TSQ06-00002","disabled":null,"data":null,"IsDefault":null}
+5(huytran) - 23/02/2022 11:30:20 - (Id_Log:184031)Thêm mới danh mục Chức vụ: {"ID":26,"ContractID":7,"ContractCode":null,"Amount":20000000.0,"ReceiptDate":"2022-02-23T00:00:00","EffectiveDate":"2022-02-24T00:00:00","Type":"DEPOSIT"}
+5(huytran) - 23/02/2022 11:30:39 - (Id_Log:184034)Thêm mới danh mục Chức vụ: {"ID":27,"ContractID":8,"ContractCode":null,"Amount":5000000.0,"ReceiptDate":"2022-02-21T00:00:00","EffectiveDate":"2022-02-27T00:00:00","Type":"DEPOSIT"}
+5(huytran) - 23/02/2022 11:31:00 - (Id_Log:184041)Xóa danh mục hợp đồng: {"id":7,"title":"HDMB-0001","disabled":null,"data":null,"IsDefault":null}
+5(huytran) - 23/02/2022 11:31:13 - (Id_Log:184045)Xóa danh mục investor: {"id":11,"title":"Nguyễn Văn A","disabled":null,"data":null,"IsDefault":null}
+5(huytran) - 23/02/2022 15:12:08 - (Id_Log:184135)Thêm mới nhóm người dùng: {"GroupName":"12312313","GhiChu":"123123123","IdGroup":27,"Ma":"123123","DisplayOrder":1,"DonVi":1,"ChucVu":0,"IsDefault":false,"Locked":false}
+5(huytran) - 23/02/2022 15:18:15 - (Id_Log:184159)Cập nhật nhóm người dùng: {"GroupName":"Chuyên viên sở","GhiChu":"","IdGroup":26,"Ma":"SO","DisplayOrder":1,"DonVi":1,"ChucVu":0,"IsDefault":false,"Locked":false}

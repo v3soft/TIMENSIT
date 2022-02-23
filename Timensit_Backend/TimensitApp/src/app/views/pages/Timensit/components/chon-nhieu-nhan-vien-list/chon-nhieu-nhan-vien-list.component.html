@@ -1,0 +1,143 @@
+<div class="btn-close-container">
+	<button mat-button mat-raised-button class="btn-close" color="" type="button" mat-mini-fab (click)="close()" [disabled]="disabledBtn" >
+		<mat-icon>clear</mat-icon>
+	</button>
+</div>
+<kt-portlet [options]="{headLarge: true}" [loading$]="dataSource.loading$">
+	<kt-portlet-header [sticky]="true" [title]="'Chọn nhiều nhân viên'" [viewLoading$]="dataSource.loading$">
+		<ng-container ktPortletTools>
+			<div class="kt-form__group kt-form__group--inline">
+				<div class="kt-form__label kt-form__label-no-wrap">
+					<label class="kt--font-bold kt-font-danger-">
+						Số lượng đã chọn:
+						{{ selected.length }}
+					</label>
+				</div>
+			</div>
+			<button type="button" mat-raised-button color="primary" (click)="luuNhanVien()" [disabled]="viewLoading ||disabledBtn">Tiếp tục</button>
+		</ng-container>
+	</kt-portlet-header>
+	<kt-portlet-body>
+		<div class="m-form">
+			<!-- start::FILTERS -->
+			<div class="m-form__filtration">
+				<div class="row align-items-center">
+					<div class="col-md-6 m--margin-bottom-10-mobile">
+						<mat-form-field class="mat-form-field-fluid">
+							<input matInput #searchInput placeholder="Tìm kiếm"
+								   class="mat-form-field mat-form-field-fluid">
+							<!-- <mat-hint>
+								<strong><span translate="JeeHR.timkiemtatcatruong"></span></strong>
+							</mat-hint> -->
+						</mat-form-field>
+					</div>
+					<div class="col-md-6 m--margin-bottom-10-mobile">
+						<m-dropdown-tree [data]="datatree" [FieldTitle]="'title'" [FieldId]="'id'" [FieldChildren]="'data'" [DropdownTitle]="'Phòng ban'" (SelectedItemTree)="GetValueNode($event)">
+						</m-dropdown-tree>
+					</div>
+				</div>
+				<div class="row align-items-center">
+					<div class="col-md-6 m--margin-bottom-10-mobile">
+						<mat-form-field class="mat-form-field-fluid">
+							<mat-select placeholder="Chức danh"
+										(selectionChange)="loadChucDanhChange($event.value)" [(value)]="id_cd">
+								<mat-option value="">Tất cả</mat-option>
+								<mat-option value="{{hv.ID}}" *ngFor="let hv of listChucDanh">
+									{{hv.Title}}
+								</mat-option>
+							</mat-select>
+							<!-- <mat-hint>
+				<strong><span translate="chonnhieunhanvien.loctheochucdanh"></span></strong>
+			</mat-hint> -->
+						</mat-form-field>
+					</div>
+					<div class="col-md-6 m--margin-bottom-10-mobile">
+						<mat-form-field class="mat-form-field-fluid">
+							<mat-select placeholder="Chức vụ" [(value)]="id_cv">
+								<mat-option value="">Tất cả</mat-option>
+								<mat-option value="{{hv.ID}}" *ngFor="let hv of listChucVu">
+									{{hv.Title}}
+								</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</div>
+					<div class="col-md-6 m--margin-bottom-10-mobile">
+						<button type="button" mat-raised-button color="accent" (click)="LoadDataList()" [disabled]="viewLoading">Tìm kiếm</button>&nbsp;
+					</div>
+				</div>
+				<div class="mat-table__wrapper d-block" style="overflow-x:auto">
+					<table mat-table class="lmat-elevation-z8" [dataSource]="dataSource" matSort matSortActive="id"
+						   matSortDirection="asc" matSortDisableClear>
+						<!-- Checkbox Column -->
+						<ng-container matColumnDef="select">
+							<th mat-header-cell *matHeaderCellDef class="mat-column-checkbox stt-cell">
+								<mat-checkbox (change)="$event ? masterToggle() : null"
+											  [checked]="selection.hasValue() && isAllSelected()"
+											  [indeterminate]="selection.hasValue() && !isAllSelected()">
+								</mat-checkbox>
+							</th>
+							<td mat-cell *matCellDef="let row" class="mat-column-checkbox stt-cell">
+								<mat-checkbox (click)="$event.stopPropagation()"
+											  (change)="selectRow($event, row)"
+											  [checked]="selection.isSelected(row)">
+								</mat-checkbox>
+							</td>
+						</ng-container>
+
+						<ng-container matColumnDef="MaNV">
+							<th mat-header-cell *matHeaderCellDef mat-sort-header class="mat-column-vinCode">Mã nhân viên</th>
+							<td mat-cell *matCellDef="let item" class="mat-column-vinCode">
+								{{item.MaNV}}
+							</td>
+						</ng-container>
+
+						<ng-container matColumnDef="HoTen">
+							<th mat-header-cell *matHeaderCellDef mat-sort-header class="mat-column-vinCode">Họ tên</th>
+							<td mat-cell *matCellDef="let item" class="mat-column-vinCode">
+								{{item.HoTen}}
+							</td>
+						</ng-container>
+
+						<ng-container matColumnDef="Phai">
+							<th mat-header-cell *matHeaderCellDef mat-sort-header class="mat-column-vinCode">Giới tính</th>
+							<td mat-cell *matCellDef="let item" class="mat-column-vinCode">
+								{{item.Phai}}
+							</td>
+						</ng-container>
+
+						<ng-container matColumnDef="NgaySinh">
+							<th mat-header-cell *matHeaderCellDef class="mat-column-vinCode">Ngày sinh</th>
+							<td mat-cell *matCellDef="let item" class="mat-column-vinCode">
+								{{item.NgaySinh}}
+							</td>
+						</ng-container>
+
+						<ng-container matColumnDef="Structure">
+							<th mat-header-cell *matHeaderCellDef mat-sort-header class="mat-column-vinCode">Cơ cấu tổ chức</th>
+							<td mat-cell *matCellDef="let item" class="mat-column-vinCode">
+								{{item.Structure}}
+							</td>
+						</ng-container>
+
+						<ng-container matColumnDef="TenChucVu">
+							<th mat-header-cell *matHeaderCellDef mat-sort-header class="mat-column-vinCode">Chức vụ</th>
+							<td mat-cell *matCellDef="let item" class="mat-column-vinCode">
+								{{item.TenChucVu}}
+							</td>
+						</ng-container>
+						<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+						<tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+					</table>
+				<div class="mat-table__message" *ngIf="!dataSource.hasItems">Không có dữ liệu</div>
+				</div>
+
+				<!-- start: BOTTOM -->
+				<div class="mat-table__bottom">
+					<mat-spinner [diameter]="20" *ngIf="dataSource.loading$ | async"></mat-spinner>
+					<mat-paginator #paginator_tab1 [pageSize]="10" [pageSizeOptions]="[3, 5, 10]"
+								   [length]="dataSource.paginatorTotal$ | async" [showFirstLastButtons]="true"></mat-paginator>
+				</div>
+			</div>
+		</div>
+	</kt-portlet-body>
+</kt-portlet>

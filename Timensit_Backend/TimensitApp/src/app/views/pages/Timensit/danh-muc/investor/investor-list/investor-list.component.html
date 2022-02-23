@@ -1,0 +1,157 @@
+<kt-portlet [options]="{headLarge: true}">
+	<kt-portlet-header [sticky]="true" [class]="'kt-portlet__head--lg'" [viewLoading$]="dataSource.loading$">
+		<ng-container ktPortletTitle>
+			<div class="kt-form__filtration">
+				<h3 class="kt-portlet__head-title">
+					<span translate="OBJECT.LIST" [translateParams]="{name:this._name.toLowerCase()}"></span>
+				</h3>
+			</div>
+		</ng-container>
+		<ng-container ktPortletTools>
+			<button (click)="Create()" mat-raised-button matTooltip="{{ 'COMMON.CREATE' | translate }}"
+				*ngIf="investorServices.ReadOnlyControl" color="accent" type="button">
+				<span translate="COMMON.CREATE"></span>
+			</button>
+			<span></span>
+		</ng-container>
+	</kt-portlet-header>
+	<div class="kt-portlet-body">
+		<!-- start::FILTERS & GROUP ACTIONS -->
+		<div class="kt-form">
+			<div class="row align-items-center collapse kt-form__group-actions m--margin-top-20 m--margin-bottom-20"
+				[ngClass]="{'show' : selection.selected.length > 0}">
+				<div class="col-xl-12">
+					<div class="kt-form__group kt-form__group--inline">
+						<div class="kt-form__label kt-form__label-no-wrap">
+							<label class="m--font-bold m--font-danger-">
+								Selected records count:
+								{{ selection.selected.length }}
+							</label>
+						</div>
+						<div class="kt-form__control kt-form__group--inline">
+							<button mat-raised-button color="accent" matTooltip="Delete selected products">
+								<mat-icon>delete</mat-icon> Delete All
+							</button>&nbsp;
+							<!-- Call 'delete-entity-dialog' from _shared folder -->
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- end::GROUP ACTIONS -->
+		</div>
+		<div class="mat-table__wrapper">
+			<table mat-table [dataSource]="dataSource" matSort matSortActive="Id_CV" matSortDirection="asc"
+				matSortDisableClear style="width: 100%;" cdkDropListGroup>
+				<!-- Checkbox Column -->
+				<ng-container matColumnDef="STT">
+					<th mat-header-cell *matHeaderCellDef class="mat-column-vinCode stt-cell"><span
+							translate="COMMON.STT"></span></th>
+					<td mat-cell *matCellDef="let capquanly;let vi = index" class="mat-column-vinCode stt-cell">{{vi +
+						1}}</td>
+				</ng-container>
+				<ng-container matColumnDef="ID">
+					<th mat-header-cell *matHeaderCellDef mat-sort-header class="mat-column-vinCode">
+						ID
+					</th>
+					<td mat-cell *matCellDef="let investor" class="mat-column-vinCode">
+						{{investor.ID}}
+					</td>
+				</ng-container>
+				<ng-container matColumnDef="Name">
+					<th mat-header-cell *matHeaderCellDef class="mat-column-vinCode">
+						<span translate="Investor.NAME"></span>
+					</th>
+					<td mat-cell *matCellDef="let investor" class="mat-column-vinCode">
+						<a href="javascript:;" (click)="Updated(investor, false)">{{investor.Name}}</a>
+					</td>
+				</ng-container>
+				<ng-container matColumnDef="Email">
+					<th mat-header-cell *matHeaderCellDef mat-sort-header>
+						<span translate="Investor.email"></span>
+					</th>
+					<td mat-cell *matCellDef="let investor">
+						{{investor.Email}}
+					</td>
+				</ng-container>
+				<ng-container matColumnDef="Phone">
+					<th mat-header-cell *matHeaderCellDef mat-sort-header>
+						<span translate="Investor.phone"></span>
+					</th>
+					<td mat-cell *matCellDef="let investor">{{investor.Phone}}</td>
+				</ng-container>
+				<ng-container matColumnDef="Address">
+					<th mat-header-cell *matHeaderCellDef mat-sort-header>
+						<span translate="Investor.address"></span>
+					</th>
+					<td mat-cell *matCellDef="let investor">{{investor.Address}}</td>
+				</ng-container>
+				<ng-container matColumnDef="CitizenID">
+					<th mat-header-cell *matHeaderCellDef mat-sort-header>
+						<span translate="Investor.citizenid"></span>
+					</th>
+					<td mat-cell *matCellDef="let investor">{{investor.CitizenID}}</td>
+				</ng-container>
+
+				<!--<ng-container matColumnDef="NguoiCapNhat">
+					<th mat-header-cell *matHeaderCellDef style="justify-content: center">
+						<span translate="COMMON.UPDATED_BY"></span>
+					</th>
+					<td mat-cell *matCellDef="let item" style="justify-content: center">{{item.NguoiCapNhat}}</td>
+				</ng-container>-->
+				<!--<ng-container matColumnDef="NgayCapNhat">
+					<th mat-header-cell *matHeaderCellDef style="justify-content: center">
+						<span translate="COMMON.UPDATED_DATE"></span>
+					</th>
+					<td mat-cell *matCellDef="let item" style="justify-content: center">
+						{{item.NgayCapNhat | date: 'dd/MM/yyyy HH:mm' }}
+					</td>
+				</ng-container>-->
+				<ng-container matColumnDef="actions">
+					<th mat-header-cell *matHeaderCellDef style="justify-content: center; width:100px;">
+						<span translate="COMMON.TACVU"></span>
+					</th>
+					<td mat-cell *matCellDef="let investor" class="action-cell"
+						[ngClass]="list_button?'list-button':''">
+					<!--<button (click)="Updated(investor, false)" mat-button [class.mat-raised-button]="list_button"
+							[class.mat-icon-button]="!list_button" matTooltip="{{ 'COMMON.DETAIL' | translate }}"
+							color="info" type="button">
+							<mat-icon>visibility</mat-icon>
+							<span class="button-text">{{ 'COMMON.DETAIL' | translate }}</span>
+						</button>-->
+						<button (click)="Updated(investor)" mat-button [class.mat-raised-button]="list_button"
+							[class.mat-icon-button]="!list_button" matTooltip="{{ 'COMMON.UPDATE' | translate }}"
+							*ngIf="investorServices.ReadOnlyControl" color="primary" type="button">
+							<mat-icon>create</mat-icon>
+							<span class="button-text">{{ 'COMMON.UPDATE' | translate }}</span>
+						</button>
+						<button mat-button [class.mat-raised-button]="list_button"
+							[class.mat-icon-button]="!list_button" color="warn" type="button"
+							(click)="DeletePosition(investor)" *ngIf="investorServices.ReadOnlyControl"
+							matTooltip="{{ 'COMMON.DELETE' | translate }}">
+							<mat-icon>delete</mat-icon>
+							<span class="button-text">{{ 'COMMON.DELETE' | translate }}</span>
+						</button>
+					</td>
+				</ng-container>
+
+				<tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+				<tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="row.highlighted = !row.highlighted"
+					[ngClass]="{hovered: row.hovered, highlighted: row.highlighted}" (mouseover)="row.hovered = true"
+					(mouseout)="row.hovered = false"></tr>
+			</table>
+
+			<div class="mat-table__message" *ngIf="!dataSource.hasItems">
+				<span translate="COMMON.NO_RECORD_FOUND"></span>
+			</div>
+		</div>
+
+		<!-- start: BOTTOM -->
+		<div class="mat-table__bottom">
+			<mat-spinner [diameter]="20" *ngIf="dataSource.loading$ | async"></mat-spinner>
+			<mat-paginator [pageSize]="pageSize" [pageSizeOptions]="[10, 20, 50, 100]"
+				[length]="dataSource.paginatorTotal$ | async" [showFirstLastButtons]="true"></mat-paginator>
+		</div>
+		<!-- end: BOTTOM -->
+	</div>
+	<!-- end::Body -->
+</kt-portlet>

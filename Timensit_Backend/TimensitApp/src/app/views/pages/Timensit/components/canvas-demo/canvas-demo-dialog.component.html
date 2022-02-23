@@ -1,0 +1,51 @@
+<div class="btn-close-container">
+	<button class="btn-close" type="button" mat-mini-fab color="" (click)="onNoClick()" [disabled]="disabledBtn" title="Đóng">
+		<mat-icon>clear</mat-icon>
+	</button>
+</div>
+<div class="kt-portlet" [ngClass]="{ 'kt-portlet--body-progress kt-portlet--body-progress-overlay' : viewLoading }">
+	<div class="kt-portlet__head kt-portlet__head__custom">
+		<div class="col-md-7 kt-margin-bottom-10-mobile" style="margin-top: 20px;">
+			<h3 class="kt-portlet__head-title">{{data.selectedNode.Title}}</h3>
+		</div>
+		<div class="col-md-5 kt-margin-bottom-10-mobile" style="margin-top: 10px; text-align: right;">
+			<button style="padding: 0px 20px;" type="button" mat-raised-button color="primary" (click)="onSubmit()" [disabled]="disabledBtn">
+				Lưu
+			</button>
+		</div>
+	</div>
+	<form class="kt-form" [formGroup]="itemForm">
+		<div class="kt-portlet__body">
+			<div class="kt-portlet__body-progress">
+				<mat-spinner [diameter]="20"></mat-spinner>
+			</div>
+			<kt-alert *ngIf="hasFormErrors" type="warn" [duration]="0" [showCloseButton]="true" (close)="onAlertClose($event)">
+				Không thể lưu, vui lòng kiểm tra lại thông tin!
+			</kt-alert>
+			<div class="form-group kt-form__group row">
+				<div class="col-md-12">
+					<mat-form-field class="mat-form-field-fluid">
+						<mat-select [(ngModel)]="selectedNodeEnd" formControlName="NodeEnd" placeholder="Bước muốn liên kết đến" required>
+							<mat-option *ngFor="let node of dataNode" [value]="node.ID">
+								{{node.Title}}
+							</mat-option>
+						</mat-select>
+					</mat-form-field>
+				</div>
+				<div class="col-md-12">
+					<mat-form-field class="mat-form-field-fluid">
+						<input matInput placeholder="Tên nút xử lý" [(ngModel)]="buttonText" formControlName="buttonText" required>
+						<mat-error *ngIf="itemForm.controls['buttonText'].errors">
+							Tên nút xử lý
+							<strong *ngIf="itemForm.controls['buttonText'].errors.required"> bắt buộc nhập</strong>
+							<strong *ngIf="itemForm.controls['buttonText'].errors.maxlength">
+								tối đa
+								{{itemForm.controls['buttonText'].errors.maxlength.requiredLength}} ký tự
+							</strong>
+						</mat-error>
+					</mat-form-field>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

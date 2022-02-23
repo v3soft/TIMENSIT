@@ -1,0 +1,79 @@
+<style>
+    .tree-list-phan-quyen {
+        font-size: 14px;
+    }
+    
+    .tree-list-phan-quyen ul,
+    .tree-list-phan-quyen ul li {
+        list-style: none;
+    }
+    
+    .tree-list-phan-quyen .ea-quyen {
+        display: inline-flex;
+    }
+    
+    .color-folder {
+        color: #f1c40f;
+    }
+    
+    .color-success {
+        color: #34bfa3;
+    }
+    
+    .m-point {
+        cursor: pointer;
+    }
+    
+    .hidding {
+        display: none;
+    }
+    
+     :host>>>.mat-checkbox>label.mat-checkbox-layout>div.mat-checkbox-inner-container {
+        width: 14px;
+        height: 14px;
+    }
+    
+     :host>>>.mat-checkbox>label {
+        margin-bottom: .5rem;
+    }
+    
+     :host>>>.chk-sty.mat-checkbox-checked .mat-checkbox-checkmark {
+        opacity: 0;
+    }
+    
+    .font-14 {
+        font-size: 14px;
+    }
+</style>
+<div class="tree-list-phan-quyen" #documentTreeDV>
+    <div *ngFor="let quyen of valueDonVi;let vi = index;">
+        <ul>
+            <li class="cover-node">
+                <div class="item-node">
+                    <i class="far fa-plus-square m-point m--margin-right-10 font-14" (click)="collapseChanged(quyen,0)" *ngIf=" (quyen[propNameCss].lastChild||!quyen[propNameChild]||!quyen[propNameChild].length) ? false : ( !quyen[propNameCss].collapse ) "></i>
+                    <!-- Vuông - để khi click vào hide ra các con, chuyển Vuông - thành Vuông + /-->
+                    <i class="far fa-minus-square   m-point  m--margin-right-10 font-14" (click)="collapseChanged(quyen,-1)" *ngIf=" (quyen[propNameCss].lastChild||!quyen[propNameChild]||!quyen[propNameChild].length) ? false : ( quyen[propNameCss].collapse )"></i>                    &nbsp;
+                    <div class="ea-quyen " (click)="getItemNode($event,quyen)" [ngClass]="{'dv-active': getActiveNode(quyen)}">
+                        <!-- Vuông + để khi click vào show ra các con, chuyển Vuông + thành Vuông - /-->
+                        <!-- Checkbox chọn quyền -->
+                        <!-- (change)="checkedChanged(quyen, $event)" -->
+                        <mat-checkbox #Chk (change)="checkedChanged(quyen, $event)" *ngIf="showCheck" [checked]="quyen[propNameCss].checked" class=" m-point m--margin-right-10" [ngClass]="quyen[propNameCss].parentChk">
+                        </mat-checkbox>
+                        &nbsp;
+                        <!-- Vuông + thì cái này -->
+                        <i class="{{classIconLeaf}}  m-point color-folder m--margin-right-10 font-14" *ngIf="!quyen[propNameChild]||!quyen[propNameChild].length"></i>
+                        <!-- Vuông - thì cái này -->
+                        <i class="{{classIconRoot}}  m-point color-folder  m--margin-right-10 font-14" *ngIf="quyen[propNameChild]&&quyen[propNameChild].length>0"></i> &nbsp;
+                        <!-- Hiển thị text của node --->
+                        {{quyen[nameNode]}}
+                    </div>
+                </div>
+
+                <!-- *ngIf="quyen[propNameChild]" -->
+                <m-tree-don-vi-node [showCheck]="showCheck" [classIconLeaf]="classIconLeaf" [classIconRoot]="classIconRoot" [valueDonVi]="quyen[propNameChild]" [parentNode]="quyen" [propNameCss]="propNameCss" [propNameChild]="propNameChild" [nameNode]="nameNode" *ngIf="quyen[propNameChild]&&quyen[propNameChild].length>0"
+                    [ngClass]="quyen[propNameCss].collapse ? '' : 'hidding'" [nodeCheckedChange]="nodeCheckedChange" [nodeActiveChange]="nodeActiveChange">
+                </m-tree-don-vi-node>
+            </li>
+        </ul>
+    </div>
+</div>

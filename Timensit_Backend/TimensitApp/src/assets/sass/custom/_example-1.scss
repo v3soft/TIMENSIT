@@ -1,0 +1,352 @@
+//
+// Custom Example 1 Style
+// Here you can put your custom sass code, use global SASS mixings and variables to override the theme or add new styles according to your requirements.
+// Most of the changes can be achieved via global or layout level sass variable changes.
+//
+
+
+.my-custom-style {
+    padding: 1rem 0.5rem;
+    color: kt-brand-color();
+
+    .my-custom-element {
+        margin-left: 1rem;
+    }
+}
+
+@include kt-tablet-and-mobile {
+    .my-custom-style {
+        padding: 0.5rem 0.25rem;
+
+        .my-custom-element {
+            margin-left: 0.5rem;
+        }
+    }
+}
+
+/*#region comment-box*/
+.comment-box {
+	.comment-count {
+		text-transform: uppercase;
+		font-size: 18px;
+	}
+
+	.comment-input {
+		.user-info-container {
+			display: flex;
+
+			.user-info {
+				display: flex;
+				width: 50%;
+
+				.kt-user-card__avatar {
+					padding-right: 10px;
+
+					img {
+						width: 40px;
+						height: 40px;
+						border-radius: 50%;
+					}
+				}
+
+				.kt-user-card__name {
+					.m-card-user__name {
+						font-weight: bold;
+					}
+
+					.m-card-user__username {
+						font-weight: 300;
+						color: #999;
+					}
+				}
+			}
+
+			.attachment {
+				width: 50%;
+				text-align: right;
+			}
+		}
+	}
+
+	.attach-item {
+		padding: 5px;
+		display: flex;
+		background-color: white;
+		border: 0;
+
+		&:hover {
+			background-color: #fafafa;
+			border-left: 3px solid #dbdbdb;
+		}
+
+		.attach-item-icon {
+			min-width: 30px;
+		}
+
+		.attach-item-name {
+			flex-grow: 1;
+
+			p {
+				font-weight: bold;
+			}
+
+			span {
+				display: none;
+			}
+		}
+
+		.attach-item-del {
+			text-align: right;
+			padding: 0 10px;
+
+			a {
+				margin-left: 10px;
+			}
+		}
+
+		&.show-action .attach-item-name {
+			span {
+				display: block;
+			}
+		}
+	}
+
+	.user-info {
+		display: flex;
+
+		.kt-user-card__avatar {
+			padding-right: 10px;
+			min-width: 50px;
+
+			img {
+				width: 40px;
+				height: 40px;
+				border-radius: 50%;
+			}
+		}
+
+		.kt-user-card__name {
+			flex-grow: 1;
+
+			.m-card-user__name {
+				font-weight: bold;
+				color: #4CAF50;
+				margin-right: 10px;
+			}
+		}
+	}
+
+	.comment-container {
+		border-bottom: 1px solid #eee;
+		margin-bottom: 10px;
+
+		.content {
+			color: #888;
+			padding-left: 50px;
+			padding-bottom: 10px;
+
+			&:hover {
+				.action {
+					display: inline-block !important;
+				}
+			}
+
+			a {
+				color: #888;
+			}
+
+			.comment {
+				display: flex;
+				flex-grow: 1;
+
+				.comment-string {
+					flex-grow: 1;
+					/*font-size: 15px;*/
+					color: black;
+					line-height: 27px;
+				}
+
+				.action {
+					display: none;
+					font-size: 17px !important;
+
+					&:hover {
+						border: solid 1px #eee;
+						border-radius: 5px;
+						color: white;
+						background-color: #4CAF50;
+					}
+				}
+			}
+
+			.child {
+				display: none;
+				padding: 10px 0;
+				background-color: #f3f3f3;
+
+				.comment-inline {
+					padding: 0 10px;
+					border-bottom: solid 1px white;
+
+					&:hover {
+						.action {
+							display: inline-block;
+						}
+					}
+
+					.kt-user-card__avatar {
+						img {
+							border-radius: 0;
+						}
+					}
+
+					.image-inline {
+						overflow: hidden;
+						margin-top: 10px;
+						margin-bottom: 6px;
+						max-width: 80%;
+					}
+
+					.attachment-inline {
+						display: flex;
+
+						&:hover {
+							a {
+								display: block;
+							}
+						}
+
+						div {
+							flex-grow: 1;
+							line-height: 37px;
+						}
+
+						a {
+							display: none;
+						}
+					}
+				}
+			}
+
+			.comment-num {
+				border: solid 1px #eee;
+				padding: 5px 10px;
+				border-radius: 5px;
+			}
+
+			.comment-like {
+				display: flex;
+				margin-bottom: 20px;
+				padding: 0;
+
+				.thumb_up {
+					font-size: 14px !important;
+				}
+
+				span.Love,
+				span.Care {
+					color: #D96C6C;
+					font-weight: bold;
+				}
+
+				span.Like {
+					color: #2a91d6;
+					font-weight: bold;
+				}
+
+				span.Haha,
+				span.Wow,
+				span.Sad,
+				span.Angry {
+					color: #cda900;
+					font-weight: bold;
+				}
+
+				.total-like {
+					flex-grow: 1;
+					text-align: right;
+				}
+
+				img {
+					height: 16px;
+					width: 16px;
+				}
+			}
+		}
+	}
+}
+/*#endregion*/
+/*#region popover-menu*/
+.popover-menu {
+	position: relative;
+	top: -5px;
+
+	.popover-content {
+		top: 0 !important;
+	}
+
+	.popover-body a {
+		width: 180px;
+	}
+
+	a {
+		padding: 10px;
+		font-size: 13px;
+		position: relative;
+		cursor: pointer;
+		color: #555;
+		text-align: left;
+		display: block;
+
+		&:hover {
+			background: rgba(76, 175, 80, 0.8);
+			color: #fff;
+		}
+	}
+}
+/*#endregion*/
+/*#region choose user*/
+.choose-users-box {
+	margin: -15px;
+	margin-top: 0;
+	min-width: 260px;
+
+	.users-container {
+		max-height: 200px;
+		overflow-y: auto;
+
+		.user-item {
+			display: flex;
+			padding: 5px 10px;
+			cursor: pointer;
+
+			label {
+				padding: 3px 5px 3px 5px;
+				position: absolute;
+				top: -24px;
+				right: 0px;
+				border-radius: 10px;
+				font-size: 11px;
+				color: #FFF;
+				background: #333;
+				visibility: hidden;
+			}
+
+			&:hover {
+				background-color: #eee;
+
+				label {
+					visibility: visible;
+				}
+			}
+
+			img {
+				height: 35px;
+				width: 35px;
+				border-radius: 50%;
+				margin-right: 10px;
+			}
+		}
+	}
+}
+/*#endregion*/

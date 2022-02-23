@@ -1,0 +1,1 @@
+﻿update quytrinh_loaiphieuduyet set acceptmailtitle=N'Hồ sơ NCC đã được duyệt' where rowid=2

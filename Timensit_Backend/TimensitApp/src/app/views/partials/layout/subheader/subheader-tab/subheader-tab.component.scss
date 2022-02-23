@@ -1,0 +1,118 @@
+:host {
+    .kt-subheader__desc {
+        margin: 0;
+    }
+    .kt-subheader {
+        background-color: transparent;
+    }
+    .kt-container {
+        padding: 0;
+        .kt-subheader__main {
+            padding: 0;
+            width: 100%;
+            position: relative;
+            margin-top: 17px;
+            border-width: 0 !important;
+            box-shadow: none;
+            -webkit-box-shadow: 0 -1px 1px 0 rgba(0, 0, 0, 0.05) inset;
+            box-shadow: 0 -1px 1px 0 rgba(0, 0, 0, 0.05) inset;
+            &::after {
+                display: block;
+                position: absolute;
+                content: '';
+                z-index: -1;
+                left: 0 !important;
+                right: 0 !important;
+                top: -17px;
+                bottom: auto;
+                height: 17px;
+                width: auto;
+                border-width: 0;
+                border-bottom-color: inherit;
+                background-color: #e4e4e4;
+                -webkit-box-shadow: 0 -1px 1px 0 rgba(0, 0, 0, 0.05) inset;
+                box-shadow: 0 -1px 1px 0 rgba(0, 0, 0, 0.05) inset;
+            }
+            .group-tab-submenu {
+                display: flex;
+                // list-style: none;
+                padding: 0;
+                width: 100%;
+                height: 100%;
+                border-bottom: 2px solid #79b0ce;
+                .tab-submenu {
+                    text-align: center;
+                    padding: 10px;
+                    border-color: #e5e5e5;
+                    border-width: 0 0 0 1px;
+                    border-style: solid;
+                    &:first-child {
+                        border-left-width: 1px;
+                        margin-left: -1px
+                    }
+                    &:last-child {
+                        border-right-width: 1px;
+                    }
+                    &.active {
+                        position: relative;
+                        background-color: #ffffff;
+                        border-color: #79b0ce;
+                        border-left-width: 1px;
+                        // margin-left: -1px;
+                        &::before {
+                            left: -1px;
+                            right: -1px;
+                            bottom: auto;
+                            top: -2px;
+                            max-width: none;
+                            content: '';
+                            width: auto;
+                            height: 2px;
+                            border-width: 0;
+                            background-color: #2b7dbc;
+                            position: absolute;
+                        }
+                        &::after {
+                            border: 8px solid transparent;
+                            border-width: 0 0 2px 0;
+                            border-color: transparent;
+                            border-bottom-color: #FFF;
+                            left: 0;
+                            position: absolute;
+                            content: '';
+                            right: 0;
+                            display: block;
+                            top: auto;
+                            bottom: -2px;
+                        }
+                    }
+                    &:hover {
+                        position: relative;
+                        background-color: #ffffff;
+                        border-color: #79b0ce;
+                        border-left-width: 1px;
+                        // border-right: 1px solid #79b0ce;
+                        // margin-left: -1px;
+                        &::before {
+                            left: -1px;
+                            right: -1px;
+                            border-color: #79b0ce;
+                            border-left-width: 1px;
+                            // border-right: 1px solid #79b0ce;
+                            margin-left: -1px;
+                            bottom: auto;
+                            top: -2px;
+                            max-width: none;
+                            content: '';
+                            width: auto;
+                            height: 2px;
+                            border-width: 0;
+                            background-color: #2b7dbc;
+                            position: absolute;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

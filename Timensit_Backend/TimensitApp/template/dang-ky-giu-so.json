@@ -1,0 +1,166 @@
+{
+	"folder_path": "/views/pages/Timensit/van-ban",
+	"name": "DangKyGiuSo",
+	"text": "Đăng ký giữ số",
+	"Sub_menu_tree": "",
+	"modulePage": "",
+	"listOptions": {
+		"nColumnsFilterInOneRow": 2,
+		"sortOrder": "desc",
+		"sortField": "So"
+	},
+	"editOptions": {
+		"nColumnsFilterInOneRow": 2
+	},
+	"numberOfFixedPoint": 0,
+	"attributes": [
+		{
+			"className": "DangKyGiuSo",
+			"tableName": "Tbl_DangKyGiuSo",
+			"content": [
+				{
+					"name": "IdRow",
+					"type": "number",
+					"required": false,
+					"title": "IdRow",
+					"display": {
+						"isDisplay": false,
+						"isShow": false
+					},
+					"formtype": "input",
+					"control_type": "",
+					"css_status": false,
+					"sortable": false,
+					"filter": 0,
+					"updateOnGrid": false,
+					"haveDrpFilter": false,
+					"filterGrp": [],
+					"isKeyModel": true
+				},
+				{
+					"name": "So",
+					"type": "number",
+					"required": true,
+					"title": "Số xin",
+					"display": {
+						"isDisplay": true,
+						"isShow": true
+					},
+					"control_type": "",
+					"formtype": "input",
+					"css_status": false,
+					"sortable": true,
+					"filter": 0,
+					"updateOnGrid": false,
+					"haveDrpFilter": true,
+					"filterGrp": []
+				},
+				{
+					"name": "IdSoVanBan",
+					"type": "number",
+					"required": true,
+					"title": "Sổ văn bản",
+					"display": {
+						"isDisplay": true,
+						"isShow": true
+					},
+					"formtype": "",
+					"control_type": "select",
+					"css_status": false,
+					"sortable": true,
+					"filter": 0,
+					"updateOnGrid": false,
+					"haveDrpFilter": false,
+					"filterGrp": [],
+					"isKeyModel": true
+				},
+				{
+					"name": "LoaiVanBan",
+					"type": "number",
+					"required": false,
+					"title": "Loại văn bản",
+					"display": {
+						"isDisplay": true,
+						"isShow": true
+					},
+					"formtype": "",
+					"control_type": "select",
+					"css_status": false,
+					"sortable": false,
+					"filter": 0,
+					"updateOnGrid": false,
+					"haveDrpFilter": false,
+					"filterGrp": [],
+					"isKeyModel": true
+				},
+				{
+					"name": "NguoiDangKy",
+					"type": "number",
+					"required": true,
+					"title": "Người đăng ký",
+					"display": {
+						"isDisplay": true,
+						"isShow": true
+					},
+					"formtype": "",
+					"control_type": "select",
+					"css_status": false,
+					"sortable": true,
+					"filter": 0,
+					"updateOnGrid": false,
+					"haveDrpFilter": false,
+					"filterGrp": [],
+					"isKeyModel": true
+				},
+				{
+					"name": "GhiChu",
+					"type": "string",
+					"required": false,
+					"maxLength": 2000,
+					"title": "Ghi chú",
+					"display": {
+						"isDisplay": true,
+						"isShow": true
+					},
+					"control_type": "",
+					"formtype": "input",
+					"css_status": false,
+					"sortable": true,
+					"filter": 0,
+					"updateOnGrid": false,
+					"haveDrpFilter": true,
+					"filterGrp": []
+				}
+			]
+		}
+	],
+	"methods": {
+		"api": "/dang-ky-giu-so",
+		"list": {
+			"api": "/list",
+			"option": "POST"
+		},
+		"create": "/create",
+		"update": "/update",
+		"delete": "/delete?id=${itemId}",
+		"delete_multi": "",
+		"getbyid": "/detail?id=${itemId}",
+		"loadDataImport": "",
+		"ImportFile": "",
+		"Export": "",
+		"DownloadFileMau": ""
+	},
+	"classbuttons": {
+		"import": "accent",
+		"export": "info",
+		"print": "info",
+		"add": "primary",
+		"back": "default",
+		"reset": "accent",
+		"saveAndBack": "primary",
+		"saveAndAdd": "primary",
+		"zoom": "accent",
+		"delete": "warn",
+		"edit": "primary"
+	}
+}

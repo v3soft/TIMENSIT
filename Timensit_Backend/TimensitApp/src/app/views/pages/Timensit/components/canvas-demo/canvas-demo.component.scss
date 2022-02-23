@@ -1,0 +1,130 @@
+.canvas-cover {
+  display: flex;
+  max-width: 100%;
+  position: relative;
+  border: 2px solid #ecebf2;
+  border-radius: 5px;
+
+  .canvas {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+
+    .cv-tooltip {
+      position: absolute;
+      max-width: 200px;
+      word-wrap: break-word;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 12px;
+      background-color: #fff;
+      padding: 5px;
+      border-radius: 5px;
+      border: 2px solid #3360f1cf;
+    }
+  }
+
+  .canvas-info {
+    width: auto;
+    max-width: 100%;
+    min-width: 30%;
+    border: 2px solid #9ac3fb;
+    padding: 0.5rem;
+    border-radius: 5px;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #fff;
+    position: absolute;
+    right: 0;
+
+    .cv-node-title-cover {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      position: relative;
+
+      .cv-node-title {
+        padding-right: 40px;
+      }
+    }
+
+    .cv-trl-add {
+      margin: 0 5px;
+      padding: 2px 8px;
+      color: #ffffff;
+      border-radius: 10px;
+      background-color: #66c5a0;
+      cursor: pointer;
+    }
+
+    .cv-trl-edit {
+      position: absolute;
+      right: 0;
+      margin: 0 5px;
+      padding: 2px 8px;
+      color: #ffffff;
+      border-radius: 10px;
+      background-color: #90caf1;
+      cursor: pointer;
+    }
+
+    .cv-trl-delete {
+      margin: 0 5px;
+      padding: 2px 8px;
+      color: #ffffff;
+      border-radius: 10px;
+      background-color: #f1546c;
+      cursor: pointer;
+    }
+
+    .cv-trl-save {
+      position: absolute;
+      right: 0;
+      margin: 0 5px;
+      padding: 2px 8px;
+      color: #ffffff;
+      border-radius: 10px;
+      background-color: #90caf1;
+      cursor: pointer;
+    }
+
+    .cv-arrows-content {
+      .cv-arr-item {
+        position: relative;
+        padding: 10px;
+        padding-right: 70px;
+      }
+    }
+
+    .action-cover {
+      position: absolute;
+      right: 5px;
+      width: 65px;
+      top: 10px;
+      display: flex;
+      flex-flow: row-reverse;
+
+      .cv-trl-edit {
+        position: initial;
+      }
+    }
+  }
+}
+
+.canvas-dialog {
+  .mat-dialog-title,
+  .mat-dialog-content,
+  .mat-dialog-actions {
+    padding: 12px 24px !important;
+  }
+
+  .mat-dialog-content {
+    margin: 0 !important;
+  }
+}
+
+.kt-portlet {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-size: 14px;
+}
+.p-mark-comeback {
+  color: red;
+}

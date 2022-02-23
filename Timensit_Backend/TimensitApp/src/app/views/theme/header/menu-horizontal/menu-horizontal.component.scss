@@ -1,0 +1,52 @@
+:host {
+    width: 100%;
+    .kt-header-menu{
+        margin: 0!important;
+    }
+    .kt-header-menu-wrapper {
+        height: 100%;
+        @media only screen and (max-width: 1024px) {
+            background: #0274b5 url("../../../../../assets/images/bgHeader.png") right top no-repeat;
+            background-position: center;
+            background-size: cover;
+        }
+        .kt-menu__nav.dl-menu-custom>.kt-menu__item {
+            border-right: 1px solid rgba(0, 0, 0, 0.2);
+            &:hover,
+            &:focus {
+                background-color: #0268a3;
+
+                @media only screen and (max-width: 1024px) {
+                    .kt-menu__link-text,
+                        .kt-menu__hor-arrow {
+                            color:  rgb(0,0,0)!important;
+                            font-weight: 500;
+                        }
+                }
+            }
+            &.kt-menu__item--active, &.kt-menu__item--open {
+                .kt-menu__link-text,
+                .kt-menu__hor-arrow {
+                    color: #f7e909!important;
+
+                    @media only screen and (max-width: 1024px) {
+                        color: #5d78ff!important;
+                        font-weight: bold;
+                        font-size: 120%;
+                    }
+                }
+            }
+            .kt-menu__toggle {
+                //chỉ root
+                height: 100%;
+                .kt-menu__link-text,
+                .kt-menu__hor-arrow {
+                    color: #fff;
+                    text-transform: uppercase;
+                    font-weight: 400;
+                }
+            }
+        }
+       
+    }
+}

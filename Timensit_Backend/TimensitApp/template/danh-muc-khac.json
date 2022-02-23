@@ -1,0 +1,184 @@
+{
+	"folder_path": "/views/pages/Timensit/danh-muc",
+	"name": "DanhMucKhac",
+	"text": "Danh mục khác",
+	"Sub_menu_tree": "",
+	"modulePage": "",
+	"listOptions": {
+		"nColumnsFilterInOneRow": 2,
+		"sortOrder": "asc",
+		"sortField": "Priority"
+	},
+	"editOptions": {
+		"nColumnsFilterInOneRow": 2
+	},
+	"numberOfFixedPoint": 0,
+	"attributes": [
+		{
+			"className": "DanhMucKhac",
+			"tableName": "DM_DanhMuc",
+			"content": [
+				{
+					"name": "Id",
+					"type": "number",
+					"required": false,
+					"title": "Id",
+					"display": {
+						"isDisplay": false,
+						"isShow": false
+					},
+					"formtype": "input",
+					"control_type": "",
+					"css_status": false,
+					"sortable": false,
+					"filter": 0,
+					"updateOnGrid": false,
+					"haveDrpFilter": false,
+					"filterGrp": [],
+					"isKeyModel": true
+				},
+				{
+					"name": "DanhMuc",
+					"type": "string",
+					"required": true,
+					"maxLength": 100,
+					"title": "Danh mục",
+					"display": {
+						"isDisplay": true,
+						"isShow": true
+					},
+					"control_type": "",
+					"formtype": "input",
+					"css_status": false,
+					"sortable": true,
+					"filter": 0,
+					"updateOnGrid": false,
+					"haveDrpFilter": true,
+					"filterGrp": []
+				},
+				{
+					"name": "MaDanhMuc",
+					"type": "string",
+					"required": true,
+					"maxLength": 100,
+					"title": "Mã danh mục",
+					"display": {
+						"isDisplay": true,
+						"isShow": true
+					},
+					"control_type": "",
+					"formtype": "input",
+					"css_status": false,
+					"sortable": true,
+					"filter": 0,
+					"updateOnGrid": false,
+					"haveDrpFilter": true,
+					"filterGrp": []
+				},
+				{
+					"name": "DonVi",
+					"type": "number",
+					"required": false,
+					"title": "Đơn vị",
+					"display": {
+						"isDisplay": true,
+						"isShow": true
+					},
+					"formtype": "dropdowntree",
+					"control_type": "",
+					"dropdownOptions": {
+						"options": {
+							"Data": [],
+							"IDKey": "id",
+							"NameKey": "title",
+							"ChildrensKey": "data",
+							"api": "/lite/DM_PhongBan_Tree"
+						}
+					},
+					"css_status": false,
+					"sortable": true,
+					"filter": 0,
+					"updateOnGrid": false,
+					"haveDrpFilter": false,
+					"filterGrp": [],
+					"isKeyModel": true
+				},
+				{
+					"name": "Locked",
+					"type": "boolean",
+					"required": false,
+					"title": "Tình trạng",
+					"display": {
+						"isDisplay": true,
+						"isShow": true
+					},
+					"control_type": "",
+					"formtype": "checkbox",
+					"css_status": true,
+					"sortable": true,
+					"filter": 0,
+					"updateOnGrid": false,
+					"haveDrpFilter": true,
+					"filterGrp": [
+						{
+							"name": "Hoạt động",
+							"value": "False"
+						},
+						{
+							"name": "Khóa",
+							"value": "True"
+						}
+					]
+				},
+				{
+					"name": "Priority",
+					"type": "number",
+					"required": false,
+					"title": "Thứ tự",
+					"display": {
+						"isDisplay": true,
+						"isShow": true
+					},
+					"control_type": "",
+					"formtype": "input",
+					"css_status": false,
+					"sortable": true,
+					"filter": 0,
+					"updateOnGrid": false,
+					"haveDrpFilter": false,
+					"filterGrp": [],
+					"isKeyModel": true
+				}
+			]
+		}
+	],
+	"methods": {
+		"api": "/danhmuckhac",
+		"list": {
+			"api": "/list",
+			"option": "POST"
+		},
+		"create": "/create",
+		"update": "/update",
+		"delete": "/delete?id=${itemId}",
+		"delete_multi": "",
+		"getbyid": "/detail?id=${itemId}",
+		"loadDataImport": "",
+		"ImportFile": "",
+		"Export": "",
+		"DownloadFileMau": ""
+	},
+	"classbuttons": {
+		"import": "accent",
+		"export": "info",
+		"print": "info",
+		"add": "primary",
+		"back": "default",
+		"reset": "accent",
+		"saveAndBack": "primary",
+		"saveAndAdd": "primary",
+		"zoom": "accent",
+		"delete": "warn",
+		"edit": "primary"
+	}
+}

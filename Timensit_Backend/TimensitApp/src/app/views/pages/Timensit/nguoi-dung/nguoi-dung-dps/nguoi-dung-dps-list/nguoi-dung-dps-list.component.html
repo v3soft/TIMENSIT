@@ -1,0 +1,323 @@
+<style>
+	.grid-image {
+		align-self: center;
+		max-height: 34px;
+		border-radius: 4px;
+	}
+	@media print {
+		th:last-child,
+		td:last-child {
+			display: none;
+		}
+		/* @page {
+			orientation: landscape !important;
+		} */
+	}
+	@media print { @page { size: A4 landscape; } }
+</style>
+<kt-portlet>
+	<kt-portlet-header [sticky]="true" id="inheader" [title]="'Danh sách người dùng'" [class]="'kt-portlet__head--lg'"
+		[viewLoading$]="dataSource.loading$">
+		<ng-container ktPortletTools>
+			<!-- <button mat-raised-button  [matMenuTriggerFor]="export" color="primary" matTooltip="Xuất dữ liệu" >
+				Xuất dữ liệu
+			</button> -->
+			<!-- <mat-menu #export="matMenu">
+				<button mat-menu-item matTooltip="Xuất dữ liệu PDF" (click)="convetToPDF()">PDF</button>
+				<button mat-menu-item matTooltip="Xuất dữ liệu Word" (click)="DownloadFile()">MS Word</button>
+				<button mat-menu-item matTooltip="Xuất dữ liệu Excel">MS Excel</button>
+				<button mat-menu-item matTooltip="In danh sách người dùng" printTitle="Danh sách người dùng" (click)="LoadPagePrint()">In</button>
+			</mat-menu> -->
+
+			<button class="show-view-sm" mat-raised-button  [matMenuTriggerFor]="chucnang" color="primary" >
+				Chức năng
+			</button>
+			<mat-menu #chucnang="matMenu">
+				<button mat-menu-item color="info" matTooltip="In danh sách người dùng" printTitle="Danh sách người dùng" (click)="LoadPagePrint()">In</button>
+				<button mat-menu-item (click)="import()" color="primary" matTooltip="Import người dùng">Import</button>
+				<button mat-menu-item (click)="ExportFile()" color="info" matTooltip="Export người dùng">Export</button>
+				<button mat-menu-item (click)="addNguoiDungDPS()" color="primary" matTooltip="Thêm mới người dùng">Thêm mới</button>
+			</mat-menu>
+			<!-- view nhỏ hơn 768 bị ẩn -->
+			<div class="hide-view-sm">
+				<button mat-raised-button color="info" matTooltip="In danh sách người dùng" printTitle="Danh sách người dùng" (click)="LoadPagePrint()">In</button>
+				<button (click)="import()" mat-raised-button color="primary" matTooltip="Import người dùng">Import</button>
+				<button (click)="ExportFile()" mat-raised-button color="info" matTooltip="Export người dùng">Export</button>
+				<button (click)="addNguoiDungDPS()" mat-raised-button color="primary" matTooltip="Thêm mới người dùng">Thêm mới</button>
+			</div>
+			<button class="d-none" #printPage [useExistingCss]="true" printSectionId="print-section"
+				ngxPrint>Import</button>
+			<kt-column-option [gridService]="gridService"></kt-column-option>
+		</ng-container>
+	</kt-portlet-header>
+	<!-- end::Header -->
+	<kt-portlet-body>
+		<!-- start::FILTERS -->
+		<div class="kt-form__filtration">
+			<div class="row align-items-center">
+				<div class="col-md-3 kt-margin-bottom-10-mobile">
+					<m-dropdown-tree [data]="datatree" [FieldTitle]="'title'" [FieldId]="'id'" [FieldChildren]="'data'"
+						[DropdownTitle]="'Đơn vị'" (SelectedItemTree)="GetValueNode($event)"></m-dropdown-tree>
+				</div>
+				<div class="col-md-3 kt-margin-bottom-10-mobile">
+					<mat-form-field class="mat-form-field-fluid">
+						<mat-select [(ngModel)]="VaiTro" placeholder="Vai trò"
+							(selectionChange)="loadNguoiDungDPSsList(true)">
+							<mat-option value="0">-- Tất cả --</mat-option>
+							<mat-option *ngFor="let opt of lstVaiTro" [value]="opt.id">{{opt.title}}</mat-option>
+						</mat-select>
+					</mat-form-field>
+				</div>
+				<div class="col-md-3 kt-margin-bottom-10-mobile">
+					<mat-checkbox [(ngModel)]="ChuaCoVaiTro" (change)="loadNguoiDungDPSsList(true)">Chưa có vai trò
+					</mat-checkbox>
+				</div>
+			</div>
+		</div>
+		<!-- end::FILTERS -->
+		<!-- MATERIAL TABLE | Binded to datasources -->
+		<!-- <div class="mat-table__wrapper" [ngStyle]="{'overflow-x': gridService.model.haveFilter?'unset':'auto'}" id="print-section"> -->
+		<div class="mat-table__wrapper d-block"  id="print-section" [ngStyle]="{'overflow-x': gridService.model.haveFilter?'unset':'auto'}" >
+			<!-- Checkbox Column -->
+			<table mat-table class="lmat-elevation-z8" [ngClass]="{'dl-table-flt': gridService.model.haveFilter}" #table id="printpdf"
+				[dataSource]="dataSource" matSort #sort1="matSort" matSortActive="FullName" matSortDirection="asc"
+				matSortDisableClear cdkDropListGroup>
+				<ng-container matColumnDef="STT">
+					<th mat-header-cell *matHeaderCellDef class="stt-cell">STT</th>
+					<td mat-cell class="stt-cell" *matCellDef="let item; let i=index">
+						{{i+1}}
+					</td>
+				</ng-container>
+				<ng-container matColumnDef="Avatar">
+					<th mat-header-cell *matHeaderCellDef></th>
+					<td mat-cell class="m--padding-10" style="text-align: left;padding-bottom: 4px"
+						*matCellDef="let item">
+						<img src="{{item.Avata}}" class="grid-image" />
+					</td>
+				</ng-container>
+				<ng-container matColumnDef="UserName">
+					<th mat-header-cell *matHeaderCellDef>
+						<kt-column-filter [gridService]="gridService" enable_sort="true" column_name="UserName"
+							column_title="Tên đăng nhập"></kt-column-filter>
+					</th>
+					<td mat-cell class="m--padding-10" style="text-align: left;padding-bottom: 4px"
+						*matCellDef="let item">
+						<a href="javascript:;" (click)="editNguoiDungDPS(item,false)">{{item.UserName}}</a> 
+					</td>
+				</ng-container>
+				<ng-container matColumnDef="FullName">
+					<th mat-header-cell *matHeaderCellDef>
+						<kt-column-filter [gridService]="gridService" enable_sort="true" column_name="FullName"
+							column_title="Họ tên"></kt-column-filter>
+					</th>
+					<td mat-cell class="m--padding-10" style="text-align: left;padding-bottom: 4px"
+						*matCellDef="let item">
+						{{item.FullName}}
+					</td>
+				</ng-container>
+				<ng-container matColumnDef="MaNV">
+					<th mat-header-cell *matHeaderCellDef>
+						<kt-column-filter [gridService]="gridService" enable_sort="true" column_name="MaNV"
+							column_title="Mã NV"></kt-column-filter>
+					</th>
+					<td mat-cell class="m--padding-10" style="text-align: left;padding-bottom: 4px"
+						*matCellDef="let item">
+						{{item.MaNV}}
+					</td>
+				</ng-container>
+				<!--<ng-container matColumnDef="ViettelStudy">
+					<th mat-header-cell *matHeaderCellDef>
+						<kt-column-filter [gridService]="gridService" enable_sort="true" column_name="ViettelStudy"
+							column_title="Tài khoản Viettel study"></kt-column-filter>
+					</th>
+					<td mat-cell class="m--padding-10" style="text-align: left;padding-bottom: 4px"
+						*matCellDef="let item">
+						{{item.ViettelStudy}}
+					</td>
+				</ng-container>-->
+				<ng-container matColumnDef="ChucVu">
+					<th mat-header-cell *matHeaderCellDef>
+						<kt-column-filter [gridService]="gridService" column_name="ChucVu" column_title="Chức vụ">
+						</kt-column-filter>
+					</th>
+					<td mat-cell class="m--padding-10" style="text-align: left;padding-bottom: 4px"
+						*matCellDef="let item">
+						{{item.ChucVu}}
+					</td>
+				</ng-container>
+				<ng-container matColumnDef="DonVi">
+					<th mat-header-cell *matHeaderCellDef>
+						Đơn vị
+					</th>
+					<td mat-cell class="m--padding-10" style="text-align: left;padding-bottom: 4px"
+						*matCellDef="let item">
+						{{item.DonVi}}
+					</td>
+				</ng-container>
+				<ng-container matColumnDef="Email">
+					<th mat-header-cell *matHeaderCellDef>
+						<kt-column-filter [gridService]="gridService" enable_sort="true" column_name="Email"
+							column_title="Email"></kt-column-filter>
+					</th>
+					<td mat-cell class="m--padding-10" style="text-align: left;padding-bottom: 4px"
+						*matCellDef="let item">
+						{{item.Email}}
+					</td>
+				</ng-container>
+				<ng-container matColumnDef="PhoneNumber">
+					<th mat-header-cell *matHeaderCellDef>
+						<kt-column-filter [gridService]="gridService" enable_sort="true" column_name="PhoneNumber"
+							column_title="Số điện thoại"></kt-column-filter>
+					</th>
+					<td mat-cell class="m--padding-10" style="text-align: left;padding-bottom: 4px"
+						*matCellDef="let item">
+						{{item.PhoneNumber}}
+					</td>
+				</ng-container>
+				<ng-container matColumnDef="ExpDate">
+					<th mat-header-cell *matHeaderCellDef>
+						Ngày hết hạn
+					</th>
+					<td mat-cell class="m--padding-10" style="text-align: left;padding-bottom: 4px"
+						*matCellDef="let item">
+						<span style="color:red" *ngIf="item.IsQuaHan" title="Quá hạn">
+							{{item.ExpDate}}
+						</span>
+						<span *ngIf="!item.IsQuaHan">
+							{{item.ExpDate}}
+						</span>
+					</td>
+				</ng-container>
+				<ng-container matColumnDef="Active">
+					<th style="white-space: nowrap;" mat-header-cell *matHeaderCellDef>
+						<kt-column-filter [gridService]="gridService" enable_sort="true" column_name="Active"
+							column_title="Tình trạng"></kt-column-filter>
+					</th>
+					<td mat-cell [ngClass]="{'m--padding-10': true}" style="white-space: nowrap; text-align: left"
+						*matCellDef="let item">
+						<span
+							class="kt-badge kt-badge--inline kt-badge--pill kt-badge--wide {{getItemCssClassByStatus(item.Active)}}">{{getItemStatusString(item.Active)}}</span>
+					</td>
+				</ng-container>
+				<ng-container matColumnDef="GioiTinh">
+					<th mat-header-cell *matHeaderCellDef>
+						Giới tính
+					</th>
+					<td mat-cell class="m--padding-10" style="text-align: left;padding-bottom: 4px"
+						*matCellDef="let item">
+						{{item.GioiTinh}}
+					</td>
+				</ng-container>
+				<!--<ng-container matColumnDef="NhanLichDonVi">
+					<th mat-header-cell *matHeaderCellDef>
+						<kt-column-filter [gridService]="gridService" column_name="NhanLichDonVi"
+							column_title="Nhận lịch đơn vị"></kt-column-filter>
+					</th>
+					<td mat-cell class="m--padding-10" style="text-align: left;padding-bottom: 4px"
+						*matCellDef="let item">
+						{{item.NhanLichDonVi==1?'Có':''}}
+					</td>
+				</ng-container>-->
+				<ng-container matColumnDef="LastLogin">
+					<th mat-header-cell *matHeaderCellDef>
+						<kt-column-filter [gridService]="gridService" enable_sort="true" column_name="LastLogin"
+							column_title="Lần đăng nhập cuối"></kt-column-filter>
+					</th>
+					<td mat-cell class="m--padding-10" style="text-align: left;padding-bottom: 4px"
+						*matCellDef="let item">
+						{{item.LastLogin}}
+					</td>
+				</ng-container>
+				<ng-container matColumnDef="actions">
+					<th mat-header-cell *matHeaderCellDef class="hiden-print">
+						Thao tác
+					</th>
+					<td mat-cell *matCellDef="let nguoidungdps" class="hiden-print action-cell" [ngClass]="list_button?'list-button':''">
+						<button type="button" (click)="editNguoiDungDPS(nguoidungdps,false)" mat-button [class.mat-raised-button]="list_button" [class.mat-icon-button]="!list_button"
+								color="info" matTooltip="{{ 'COMMON.DETAIL' | translate }}">
+							<mat-icon>visibility</mat-icon>
+							<span class="button-text">{{ 'COMMON.DETAIL' | translate }}</span>
+						</button>
+						<!--<button type="button" (click)="vaitro(nguoidungdps,false)" mat-icon-button color="primary" matTooltip="Vai trò" *ngIf="rR.r24">
+							<mat-icon>supervisor_account</mat-icon>
+						</button>
+						<button type="button" (click)="ResetPassNguoiDungDPS(nguoidungdps)" *ngIf="rR.r11" mat-icon-button color="primary" matTooltip="Đặt lại mật khẩu người dùng">
+							<mat-icon>refresh</mat-icon>
+						</button>&nbsp;-->
+						<ng-container *ngIf="rR.r10">
+							<button type="button" (click)="editNguoiDungDPS(nguoidungdps)" mat-button [class.mat-raised-button]="list_button" [class.mat-icon-button]="!list_button"
+									color="primary" matTooltip="{{ 'COMMON.UPDATE' | translate }}">
+								<mat-icon>create</mat-icon>
+								<span class="button-text">{{ 'COMMON.UPDATE' | translate }}</span>
+							</button>
+							<button type="button" (click)="lock(nguoidungdps,false)" mat-button [class.mat-raised-button]="list_button" [class.mat-icon-button]="!list_button" color="primary"
+									matTooltip="Mở khóa" *ngIf="nguoidungdps.Active==0">
+								<mat-icon>lock_open</mat-icon>
+								<span class="button-text">Mở khóa</span>
+							</button>
+							<!--User đang đăng nhập không được tự khóa, xóa tài khoản-->
+							<button type="button" (click)="lock(nguoidungdps)" mat-button [class.mat-raised-button]="list_button" [class.mat-icon-button]="!list_button" color="warn"
+									matTooltip="Khóa" *ngIf="nguoidungdps.Active==1"
+									[disabled]="curUser.id==nguoidungdps.UserID">
+								<mat-icon>lock</mat-icon>
+								<span class="button-text">Khóa</span>
+							</button>
+							<!--User đang đăng nhập không được tự khóa, xóa tài khoản-->
+							<button mat-button [class.mat-raised-button]="list_button" [class.mat-icon-button]="!list_button" color="warn" type="button"
+									(click)="deleteNguoiDungDPS(nguoidungdps)" matTooltip="{{ 'COMMON.DELETE' | translate }}"
+									[disabled]="curUser.id==nguoidungdps.UserID">
+								<mat-icon>delete</mat-icon>
+								<span class="button-text">{{ 'COMMON.DELETE' | translate }}</span>
+							</button>
+							<button mat-button [matMenuTriggerFor]="menu" [class.mat-raised-button]="list_button" [class.mat-icon-button]="!list_button" color="primary"
+									*ngIf="rR.r24 || rR.r11" matTooltip="Thao tác khác">
+								<mat-icon>settings</mat-icon>
+								<span class="button-text">Khác</span>
+							</button>
+							<mat-menu #menu="matMenu">
+								<button mat-menu-item (click)="vaitro(nguoidungdps,false)" *ngIf="rR.r24">Vai trò</button>
+								<button mat-menu-item (click)="ResetPassNguoiDungDPS(nguoidungdps)" *ngIf="rR.r11">Đặt lại mật khẩu</button>
+								<button mat-menu-item (click)="giahan(nguoidungdps)" *ngIf="rR.r11">Gia hạn mật khẩu</button>
+							</mat-menu>
+						</ng-container>
+					</td>
+				</ng-container>
+				<tr mat-header-row *matHeaderRowDef="gridService.model.displayedColumns"></tr>
+				<tr mat-row *matRowDef="let row; columns: gridService.model.displayedColumns"></tr>
+			</table>
+			<div class="mat-table__message" *ngIf="!dataSource.hasItems">{{'COMMON.NO_RECORD_FOUND'|translate}}</div>
+		</div>
+
+		<!-- start: BOTTOM -->
+		<div class="mat-table__bottom" [ngClass]="{'exist-flt': gridService.model.haveFilter}">
+			<div class="flt-selected" *ngIf="gridService.model.haveFilter">
+				<mat-chip-list>
+					<ng-container *ngFor="let chip of gridService.model.lstChip">
+						<mat-chip removable="true" *ngIf="chip.type==2" (removed)="gridService.removeText(chip.key)">
+							{{chip.title}}: {{chip.data}}
+							<mat-icon matChipRemove>cancel</mat-icon>
+						</mat-chip>
+						<ng-container *ngIf="chip.type==1">
+							<mat-chip *ngFor="let item of chip.data" removable="true"
+								(removed)="gridService.remove(item,chip.key);gridService.showClearAllButton()">
+								{{chip.title}}: {{item.name}}
+								<mat-icon matChipRemove>cancel</mat-icon>
+							</mat-chip>
+						</ng-container>
+					</ng-container>
+					<mat-chip class="flt-clear" color="primary" removable="true" *ngIf="gridService.model.isClearAll"
+						(click)="gridService.Clear()">
+						Đặt lại
+					</mat-chip>
+				</mat-chip-list>
+			</div>
+			<div class="flt-page">
+				<mat-spinner [diameter]="20" *ngIf="dataSource.loading$ | async"></mat-spinner>
+				<mat-paginator [pageSize]="10" [pageSizeOptions]="gridService.model.pageSize"
+					[length]="dataSource.paginatorTotal$ | async" [showFirstLastButtons]="true"></mat-paginator>
+			</div>
+		</div>
+		<!-- end: BOTTOM -->
+	</kt-portlet-body>
+	<!-- end::Body -->
+</kt-portlet>

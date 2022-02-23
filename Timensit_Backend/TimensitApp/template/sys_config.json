@@ -1,0 +1,156 @@
+{
+	"folder_path": "/views/pages/Timensit/cau-hinh",
+	"name": "Config",
+	"text": "Cấu hình",
+	"Sub_menu_tree": "",
+	"modulePage": "",
+	"listOptions": {
+		"nColumnsFilterInOneRow": 2,
+		"sortOrder": "asc",
+		"sortField": "Priority"
+	},
+	"editOptions": {
+		"nColumnsFilterInOneRow": 2
+	},
+	"numberOfFixedPoint": 0,
+	"attributes": [
+		{
+			"className": "SysConfig",
+			"tableName": "Sys_Config",
+			"content": [
+				{
+					"name": "IdRow",
+					"type": "number",
+					"required": false,
+					"title": "Id",
+					"display": {
+						"isDisplay": false,
+						"isShow": false
+					},
+					"formtype": "input",
+					"control_type": "",
+					"css_status": false,
+					"sortable": false,
+					"filter": 0,
+					"updateOnGrid": false,
+					"haveDrpFilter": false,
+					"filterGrp": [],
+					"isKeyModel": true
+				},
+				{
+					"name": "Code",
+					"type": "string",
+					"required": true,
+					"maxLength": 100,
+					"title": "Mã",
+					"display": {
+						"isDisplay": true,
+						"isShow": true
+					},
+					"control_type": "",
+					"formtype": "input",
+					"css_status": false,
+					"sortable": true,
+					"filter": 0,
+					"updateOnGrid": false,
+					"haveDrpFilter": true,
+					"filterGrp": []
+				},
+				{
+					"name": "Value",
+					"type": "string",
+					"required": true,
+					"maxLength": 100,
+					"title": "Giá trị",
+					"display": {
+						"isDisplay": true,
+						"isShow": true
+					},
+					"control_type": "",
+					"formtype": "input",
+					"css_status": false,
+					"sortable": true,
+					"filter": 0,
+					"updateOnGrid": false,
+					"haveDrpFilter": true,
+					"filterGrp": []
+				},
+				{
+					"name": "IdGroup",
+					"type": "number",
+					"required": true,
+					"title": "Nhóm cấu hình",
+					"display": {
+						"isDisplay": true,
+						"isShow": true
+					},
+					"formtype": "select",
+					"control_type": "",
+					"dropdownOptions": {
+						"options": {
+							"Data": [],
+							"IDKey": "id",
+							"NameKey": "title",
+							"api": "/lite/config-group"
+						}
+					},
+					"css_status": false,
+					"sortable": true,
+					"filter": 0,
+					"updateOnGrid": false,
+					"haveDrpFilter": false,
+					"filterGrp": [],
+					"isKeyModel": true
+				},
+				{
+					"name": "Priority",
+					"type": "number",
+					"required": false,
+					"title": "Thứ tự",
+					"display": {
+						"isDisplay": true,
+						"isShow": true
+					},
+					"formtype": "input",
+					"control_type": "",
+					"css_status": false,
+					"sortable": false,
+					"filter": 0,
+					"updateOnGrid": false,
+					"haveDrpFilter": false,
+					"filterGrp": [],
+					"isKeyModel": true
+				}
+			]
+		}
+	],
+	"methods": {
+		"api": "/cau-hinh",
+		"list": {
+			"api": "/list",
+			"option": "POST"
+		},
+		"create": "/create",
+		"update": "/update",
+		"delete": "/delete?id=${itemId}",
+		"delete_multi": "",
+		"getbyid": "/detail?id=${itemId}",
+		"loadDataImport": "",
+		"ImportFile": "",
+		"Export": "",
+		"DownloadFileMau": ""
+	},
+	"classbuttons": {
+		"import": "accent",
+		"export": "info",
+		"print": "info",
+		"add": "primary",
+		"back": "default",
+		"reset": "accent",
+		"saveAndBack": "primary",
+		"saveAndAdd": "primary",
+		"zoom": "accent",
+		"delete": "warn",
+		"edit": "primary"
+	}
+}

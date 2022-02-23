@@ -1,0 +1,21 @@
+<button mat-icon-button [matMenuTriggerFor]="menu" #trigger="matMenuTrigger" (menuOpened)="gridService.menuChange($event,0)" (menuClosed)="gridService.menuChange($event,1)">
+	<mat-icon>more_vert</mat-icon>
+</button>
+<mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="$event.stopPropagation()">
+		<mat-checkbox #ckAll (change)="$event ? gridService.CheckAllColumns() : null"
+						[checked]="gridService.model.selectedColumns.hasValue() && gridService.IsAllColumnsChecked()"
+						[indeterminate]="gridService.model.selectedColumns.hasValue() && !gridService.IsAllColumnsChecked()">Tất cả</mat-checkbox>
+	</button>
+    <button mat-menu-item *ngFor="let col of gridService.model.availableColumns" (click)="$event.stopPropagation()">
+		<mat-checkbox [disabled]="col.alwaysChecked" (click)="$event.stopPropagation()"
+						(change)="$event ? gridService.model.selectedColumns.toggle(col) : null"
+						[checked]="gridService.model.selectedColumns.isSelected(col)">
+			{{col.displayName}}
+		</mat-checkbox>
+	</button>
+    <button mat-menu-item (click)="gridService.applySelectedColumns()">
+		<mat-icon>autorenew</mat-icon>
+		<span>Áp dụng</span>
+	</button>
+</mat-menu>

@@ -1,0 +1,17 @@
+:host {
+	::ng-deep {
+		ngb-tabset > .nav-tabs {
+			display: none;
+			
+		}
+		
+	}
+}
+.text-unread{
+	font-weight: bold!important;
+	color: #141414;
+}
+.notification .mat-badge-content{
+	top: 0;
+    right: -5px;
+}

@@ -1,0 +1,89 @@
+<kt-portlet [options]="{headLarge: true}">
+	<kt-portlet-header [sticky]="true" [class]="'kt-portlet__head--lg'" [viewLoading$]="dataSource.loading$">
+		<ng-container ktPortletTitle>
+			<div class="kt-form__filtration">
+				<h3 class="kt-portlet__head-title">
+					<span translate="OBJECT.LIST" [translateParams]="{name:this._name.toLowerCase()}"></span>
+				</h3>
+			</div>
+		</ng-container>
+		<ng-container ktPortletTools>
+			<span>Phiên bản <b>{{ver.Version}}</b> - Cập nhật ngày <b>{{ver.Date}}</b></span>&nbsp;&nbsp;
+			<button (click)="Add()" mat-raised-button matTooltip="{{ 'COMMON.CREATE' | translate }}" color="accent" type="button" *ngIf="rR.r1122">
+				<span translate="COMMON.CREATE"></span>
+			</button>
+		</ng-container>
+	</kt-portlet-header>
+	<div class="kt-portlet__body">
+		<div class="mat-table__wrapper">
+			<!-- Checkbox Column -->
+			<!-- Table with selection -->
+			<!-- https://run.stackblitz.com/api/angular/v1?file=app%2Ftable-selection-example.ts -->
+			<table mat-table class="lmat-elevation-z8" [dataSource]="dataSource" matSort matSortActive="HDSD" matSortDirection="asc" matSortDisableClear>
+				<!-- Checkbox Column -->
+				<ng-container matColumnDef="STT">
+					<th mat-header-cell *matHeaderCellDef class="mat-column-vinCode stt-cell"
+						style="flex: 0 0 8%">
+						{{'COMMON.STT'|translate}}
+					</th>
+					<td mat-cell *matCellDef="let hd; let i=index" class="mat-column-vinCode stt-cell" style="flex: 0 0 8%">
+						{{i+1}}
+					</td>
+				</ng-container>
+				<ng-container matColumnDef="HDSD">
+					<th mat-header-cell *matHeaderCellDef mat-sort-header class="mat-column-vinCode"
+						style="flex: 0 0 55%">
+						HDSD
+					</th>
+					<td mat-cell *matCellDef="let hd" class="mat-column-vinCode" style="flex: 0 0 55%">
+						<a href="viewer/file-dinh-kem/0?path={{hd.path}}">{{hd.HDSD}}</a>
+					</td>
+				</ng-container>
+				<ng-container matColumnDef="actions">
+					<th mat-header-cell *matHeaderCellDef style="width: 100px;">
+						<span translate="COMMON.TACVU"></span>
+					</th>
+					<td mat-cell *matCellDef="let hd" class="action-cell" [ngClass]="list_button?'list-button':''">
+							<a href="viewer/file-dinh-kem/0?path={{hd.path}}" target="_blank" mat-button [class.mat-raised-button]="list_button" [class.mat-icon-button]="!list_button"
+									matTooltip="{{ 'COMMON.DETAIL' | translate }}" color="info" type="button">
+								<mat-icon>visibility</mat-icon>
+								<span class="button-text">{{ 'COMMON.DETAIL' | translate }}</span>
+							</a>
+							<ng-container *ngIf="hd.AllowEdit">
+								<button mat-button [class.mat-raised-button]="list_button" [class.mat-icon-button]="!list_button" color="primary" type="button" matTooltip="{{ 'COMMON.UPDATE' | translate }}" (click)="Edit(hd)">
+									<mat-icon>edit</mat-icon>
+									<span class="button-text">{{ 'COMMON.UPDATE' | translate }}</span>
+								</button>
+								<button mat-button [class.mat-raised-button]="list_button" [class.mat-icon-button]="!list_button" color="warn" type="button" (click)="delete(hd)" matTooltip="{{ 'COMMON.DELETE' | translate }}">
+									<mat-icon>delete</mat-icon>
+									<span class="button-text">{{ 'COMMON.DELETE' | translate }}</span>
+								</button>
+							</ng-container>
+							<button  (click)="Download(hd)" mat-button [class.mat-raised-button]="list_button" [class.mat-icon-button]="!list_button"
+									matTooltip="{{ 'COMMON.DOWNLOAD' | translate }}" color="info" type="button">
+								<mat-icon>cloud_download</mat-icon>
+								<span class="button-text">{{ 'COMMON.DOWNLOAD' | translate }}</span>
+							</button>
+					</td>
+				</ng-container>
+
+				<tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+				<tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="row.highlighted = !row.highlighted"
+					[ngClass]="{hovered: row.hovered, highlighted: row.highlighted}" (mouseover)="row.hovered = true"
+					(mouseout)="row.hovered = false"></tr>
+			</table>
+
+			<div class="mat-table__message" *ngIf="!dataSource.hasItems">
+				<span translate="COMMON.NO_RECORD_FOUND"></span>
+			</div>
+		</div>
+
+		<!-- start: BOTTOM -->
+		<div class="mat-table__bottom" style="margin-top: 1px;">
+			<mat-spinner [diameter]="20" *ngIf="dataSource.loading$ | async"></mat-spinner>
+			<mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 20, 50, 100]" [length]="dataSource.paginatorTotal$ | async" [showFirstLastButtons]="true"></mat-paginator>
+		</div>
+		<!-- end: BOTTOM -->
+	</div>
+	<!-- end::Body -->
+</kt-portlet>

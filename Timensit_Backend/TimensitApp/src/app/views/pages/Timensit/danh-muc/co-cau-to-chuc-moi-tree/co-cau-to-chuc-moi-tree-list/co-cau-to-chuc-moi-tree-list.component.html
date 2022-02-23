@@ -1,0 +1,152 @@
+<kt-portlet [options]="{headLarge: true}">
+	<kt-portlet-header [sticky]="true" [title]="_name" [class]="'kt-portlet__head--lg'" [viewLoading$]="loading$">
+		<ng-container ktPortletTools>
+			<button (click)="map()" mat-raised-button matTooltip="Map với đơn vị hành chánh" *ngIf="Visible" color="accent" type="button">
+				Map
+			</button>&nbsp;
+			<a [routerLink]="['/don-vi']" mat-raised-button matTooltip="Xem danh sách" color="accent">
+				Xem danh sách
+			</a>
+		</ng-container>
+	</kt-portlet-header>
+	<div class="kt-portlet-body" style="display: flex; overflow: auto;" [ngClass]="{ 'kt-portlet--body-progress kt-portlet--body-progress-overlay' : viewLoading }">
+		<!-- <div ngbDropdown class="d-inline-block">
+			<button class="btn btn-outline-primary dl-drop-tree-custom-css" id="dropdownForm1" ngbDropdownToggle>Dropdown tree</button>
+			<div ngbDropdownMenu aria-labelledby="dropdownForm1" class="dl-drop-menu-tree"> -->
+		<cdk-tree [dataSource]="dataSource" [treeControl]="treeControl" class="dl-tree-dropdown">
+			<cdk-nested-tree-node *cdkTreeNodeDef="let node" class="example-tree-node">
+
+				<div class="dl-cover-tree-node" (click)="SelectItemTree(node)">
+					<div class="dl-name-node">
+						<div class="name-txt">
+							<div class="cover-drag-item" [id]="node.RowID" draggable="true"
+								 (dragstart)="handleDragStart($event, node);" (dragover)="handleDragOver($event, node);"
+								 (drop)="handleDrop($event, node);" (dragend)="handleDragEnd($event);">
+								<!-- <span dndHandle class="flaticon-more-v5"></span>   -->
+								<span style="padding-left: 5px;" [ngClass]="{'drop-above': dragNodeExpandOverArea === 'above' && dragNodeExpandOverNode === node,
+                            'drop-below': dragNodeExpandOverArea === 'below' && dragNodeExpandOverNode === node,
+                            'drop-center': dragNodeExpandOverArea === 'center' && dragNodeExpandOverNode === node,
+                            'selected-node' : __selectedNode === node
+                          }">{{node.Code}} - {{node.Title}} - ({{node.RowID}})</span>
+								<button mat-icon-button *ngIf="Visible" [matMenuTriggerFor]="menu">
+									<mat-icon>more_vert</mat-icon>
+								</button>
+							</div>
+							<!-- <a (click)="Add(node)" mat-icon-button class="btn-node btn-node-1" color="accent"
+								matTooltip="{{ 'CO_CAU_TO_CHUC.themmoi' | translate }}" *ngIf="Visible"
+								style="color: darkgreen;"><i class="la la-plus"></i></a>
+							<button class="btn-node btn-node-2" mat-icon-button (click)="removeNode(node)"
+								matTooltip="{{ 'CO_CAU_TO_CHUC.xoacocau' | translate }}"
+								*ngIf="Visible && node.ParentID != 0">
+								<mat-icon style="color: red;">close</mat-icon>
+							</button>
+							<button class="btn-node btn-node-3" mat-icon-button *ngIf="Visible"
+								(click)="CapNhatCapCoCau(node)" style="size: 10px" color="accent">
+								<mat-icon>create</mat-icon>
+							</button> -->
+							<mat-menu #menu="matMenu">
+								<button class="btn-node btn-node-1" mat-menu-item (click)="Add(node)"
+										matTooltip="{{ 'CO_CAU_TO_CHUC.themmoi' | translate }}" *ngIf="Visible">
+									<mat-icon style="color: darkgreen;">add</mat-icon>
+									<span style="font-size: 9pt; color: darkgreen !important;"
+										  translate="CO_CAU_TO_CHUC.themmoi"></span>
+								</button>
+
+								<button class="btn-node btn-node-2" mat-menu-item (click)="removeNode(node)"
+										matTooltip="{{ 'CO_CAU_TO_CHUC.xoacocau' | translate }}"
+										*ngIf="Visible && node.ParentID != 0">
+									<mat-icon style="color: red;">close</mat-icon>
+									<span style="font-size: 9pt; color: red !important;"
+										  translate="CO_CAU_TO_CHUC.xoacocau"></span>
+								</button>
+								<button class="btn-node btn-node-3" mat-menu-item *ngIf="Visible"
+										(click)="CapNhatCapCoCau(node)" style="size: 10px" color="accent">
+									<mat-icon style="color: darkorange;">create</mat-icon>
+									<span style="font-size: 9pt; color: darkorange !important;"
+										  translate="CO_CAU_TO_CHUC.capnhat"></span>
+								</button>
+							</mat-menu>
+						</div>
+					</div>
+				</div>
+			</cdk-nested-tree-node>
+			<cdk-nested-tree-node *cdkTreeNodeDef="let node; when: hasChild" class="example-tree-node">
+				<div class="dl-cover-tree-node " (click)="SelectItemTree(node)">
+					<div class="dl-name-node">
+						<div class="name-txt">
+							<div class="cover-drag-item" [id]="node.RowID" draggable="true"
+								 (dragstart)="handleDragStart($event, node);" (dragover)="handleDragOver($event, node);"
+								 (drop)="handleDrop($event, node);" (dragend)="handleDragEnd($event);">
+								<button mat-icon-button [attr.aria-label]="'toggle ' + node.Title" cdkTreeNodeToggle>
+									<img src="/assets/images/_plus.png" *ngIf="!treeControl.isExpanded(node)">
+									<img src="/assets/images/_sub.png" *ngIf="treeControl.isExpanded(node)">
+								</button>
+								<span style="padding-left: 5px; " [ngClass]="{'drop-above': dragNodeExpandOverArea === 'above' && dragNodeExpandOverNode === node,
+                                        'drop-below': dragNodeExpandOverArea === 'below' && dragNodeExpandOverNode === node,
+                                        'drop-center': dragNodeExpandOverArea === 'center' && dragNodeExpandOverNode === node,
+                                        'selected-node' : __selectedNode === node
+                                      }">{{node.Code}} - {{node.Title}} - ({{node.RowID}})</span>
+								<button mat-icon-button *ngIf="Visible" [matMenuTriggerFor]="menu">
+									<mat-icon>more_vert</mat-icon>
+								</button>
+							</div>
+							<mat-menu #menu="matMenu">
+								<!-- <a (click)="Add(node)" mat-menu-item class="btn-node btn-node-1" color="accent"
+									matTooltip="{{ 'CO_CAU_TO_CHUC.themmoi' | translate }}" *ngIf="Visible"
+									style="color: darkgreen;"><i class="la la-plus"></i>
+									<span style="font-size: 9pt; color: darkgreen !important;"
+										translate="CO_CAU_TO_CHUC.themmoi"></span>
+								</a> -->
+								<button class="btn-node btn-node-1" mat-menu-item (click)="Add(node)"
+										matTooltip="{{ 'CO_CAU_TO_CHUC.themmoi' | translate }}" *ngIf="Visible">
+									<mat-icon style="color: darkgreen;">add</mat-icon>
+									<span style="font-size: 9pt; color: darkgreen !important;"
+										  translate="CO_CAU_TO_CHUC.themmoi"></span>
+								</button>
+
+								<button class="btn-node btn-node-2" mat-menu-item (click)="removeNode(node)"
+										matTooltip="{{ 'CO_CAU_TO_CHUC.xoacocau' | translate }}"
+										*ngIf="Visible && node.ParentID != 0">
+									<mat-icon style="color: red;">close</mat-icon>
+									<span style="font-size: 9pt; color: red !important;"
+										  translate="CO_CAU_TO_CHUC.xoacocau"></span>
+								</button>
+								<button class="btn-node btn-node-3" mat-menu-item *ngIf="Visible"
+										(click)="CapNhatCapCoCau(node)" style="size: 10px" color="accent">
+									<mat-icon style="color: darkorange;">create</mat-icon>
+									<span style="font-size: 9pt; color: darkorange !important;"
+										  translate="CO_CAU_TO_CHUC.capnhat"></span>
+								</button>
+								<!-- <button mat-menu-item *ngIf="Visible" (click)="addNewItem(node)" style="color: blue">
+									<mat-icon style="color: darkgreen !important;">add</mat-icon>
+									<span>
+										<span style="font-size: 9pt; color: darkgreen !important;"
+											translate="orgchart.themchucdanhnhohonchucdanhchon"></span>
+									</span>
+								</button> -->
+							</mat-menu>
+							<!-- <a (click)="Add(node)" mat-icon-button class="btn-node btn-node-1" color="accent"
+								matTooltip="{{ 'CO_CAU_TO_CHUC.themmoi' | translate }}" *ngIf="Visible"
+								style="color: darkgreen;"><i class="la la-plus"></i></a>
+							<button class="btn-node btn-node-2" mat-icon-button (click)="removeNode(node)"
+								matTooltip="{{ 'CO_CAU_TO_CHUC.xoacocau' | translate }}"
+								*ngIf="Visible && node.ParentID != 0">
+								<mat-icon style="color: red;">close</mat-icon>
+							</button>
+							<button class="btn-node btn-node-3" mat-icon-button *ngIf="Visible"
+								(click)="CapNhatCapCoCau(node)" style="size: 10px" color="accent">
+								<mat-icon>create</mat-icon>
+							</button> -->
+						</div>
+					</div>
+
+				</div>
+				<div [class.example-tree-invisible]="!treeControl.isExpanded(node)" class="dl-out-let">
+					<ng-container cdkTreeNodeOutlet></ng-container>
+				</div>
+			</cdk-nested-tree-node>
+		</cdk-tree>
+		<!-- </div>
+		</div> -->
+	</div>
+</kt-portlet>

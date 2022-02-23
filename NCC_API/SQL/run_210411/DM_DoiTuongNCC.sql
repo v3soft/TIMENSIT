@@ -1,0 +1,2 @@
+alter table DM_DoiTuongNCC
+add Id_Template_DiChuyen bigint null

@@ -1,0 +1,35 @@
+<style>
+    .kt-portlet__head-title {
+        font-size: medium;
+        font-family: sans-serif;
+    }
+</style>
+<div class="btn-close-container">
+    <button class="btn-close" type="button" mat-mini-fab color="" (click)="closeDialog()" [disabled]="disabledBtn" title="Đóng">
+		<mat-icon>clear</mat-icon>
+	</button>
+</div>
+<div class="kt-portlet" [ngClass]="{ 'kt-portlet--body-progress kt-portlet--body-progress-overlay' : viewLoading }">
+    <div class="kt-portlet__head kt-portlet__head__custom">
+        <div class="col-md-7 kt-margin-bottom-10-mobile" style="margin-top: 20px;">
+            <h3 class="kt-portlet__head-title">Đơn vị cấp trên</h3>
+        </div>
+        <!-- <div class="col-md-5 kt-margin-bottom-10-mobile" style="margin-top: 10px; text-align: right;">
+            <button style="padding: 0px 20px;" type="button" color="default" mat-raised-button (click)="closeDialog()">
+                Trở lại
+            </button>
+        </div> -->
+    </div>
+    <div class="kt-form">
+        <div class="kt-portlet__body">
+            <div class="row">
+                <m-tree-don-vi *ngIf="dataTreeDonVi ? dataTreeDonVi.length > 0 : false" [showCheck]="false" [classIconLeaf]="'fas fa-torii-gate'" [classIconRoot]="'fas fa-landmark'" [nameNode]="'text'" [propNameChild]="'children'" [valuePhanQuyen]="dataTreeDonVi" [textFeildRoof]="'Tất cả'"
+                    [idRoleKey]="'IdGroup'" (NodeActiveChange)="treeDonViChanged($event)">
+                </m-tree-don-vi>
+                <!-- <m-tree-don-vi *ngIf="dataTreeDonVi ? dataTreeDonVi.length > 0 : false" [showCheck]="false" [classIconLeaf]="'fas fa-torii-gate'" [classIconRoot]="'fas fa-landmark'" [nameNode]="'text'" [propNameChild]="'children'" [valuePhanQuyen]="dataTreeDonVi" [textFeildRoof]="'Tất cả'"
+                    [idRoleKey]="'IdGroup'" (NodeActiveChange)="treeDonViChanged2($event)">
+                </m-tree-don-vi> -->
+            </div>
+        </div>
+    </div>
+</div>

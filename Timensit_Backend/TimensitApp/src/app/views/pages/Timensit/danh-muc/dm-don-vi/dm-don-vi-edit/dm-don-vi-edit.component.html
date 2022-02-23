@@ -1,0 +1,144 @@
+<style>
+    .kt-portlet__head-title {
+        font-size: medium;
+        font-family: sans-serif;
+    }
+</style>
+<div class="btn-close-container">
+    <button class="btn-close" type="button" mat-mini-fab color="" (click)="closeDialog()" [disabled]="disabledBtn" title="Đóng">
+		<mat-icon>clear</mat-icon>
+	</button>
+</div>
+<div class="kt-portlet" [ngClass]="{ 'kt-portlet--body-progress kt-portlet--body-progress-overlay' : viewLoading }">
+    <div class="kt-portlet__head kt-portlet__head__custom">
+        <div class="col-md-6 kt-margin-bottom-10-mobile" style="margin-top: 20px;">
+            <h3 class="kt-portlet__head-title">{{getTitle()}}</h3>
+        </div>
+        <div class="col-md-6 kt-margin-bottom-10-mobile" style="margin-top: 10px; text-align: right;">
+            <!-- <button style="padding: 0px 20px;" type="button" color="default" mat-raised-button (click)="closeDialog()">
+                Trở lại
+            </button>&nbsp; -->
+            <button style="padding: 0px 20px;" type="button" mat-raised-button color="primary" (click)="onSubmit(true)" [disabled]="disabledBtn" *ngIf="!data.DM_DonVi.IsShow">
+                Lưu 
+            </button>&nbsp;
+            <button class="hide-view-625"  *ngIf="DM_DonVi.Id == 0&&!data.DM_DonVi.IsShow" style="padding: 0px 20px;" type="button" [disabled]="disabledBtn" mat-raised-button color="primary" (click)="onSubmit(false)">
+                Lưu và thêm mới
+            </button>&nbsp;
+        </div>
+
+    </div>
+    <form class="kt-form" [formGroup]="DM_DonViForm">
+        <div class="kt-portlet__body">
+            <div class="kt-portlet__body-progress">
+                <mat-spinner [diameter]="20"></mat-spinner>
+            </div>
+            <kt-alert *ngIf="hasFormErrors" type="warn" [showCloseButton]="true" (close)="onAlertClose($event)">
+                Không thể lưu, vui lòng kiểm tra lại thông tin!
+            </kt-alert>
+
+            <div class="form-group kt-form__group row">
+                <div class="col-md-12 kt-margin-bottom-10-mobile">
+                    <mat-form-field class="mat-form-field-fluid">
+                        <input matInput placeholder="Nhập tên đơn vị*" formControlName="donVi" type="text" [readonly]="data.DM_DonVi.IsShow">
+                        <mat-error>
+                            Tên đơn vị
+                            <strong *ngIf="DM_DonViForm.controls['donVi'].errors && DM_DonViForm.controls['donVi'].errors.required"> bắt buộc nhập</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6 kt-margin-bottom-10-mobile">
+                    <mat-form-field class="mat-form-field-fluid">
+                        <input matInput placeholder="Nhập mã đơn vị*" formControlName="maDonvi" type="text" [readonly]="data.DM_DonVi.IsShow">
+                        <mat-error>
+                            Mã đơn vị
+                            <strong *ngIf="DM_DonViForm.controls['maDonvi'].errors && DM_DonViForm.controls['maDonvi'].errors.required"> bắt buộc nhập</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6 kt-margin-bottom-10-mobile" hidden>
+                    <mat-form-field class="mat-form-field-fluid">
+                        <input matInput placeholder="Nhập mã định danh" formControlName="maDinhDanh" type="text" [readonly]="data.DM_DonVi.IsShow">
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6 kt-margin-bottom-10-mobile">
+                    <mat-form-field class="mat-form-field-fluid">
+                        <input matInput placeholder="Đơn vị cấp trên*" formControlName="parentName" type="text" readonly="true">
+                        <button mat-icon-button matSuffix *ngIf="!data.DM_DonVi.IsShow" (click)="openTreeDonVi()" color="primary" matTooltip="Chọn đơn vị" style="margin-right: 5px;">
+                            <mat-icon>supervisor_account</mat-icon>
+                        </button>
+                        <button mat-icon-button matSuffix *ngIf="!data.DM_DonVi.IsShow" (click)="clearCapTren()" color="warn" matTooltip="Xóa">
+                            <mat-icon>clear</mat-icon>
+                        </button>
+                        <!-- <mat-error>
+                            Đơn vị cấp trên
+                            <strong *ngIf="DM_DonViForm.controls['parentName'].errors && DM_DonViForm.controls['parentName'].errors.required"> bắt buộc nhập</strong>
+                        </mat-error> -->
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6 kt-margin-bottom-10-mobile" hidden>
+                    <mat-form-field class="mat-form-field-fluid">
+                        <mat-select formControlName="loaiDonVi" placeholder="Loại đơn vị*" [disabled]="data.DM_DonVi.IsShow">
+                            <mat-option *ngFor="let item of lst_DanhMucDV" [value]="item.Id">{{item.DanhMuc}}</mat-option>
+                        </mat-select>
+                        <mat-error>
+                            Loại đơn vị
+                            <strong *ngIf="DM_DonViForm.controls['loaiDonVi'].errors && DM_DonViForm.controls['loaiDonVi'].errors.required"> bắt buộc nhập</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6 kt-margin-bottom-10-mobile" hidden>
+                    <mat-form-field class="mat-form-field-fluid">
+                        <input matInput placeholder="Nhập số điện thoại" formControlName="sDT" type="text" [readonly]="data.DM_DonVi.IsShow">
+                        <mat-error>
+                            Số điện thoại
+                            <strong *ngIf="DM_DonViForm.controls['sDT'].errors"> không hợp lệ(Số điện thoại là số từ 9-12 kí tự)</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6 kt-margin-bottom-10-mobile" hidden>
+                    <mat-form-field class="mat-form-field-fluid">
+                        <input matInput placeholder="Nhập email" formControlName="email" type="text" [readonly]="data.DM_DonVi.IsShow">
+                        <mat-error>
+                            Email
+                            <strong *ngIf="DM_DonViForm.controls['email'].errors && DM_DonViForm.controls['email'].errors.pattern"> không hợp lệ</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6 kt-margin-bottom-10-mobile" hidden>
+                    <mat-form-field class="mat-form-field-fluid">
+                        <input matInput placeholder="Nhập địa chỉ" formControlName="diaChi" type="text" [readonly]="data.DM_DonVi.IsShow">
+                    </mat-form-field>
+                </div>
+
+                <div class="col-md-6 kt-margin-bottom-10-mobile">
+                    <mat-form-field class="mat-form-field-fluid">
+                        <input (input)="ValidateChangeNumberEvent($event)" min="1" [readonly]="data.DM_DonVi.IsShow" (change)="$event ? changeValueOfForm('priority',$event) : null" matInput placeholder="Nhập thứ tự ưu tiên*" formControlName="priority" type="number">
+                        <mat-error>
+                            Thứ tự ưu tiên
+                            <strong *ngIf="DM_DonViForm.controls['priority'].errors && DM_DonViForm.controls['priority'].errors.required">
+                                bắt buộc nhập </strong>
+                            <strong *ngIf="DM_DonViForm.controls['priority'].errors && DM_DonViForm.controls['priority'].errors.minlength">
+                                    lớn hơn 0</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4 kt-margin-bottom-10-mobile" *ngIf="DM_DonVi.Id > 0" hidden>
+                    <!-- <mat-form-field class="mat-form-field-fluid">
+                        <mat-select formControlName="locked" placeholder="Trạng thái" [disabled]="data.DM_DonVi.IsShow">
+                            <mat-option value="0">Hoạt động</mat-option>
+                            <mat-option value="1">Bị khóa</mat-option>
+                        </mat-select>
+                    </mat-form-field> -->
+                    <mat-checkbox formControlName="locked" [disabled]="data.DM_DonVi.IsShow">Khóa</mat-checkbox>
+                </div>
+                <div class="col-md-4 kt-margin-bottom-10-mobile" hidden>
+                    <mat-checkbox formControlName="dangKyLichLanhDao" [disabled]="data.DM_DonVi.IsShow">Đăng ký lịch lãnh đạo</mat-checkbox>
+                </div>
+                <div class="col-md-4 kt-margin-bottom-10-mobile" hidden>
+                    <mat-checkbox formControlName="khongCoVanThu" [disabled]="data.DM_DonVi.IsShow">Đơn vị không có văn thư</mat-checkbox>
+                </div>
+                <dl-image-control formControlName="imageLogo" type="" [disabled]="data.DM_DonVi.IsShow" nameButton="Chọn hình" [multiple]="false" [required]="false" hidden>
+                </dl-image-control>
+            </div>
+        </div>
+    </form>

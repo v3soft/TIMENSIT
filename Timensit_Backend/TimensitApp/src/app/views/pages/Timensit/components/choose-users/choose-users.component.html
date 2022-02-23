@@ -1,0 +1,20 @@
+<div class="choose-users-box">
+	<mat-form-field class="mat-form-field-fluid " *ngIf="options.showSearch" (click)="stopPropagation($event)"> 
+		<input matInput [formControl]="userFilterCtrl" placeholder="Type to search" />
+		<mat-icon matPrefix> search</mat-icon>
+	</mat-form-field>
+	<div class="users-container">
+		<div class="user-item" (click)="select(user)" *ngFor="let user of filteredUsers | async">
+			<label>
+				@{{user.username}}
+			</label>
+			<div>
+				<img src="{{user.image}}" alt="">
+			</div>
+			<div>
+				<div>{{ user.hoten }}</div>
+				<span>{{ user.tenchucdanh }}</span>
+			</div>
+		</div>
+	</div>
+</div>

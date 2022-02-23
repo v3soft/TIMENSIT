@@ -1,0 +1,43 @@
+<style>
+	.file-control-grid .dl-image-review-group {
+		display: none !important;
+	}
+</style>
+<div class="file-control-grid">
+	<dl-image-control [type]="accept" [data]="value" [multiple]="true" [disabled]="!allowEdit" [formControl]="fileControl" [nameButton]="'Chọn tệp'"></dl-image-control>
+	<mat-hint *ngIf="setting"  style="word-break: break-word;">Tệp đính kèm là file dạng: {{setting.ACCEPT_DINHKEM}}. <p>Dung lượng không quá {{setting.MAX_SIZE/1000000}}MB</p></mat-hint>
+	<table mat-table [dataSource]="datasource" style="width:100%" *ngIf="datasource.data.length>0">
+		<ng-container matColumnDef="stt">
+			<th mat-header-cell *matHeaderCellDef class="stt-cell"> STT </th>
+			<td mat-cell *matCellDef="let element; let i=index" class="stt-cell"> {{i+1}} </td>
+		</ng-container>
+
+		<ng-container matColumnDef="filename">
+			<th mat-header-cell *matHeaderCellDef> Tên file </th>
+			<td mat-cell *matCellDef="let element"> {{element.filename}} </td>
+		</ng-container>
+
+		<ng-container matColumnDef="actions">
+			<th mat-header-cell *matHeaderCellDef style="width:150px"> Thao tác </th>
+			<td mat-cell *matCellDef="let element;let i=index">
+				<ng-container *ngIf="element.IdRow>0">
+					<a href="viewer/file-dinh-kem/{{element.IdRow}}" target="_blank">
+						<button mat-icon-button color="primary" type="button" matTooltip="Xem">
+							<mat-icon>visibility</mat-icon>
+						</button>
+					</a>
+					<button mat-icon-button color="primary" type="button" (click)="download(i)" matTooltip="Tải">
+						<mat-icon>cloud_download</mat-icon>
+					</button>
+				</ng-container>
+				<button mat-icon-button color="warn" type="button" (click)="delete(i)" matTooltip="Xóa" [disabled]="!allowEdit">
+					<mat-icon>delete</mat-icon>
+				</button>
+			</td>
+		</ng-container>
+
+		<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+		<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+	</table>
+	<!--<div class="mat-table__message text-center" *ngIf="datasource.data.length==0">{{'COMMON.NO_RECORD_FOUND'|translate}}</div>-->
+</div>

@@ -1,0 +1,221 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup Label="Globals">
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>4cde4877-b2b3-4803-9125-8a78cbe16051</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\QuanLyDoanhNghiep\**" />
+    <Compile Remove="Controllers\QuanLyNguoiDung\**" />
+    <Compile Remove="dulieu\avatar\**" />
+    <Compile Remove="dulieu\Data\**" />
+    <Compile Remove="dulieu\dinhkem\**" />
+    <Compile Remove="dulieu\ds-xuat\**" />
+    <Compile Remove="dulieu\giay-to\**" />
+    <Compile Remove="dulieu\HDSD\**" />
+    <Compile Remove="dulieu\images\**" />
+    <Compile Remove="dulieu\Logs\**" />
+    <Compile Remove="dulieu\quyet-dinh\**" />
+    <Compile Remove="dulieu\quytrinh_lichsu\**" />
+    <Compile Remove="dulieu\Template\bieu-mau-210611\1B-138\**" />
+    <Compile Remove="dulieu\Template\bieu-mau\**" />
+    <Compile Remove="NewFolder\**" />
+    <Content Remove="Controllers\QuanLyDoanhNghiep\**" />
+    <Content Remove="Controllers\QuanLyNguoiDung\**" />
+    <Content Remove="dulieu\avatar\**" />
+    <Content Remove="dulieu\Data\**" />
+    <Content Remove="dulieu\dinhkem\**" />
+    <Content Remove="dulieu\ds-xuat\**" />
+    <Content Remove="dulieu\giay-to\**" />
+    <Content Remove="dulieu\HDSD\**" />
+    <Content Remove="dulieu\images\**" />
+    <Content Remove="dulieu\Logs\**" />
+    <Content Remove="dulieu\quyet-dinh\**" />
+    <Content Remove="dulieu\quytrinh_lichsu\**" />
+    <Content Remove="dulieu\Template\bieu-mau-210611\1B-138\**" />
+    <Content Remove="dulieu\Template\bieu-mau\**" />
+    <Content Remove="NewFolder\**" />
+    <EmbeddedResource Remove="Controllers\QuanLyDoanhNghiep\**" />
+    <EmbeddedResource Remove="Controllers\QuanLyNguoiDung\**" />
+    <EmbeddedResource Remove="dulieu\avatar\**" />
+    <EmbeddedResource Remove="dulieu\Data\**" />
+    <EmbeddedResource Remove="dulieu\dinhkem\**" />
+    <EmbeddedResource Remove="dulieu\ds-xuat\**" />
+    <EmbeddedResource Remove="dulieu\giay-to\**" />
+    <EmbeddedResource Remove="dulieu\HDSD\**" />
+    <EmbeddedResource Remove="dulieu\images\**" />
+    <EmbeddedResource Remove="dulieu\Logs\**" />
+    <EmbeddedResource Remove="dulieu\quyet-dinh\**" />
+    <EmbeddedResource Remove="dulieu\quytrinh_lichsu\**" />
+    <EmbeddedResource Remove="dulieu\Template\bieu-mau-210611\1B-138\**" />
+    <EmbeddedResource Remove="dulieu\Template\bieu-mau\**" />
+    <EmbeddedResource Remove="NewFolder\**" />
+    <None Remove="Controllers\QuanLyDoanhNghiep\**" />
+    <None Remove="Controllers\QuanLyNguoiDung\**" />
+    <None Remove="dulieu\avatar\**" />
+    <None Remove="dulieu\Data\**" />
+    <None Remove="dulieu\dinhkem\**" />
+    <None Remove="dulieu\ds-xuat\**" />
+    <None Remove="dulieu\giay-to\**" />
+    <None Remove="dulieu\HDSD\**" />
+    <None Remove="dulieu\images\**" />
+    <None Remove="dulieu\Logs\**" />
+    <None Remove="dulieu\quyet-dinh\**" />
+    <None Remove="dulieu\quytrinh_lichsu\**" />
+    <None Remove="dulieu\Template\bieu-mau-210611\1B-138\**" />
+    <None Remove="dulieu\Template\bieu-mau\**" />
+    <None Remove="NewFolder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Classes\Process.cs" />
+    <Compile Remove="Models\QuanTri\DPAction.cs" />
+    <Compile Remove="Models\QuanTri\DPStep.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="C:\Users\admin\.nuget\packages\select.htmltopdf.netcore\20.2.0\contentFiles\any\any\Select.Html.dep" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Select.Html.dep" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Controllers\QuanLyNguoiDung\VaiTroNguoiDungController.cs" />
+    <Compile Include="Controllers\QuanLyNguoiDung\NguoiDungDPSController.cs" />
+    <Compile Include="Controllers\QuanLyNguoiDung\NhomNguoiDungDPSController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Select.Html.dep">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="DocumentFormat.OpenXml" Version="2.11.3" />
+    <PackageReference Include="EPPlus" Version="5.4.1" />
+    <PackageReference Include="ExcelDataReader" Version="3.6.0" />
+    <PackageReference Include="FreeSpire.Doc" Version="7.11.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.2.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.ApiDescription.Client" Version="3.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="NSwag.ApiDescription.Client" Version="13.0.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="sautinsoft.document" Version="4.5.6.17" />
+    <PackageReference Include="Select.HtmlToPdf.NetCore" Version="20.2.0" />
+    <PackageReference Include="Swashbuckle" Version="5.6.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="5.6.3" />
+    <PackageReference Include="System.Data.OleDb" Version="5.0.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
+    <PackageReference Include="System.Drawing.Common" Version="5.0.0" />
+    <PackageReference Include="System.Private.ServiceModel" Version="4.7.0" />
+    <PackageReference Include="System.ServiceModel.Duplex" Version="4.4.*" />
+    <PackageReference Include="System.ServiceModel.Http" Version="4.4.*" />
+    <PackageReference Include="System.ServiceModel.NetTcp" Version="4.4.*" />
+    <PackageReference Include="System.ServiceModel.Security" Version="4.4.*" />
+    <PackageReference Include="WebPush" Version="1.0.11" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Update="System.Private.ServiceModel.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <Target Name="CopySPSM" BeforeTargets="Build">
+    <Copy SourceFiles="System.Private.ServiceModel.dll" DestinationFolder="$(OutputPath)\bin" />
+  </Target>
+  <ItemGroup>
+    <None Update="System.Net.Http.WinHttpHandler.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <Target Name="CopySPSM" BeforeTargets="Build">
+    <Copy SourceFiles="System.Net.Http.WinHttpHandler.dll" DestinationFolder="$(OutputPath)\bin" />
+  </Target>
+  <ItemGroup>
+    <Reference Include="DBConnection">
+      <HintPath>DPS\DBConnection.dll</HintPath>
+    </Reference>
+    <Reference Include="DpsLibs">
+      <HintPath>DPS\DpsLibs.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp">
+      <HintPath>itextsharp.dll</HintPath>
+      <Aliases>iText</Aliases>
+    </Reference>
+    <Reference Include="ViettelFileSigner">
+      <HintPath>ViettelFileSigner.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="System.Private.ServiceModel.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <Target Name="CopySPSM" BeforeTargets="Build">
+    <Copy SourceFiles="System.Private.ServiceModel.dll" DestinationFolder="$(OutputPath)\bin" />
+  </Target>
+  <ItemGroup>
+    <None Update="System.Net.Http.WinHttpHandler.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="dulieu\Template\le-tet\" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Word.dll">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>7</VersionMinor>
+      <VersionMajor>8</VersionMajor>
+      <Guid>00020905-0000-0000-c000-000000000046</Guid>
+      <Lcid>0</Lcid>
+      <Isolated>false</Isolated>
+    </COMReference>
+  </ItemGroup>
+  <Target Name="CopySPSM" BeforeTargets="Build">
+    <Copy SourceFiles="System.Net.Http.WinHttpHandler.dll" DestinationFolder="$(OutputPath)\bin" />
+  </Target>
+  <PropertyGroup>
+    <SourceRevisionId>build$([System.DateTime]::UtcNow.ToString("yyyyMMddHHmmss"))</SourceRevisionId>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <Optimize>false</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <Optimize>false</Optimize>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+</Project>

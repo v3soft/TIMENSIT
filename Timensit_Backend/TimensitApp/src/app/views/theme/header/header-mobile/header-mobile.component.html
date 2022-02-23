@@ -1,0 +1,20 @@
+<!-- begin:: Header Mobile -->
+<div id="kt_header_mobile" class="kt-header-mobile kt-header-mobile--fixed" [ngStyle]="{'background': '#0274b5 url(assets/images/bgHeader.png) right top no-repeat'}">
+	<div class="kt-header-mobile__logo">
+		<!-- <a href="/">
+			<img alt="logo" [attr.src]="headerLogo" />
+		</a> -->
+		<a href="/">
+			<img src="assets/images/logohead.png" style="max-height:40px">
+		</a>
+	</div>
+	<div class="kt-header-mobile__toolbar">
+		<button [hidden]="!asideDisplay" class="kt-header-mobile__toolbar-toggler kt-header-mobile__toolbar-toggler--left" id="kt_aside_mobile_toggler"><span></span></button>
+		<button class="kt-header-mobile__toolbar-toggler btn bg-white" style="padding: 2px 5px;margin-right: 5px;" id="kt_header_mobile_toggler"><i class="fas fa-bars pd-0"></i></button>
+		<button ktToggle [options]="toggleOptions" class="kt-header-mobile__toolbar-topbar-toggler btn bg-white" style="padding: 2px 5px;" id="kt_header_mobile_topbar_toggler">
+			<!-- <i class="fas fa-bars"></i> -->
+			<i class="far fa-user pd-0"></i>
+		</button>
+	</div>
+</div>
+<!-- end:: Header Mobile -->

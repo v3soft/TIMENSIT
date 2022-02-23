@@ -1,0 +1,16 @@
+.cover-node {
+    .item-node {
+        display: flex;
+        align-items: center;
+        .ea-quyen {
+            width: 100%;
+            padding: 5px 0;
+            align-items: center;
+            cursor: pointer;
+            &:hover,
+            &.dv-active {
+                background-color: #d3edfa;
+            }
+        }
+    }
+}

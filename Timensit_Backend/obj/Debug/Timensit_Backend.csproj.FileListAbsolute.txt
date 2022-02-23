@@ -1,0 +1,2 @@
+C:\Users\vietvv\Desktop\Timensit2022\Timensit2022\Timensit_Backend\obj\Debug\Timensit_Backend.csproj.AssemblyReference.cache
+C:\Users\vietvv\Desktop\Timensit2022\Timensit2022\Timensit_Backend\obj\Debug\Timensit_Backend.csproj.CoreCompileInputs.cache

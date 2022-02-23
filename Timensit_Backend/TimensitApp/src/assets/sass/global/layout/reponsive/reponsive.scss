@@ -1,0 +1,92 @@
+.pd-0 {
+    padding: 0 !important;
+}
+
+.view-pc {
+	display: none!important;
+	@media screen and (min-width: 1025px) {
+		display: block!important;
+	}
+}
+.view-mobile {
+	display: none!important;
+	@media screen and (max-width: 1024px) {
+		display: block!important;
+	}
+}
+
+// view < 480px
+@media screen and (max-width: 480px) {
+    .exist-flt.mat-table__bottom .flt-page {
+        width: 100% !important;
+    }
+}
+// view < 520
+@media screen and (max-width: 520px) {
+    .hide-520 {
+        display: none !important;
+    }
+}
+// view < 480px
+@media screen and (max-width: 480px) {
+    .hide-view-480{
+        display: none !important;
+    }
+}
+// view < 625
+@media screen and (max-width: 625px) {
+    .hide-view-625{
+        display: none !important;
+    }
+
+    .dl-drop-menu-tree.dropdown-menu {
+        width: 100%!important;
+    }
+}
+// view > 625
+@media screen and (min-width: 626px) {
+    .show-view-625{
+        display: none !important;
+    }
+}
+// view < 768
+@media screen and (max-width: 767px) {
+    .hide-view-768,
+    .hide-view-sm{
+        display: none !important;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .show-view-768,
+    .show-view-sm{
+        display: none !important;
+    }
+}
+// view mobile
+@media screen and (max-width: 1024px) {
+    .kt-badge{
+        white-space: nowrap;
+    }
+}
+
+//duyệt hồ sơ
+.duyeths{
+    width:50%; 
+    min-width: 700px; 
+    margin: auto;
+    padding: 20px; 
+    box-shadow: 0px 0px 13px 0px rgba(82, 63, 105, 0.05);
+}
+@media (max-width: 767px) {
+    .duyeths{
+        width:100%; 
+        min-width: auto; 
+        margin: auto;
+        padding: 20px;
+    }
+}
+
+.min-width-th{
+    min-width: 160px;
+}

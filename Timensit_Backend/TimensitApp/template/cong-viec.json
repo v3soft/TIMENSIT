@@ -1,0 +1,290 @@
+{
+	"folder_path": "/views/pages/Timensit/",
+	"name": "CongViec",
+	"text": "Công việc",
+	"Sub_menu_tree": "",
+	"modulePage": "",
+	"listOptions": {
+		"nColumnsFilterInOneRow": 2,
+		"sortOrder": "desc",
+		"sortField": "ThoiHan"
+	},
+	"editOptions": {
+		"nColumnsFilterInOneRow": 2
+	},
+	"numberOfFixedPoint": 0,
+	"attributes": [
+		{
+			"className": "CongViec",
+			"tableName": "Tbl_CongViec",
+			"content": [
+				{
+					"name": "IdRow",
+					"type": "number",
+					"required": false,
+					"title": "Id",
+					"display": {
+						"isDisplay": false,
+						"isShow": false
+					},
+					"formtype": "input",
+					"control_type": "",
+					"css_status": false,
+					"sortable": false,
+					"filter": 0,
+					"updateOnGrid": false,
+					"haveDrpFilter": false,
+					"filterGrp": [],
+					"isKeyModel": true
+				},
+				{
+					"name": "TenCongViec",
+					"type": "string",
+					"required": true,
+					"maxLength": 500,
+					"title": "Tên công việc",
+					"display": {
+						"isDisplay": true,
+						"isShow": true
+					},
+					"control_type": "",
+					"formtype": "input",
+					"css_status": false,
+					"sortable": true,
+					"filter": 0,
+					"updateOnGrid": false,
+					"haveDrpFilter": true,
+					"filterGrp": []
+				},
+				{
+					"name": "NoiDung",
+					"type": "string",
+					"required": false,
+					"maxLength": 2000,
+					"title": "Nội dung",
+					"display": {
+						"isDisplay": true,
+						"isShow": false
+					},
+					"control_type": "",
+					"formtype": "textarea",
+					"css_status": false,
+					"sortable": true,
+					"filter": 0,
+					"updateOnGrid": false,
+					"haveDrpFilter": true,
+					"filterGrp": []
+				},
+				{
+					"name": "ThoiHan",
+					"type": "string",
+					"required": false,
+					"title": "Thời hạn",
+					"display": {
+						"isDisplay": true,
+						"isShow": true
+					},
+					"control_type": "",
+					"formtype": "input",
+					"css_status": false,
+					"sortable": true,
+					"filter": 0,
+					"updateOnGrid": false,
+					"haveDrpFilter": false,
+					"filterGrp": []
+				},
+				{
+					"name": "IdLoai",
+					"type": "number",
+					"required": true,
+					"title": "Nhóm công việc",
+					"display": {
+						"isDisplay": true,
+						"isShow": true
+					},
+					"formtype": "select",
+					"control_type": "",
+					"dropdownOptions": {
+						"options": {
+							"Data": [],
+							"IDKey": "id",
+							"NameKey": "title",
+							"api": "/lite/danh-muc-theo-user?loai=6"
+						}
+					},
+					"css_status": false,
+					"sortable": true,
+					"filter": 0,
+					"updateOnGrid": false,
+					"haveDrpFilter": true,
+					"filterGrp": [],
+					"isKeyModel": true
+				},
+				{
+					"name": "IdLinhVuc",
+					"type": "number",
+					"required": true,
+					"title": "Lĩnh vực",
+					"display": {
+						"isDisplay": true,
+						"isShow": true
+					},
+					"formtype": "select",
+					"control_type": "",
+					"dropdownOptions": {
+						"options": {
+							"Data": [],
+							"IDKey": "id",
+							"NameKey": "title",
+							"api": "/lite/danh-muc-theo-user?loai=6"
+						}
+					},
+					"css_status": false,
+					"sortable": true,
+					"filter": 0,
+					"updateOnGrid": false,
+					"haveDrpFilter": true,
+					"filterGrp": [],
+					"isKeyModel": true
+				},
+				{
+					"name": "DoUuTien",
+					"type": "number",
+					"required": true,
+					"title": "Độ ưu tiên",
+					"display": {
+						"isDisplay": true,
+						"isShow": true
+					},
+					"formtype": "select",
+					"control_type": "",
+					"dropdownOptions": {
+						"options": {
+							"Data": [],
+							"IDKey": "id",
+							"NameKey": "title",
+							"api": "/lite/danh-muc-theo-user?loai=6"
+						}
+					},
+					"css_status": false,
+					"sortable": true,
+					"filter": 0,
+					"updateOnGrid": false,
+					"haveDrpFilter": true,
+					"filterGrp": [],
+					"isKeyModel": true
+				},
+				{
+					"name": "IdHinhThuc",
+					"type": "number",
+					"required": true,
+					"title": "Hình thức",
+					"display": {
+						"isDisplay": true,
+						"isShow": true
+					},
+					"formtype": "select",
+					"control_type": "",
+					"dropdownOptions": {
+						"options": {
+							"Data": [],
+							"IDKey": "id",
+							"NameKey": "title",
+							"api": "/lite/danh-muc-theo-user?loai=6"
+						}
+					},
+					"css_status": false,
+					"sortable": true,
+					"filter": 0,
+					"updateOnGrid": false,
+					"haveDrpFilter": true,
+					"filterGrp": [],
+					"isKeyModel": true
+				},
+				{
+					"name": "SMS",
+					"type": "boolean",
+					"required": false,
+					"title": "Gửi SMS",
+					"display": {
+						"isDisplay": true,
+						"isShow": true
+					},
+					"formtype": "checkbox",
+					"control_type": "",
+					"css_status": false,
+					"sortable": true,
+					"filter": 0,
+					"updateOnGrid": false,
+					"haveDrpFilter": true,
+					"filterGrp": [
+						{
+							"name": "Không",
+							"value": "False"
+						},
+						{
+							"name": "Có",
+							"value": "True"
+						}
+					]
+				},
+				{
+					"name": "Email",
+					"type": "boolean",
+					"required": false,
+					"title": "Gửi email",
+					"display": {
+						"isDisplay": true,
+						"isShow": true
+					},
+					"control_type": "",
+					"formtype": "checkbox",
+					"css_status": false,
+					"sortable": true,
+					"filter": 0,
+					"updateOnGrid": false,
+					"haveDrpFilter": true,
+					"filterGrp": [
+						{
+							"name": "Không",
+							"value": "False"
+						},
+						{
+							"name": "Có",
+							"value": "True"
+						}
+					]
+				}
+			]
+		}
+	],
+	"methods": {
+		"api": "/cong-viec",
+		"list": {
+			"api": "/list",
+			"option": "POST"
+		},
+		"create": "/create",
+		"update": "/update",
+		"delete": "/delete?id=${itemId}",
+		"delete_multi": "",
+		"getbyid": "/detail?id=${itemId}",
+		"loadDataImport": "",
+		"ImportFile": "",
+		"Export": "",
+		"DownloadFileMau": ""
+	},
+	"classbuttons": {
+		"import": "accent",
+		"export": "info",
+		"print": "info",
+		"add": "primary",
+		"back": "default",
+		"reset": "accent",
+		"saveAndBack": "primary",
+		"saveAndAdd": "primary",
+		"zoom": "accent",
+		"delete": "warn",
+		"edit": "primary"
+	}
+}

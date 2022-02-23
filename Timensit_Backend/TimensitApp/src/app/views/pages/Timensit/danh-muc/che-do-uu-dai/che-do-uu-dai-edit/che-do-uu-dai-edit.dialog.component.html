@@ -1,0 +1,74 @@
+<div class="btn-close-container">
+	<button class="btn-close" type="button" mat-mini-fab color="" (click)="close()" [disabled]="disabledBtn" title="Đóng">
+		<mat-icon>clear</mat-icon>
+	</button>
+</div>
+<div class="kt-portlet" [ngClass]="{ 'kt-portlet--body-progress' : viewLoading, 'kt-portlet--body-progress-overlay' : loadingAfterSubmit }">
+	<div class="kt-portlet__head kt-portlet__head__custom">
+		<div class="col-md-{{item.Id == 0 ? (isZoomSize ? '7' : '5') : (isZoomSize ? '9' : '7')}} kt-margin-bottom-10-mobile"
+			 style="margin-top: 20px;">
+			<h3 class="kt-portlet__head-title">{{getTitle()}}</h3>
+		</div>
+		<div class="col-md-{{item.Id == 0 ? (isZoomSize ? '5' : '7') : (isZoomSize ? '3' : '5')}} kt-margin-bottom-10-mobile" style="margin-top: 10px; text-align: right;" *ngIf="allowEdit">
+			<button type="button" mat-raised-button color="accent" (click)="onSubmit(true)" [disabled]="disabledBtn" matTooltip="{{'COMMON.LUU_DONG' | translate}}">
+				<span translate="COMMON.LUU_DONG"></span>&nbsp;<div *ngIf="disabledBtn" class="spinner-button-pad"></div>
+			</button>
+			<button type="button" mat-raised-button color="primary" (click)="onSubmit(false)" [disabled]="disabledBtn" *ngIf="item.Id == 0" matTooltip="{{'COMMON.LUU_THEMMOI' | translate}}">
+				<span translate="COMMON.LUU_THEMMOI"></span>&nbsp;<div *ngIf="disabledBtn" class="spinner-button-pad"></div>
+			</button>
+		</div>
+	</div>
+	<form class="kt-form" [formGroup]="itemForm">
+		<div class="kt-portlet__body">
+
+			<!-- <m-alert *ngIf="hasFormErrors" type="warn" [showCloseButton]="true" [duration]="10000" (close)="onAlertClose($event)">
+				Không thể lưu, vui lòng nhập đủ thông tin!
+			</m-alert>  -->
+
+			<kt-alert *ngIf="hasFormErrors" type="warn" [duration]="0" [showCloseButton]="true" (close)="onAlertClose($event)">
+				Không thể lưu, vui lòng kiểm tra lại thông tin!
+			</kt-alert>
+
+			<div class="form-group kt-form__group row">
+				<div class="col-lg-12 m--margin-bottom-20-mobile">
+					<mat-form-field class="mat-form-field-fluid ">
+						<input matInput placeholder="{{ 'CHE_DO_UU_DAI.tenchedo' | translate }}" formControlName="CheDoUuDai"
+							   class="require" required #focusInput />
+					</mat-form-field>
+                </div>
+                
+				<div class="col-lg-12 m--margin-bottom-20-mobile">
+					<mat-form-field class="mat-form-field-fluid ">
+						<textarea matInput rows="4" placeholder="{{ 'CHE_DO_UU_DAI.mota' | translate }}" 
+							   formControlName="MoTa"></textarea>
+					</mat-form-field>
+				</div>
+				
+
+            </div>
+            <div class="form-group kt-form__group row">
+				<div class="col-lg-4 m--margin-bottom-20-mobile" [hidden]="item.Id==0">
+					<mat-form-field class="mat-form-field-fluid ">
+                        <mat-select placeholder="Locked" formControlName="Locked" >
+                            <mat-option value="true">Đã khóa</mat-option>
+                            <mat-option value="false">Chưa khóa</mat-option>
+                         </mat-select>
+					</mat-form-field>
+                </div>
+                
+                <div class="col-lg-4 m--margin-bottom-20-mobile">
+					<mat-form-field class="mat-form-field-fluid ">
+						<input matInput type="number" placeholder="Thứ tự" formControlName="Priority"/>
+                        <mat-error>
+                            Thứ tự
+                            <strong> lớn hơn 0</strong>
+                        </mat-error>
+					</mat-form-field>
+				</div>
+            </div>
+			<div class="form-group kt-form__group row">
+				<!-- <angular-editor [(ngModel)]="entity.description" [config]="editorConfig" [ngModelOptions]="{standalone: true}"></angular-editor> -->
+			</div>
+		</div>
+	</form>
+</div>

@@ -1,0 +1,87 @@
+<div class="btn-close-container">
+	<button class="btn-close" type="button" mat-mini-fab color="" (click)="closeDialog()" [disabled]="disabledBtn" title="Đóng">
+		<mat-icon>clear</mat-icon>
+	</button>
+</div>
+<div class="kt-portlet" [ngClass]="{ 'kt-portlet--body-progress kt-portlet--body-progress-overlay' : viewLoading }">
+	<div class="kt-portlet__head kt-portlet__head__custom">
+		<div class="col-md-{{Config.IdRow == 0 ? (isZoomSize ? '7' : '5') : (isZoomSize ? '9' : '7')}} kt-margin-bottom-10-mobile" style="margin-top: 20px;">
+			<h3 class="kt-portlet__head-title">{{getTitle()}}</h3>
+		</div>
+		<div class="col-md-{{Config.IdRow == 0 ? (isZoomSize ? '5' : '7') : (isZoomSize ? '3' : '5')}} kt-margin-bottom-10-mobile" style="margin-top: 10px; text-align: right;" *ngIf="allowEdit">
+			<button style="padding: 0px 20px;" type="button" mat-raised-button color="primary" (click)="onSubmit(true)" [disabled]="disabledBtn">
+				Lưu
+			</button>
+			<button class="hide-view-625"  *ngIf="Config.IdRow == 0" style="padding: 0px 20px;" type="button" [disabled]="disabledBtn" mat-raised-button color="primary" (click)="onSubmit(false)">
+				Lưu và thêm mới
+			</button>
+			<!--<button style="padding: 0px 10px;" type="button" color="accent" mat-raised-button (click)="resizeDialog()">
+				{{isZoomSize ? 'Thu nhỏ' : 'Phóng to'}}
+			</button>-->
+		</div>
+
+	</div>
+	<form class="kt-form" [formGroup]="ConfigForm">
+		<div class="kt-portlet__body">
+			<div class="kt-portlet__body-progress">
+				<mat-spinner [diameter]="20"></mat-spinner>
+			</div>
+			<kt-alert *ngIf="hasFormErrors" type="warn" [duration]="0" [showCloseButton]="true" (close)="onAlertClose($event)">
+				Không thể lưu, vui lòng kiểm tra lại thông tin!
+			</kt-alert>
+
+			<div class="form-group kt-form__group row">
+				<div class="col-md-12 kt-margin-bottom-10-mobile">
+					<mat-form-field class="mat-form-field-fluid">
+						<input matInput placeholder="Mô tả" required formControlName="description" type="text" readonly>
+					</mat-form-field>
+				</div>
+				<div class="col-md-6 kt-margin-bottom-10-mobile">
+					<mat-form-field class="mat-form-field-fluid">
+						<input matInput placeholder="Mã" required formControlName="code" type="text" readonly>
+					</mat-form-field>
+				</div>
+				<div class="col-md-6 kt-margin-bottom-10-mobile">
+					<mat-form-field class="mat-form-field-fluid">
+						<input matInput placeholder="Thứ tự" required formControlName="priority" type="number">
+					</mat-form-field>
+				</div>
+				<div class="col-md-12 kt-margin-bottom-10-mobile">
+					<mat-form-field class="mat-form-field-fluid example-chip-list" *ngIf="Config.Type=='LIST'">
+						<mat-chip-list #chipList aria-label="Giá trị" required formControlName="value">
+							<mat-chip *ngFor="let chip of chips" [selectable]="allowEdit" [removable]="allowEdit" (removed)="remove(chip)">
+								{{chip}}
+								<mat-icon matChipRemove *ngIf="allowEdit">cancel</mat-icon>
+							</mat-chip>
+							<input placeholder="Giá trị"
+								   [matChipInputFor]="chipList"
+								   [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+								   (matChipInputTokenEnd)="add($event)">
+						</mat-chip-list>
+						<mat-error>
+							Giá trị
+							<strong *ngIf="ConfigForm.controls['value'].errors && ConfigForm.controls['value'].errors.required"> bắt buộc nhập</strong>
+							<strong *ngIf="ConfigForm.controls['value'].errors && ConfigForm.controls['value'].errors.pattern"> không đúng định dạng</strong>
+						</mat-error>
+					</mat-form-field>
+					<mat-form-field class="mat-form-field-fluid" *ngIf="Config.Type=='NUMBER'">
+						<input matInput placeholder="Giá trị" required formControlName="value" type="number">
+						<mat-error>
+							Giá trị
+							<strong *ngIf="ConfigForm.controls['value'].errors && ConfigForm.controls['value'].errors.required"> bắt buộc nhập</strong>
+						</mat-error>
+					</mat-form-field>
+					<mat-form-field class="mat-form-field-fluid" *ngIf="Config.Type=='TEXT'">
+						<input matInput placeholder="Giá trị" required formControlName="value" type="text">
+						<mat-error>
+							Giá trị
+							<strong *ngIf="ConfigForm.controls['value'].errors && ConfigForm.controls['value'].errors.required"> bắt buộc nhập</strong>
+							<strong *ngIf="ConfigForm.controls['value'].errors && ConfigForm.controls['value'].errors.maxlength"> tối đa {{ConfigForm.controls['value'].errors.maxlength.requiredLength}} ký tự</strong>
+						</mat-error>
+					</mat-form-field>
+					<mat-checkbox  formControlName="value"*ngIf="Config.Type=='BOOLEAN'">Có</mat-checkbox>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

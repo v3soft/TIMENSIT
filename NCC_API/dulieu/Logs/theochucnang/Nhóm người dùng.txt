@@ -1,0 +1,2 @@
+5(huytran) - 23/02/2022 15:12:08 - (Id_Log:184135)Thêm mới nhóm người dùng: {"GroupName":"12312313","GhiChu":"123123123","IdGroup":27,"Ma":"123123","DisplayOrder":1,"DonVi":1,"ChucVu":0,"IsDefault":false,"Locked":false}
+5(huytran) - 23/02/2022 15:18:15 - (Id_Log:184159)Cập nhật nhóm người dùng: {"GroupName":"Chuyên viên sở","GhiChu":"","IdGroup":26,"Ma":"SO","DisplayOrder":1,"DonVi":1,"ChucVu":0,"IsDefault":false,"Locked":false}

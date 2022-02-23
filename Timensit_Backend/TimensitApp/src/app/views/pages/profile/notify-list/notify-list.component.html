@@ -1,0 +1,178 @@
+<style>
+	.IsNew {
+		font-weight: bold;
+	}
+	.selected-button {
+		background-color: #ececec;
+	}
+</style>
+<kt-portlet [options]="{headLarge: true}">
+	<kt-portlet-header [sticky]="true" [class]="'kt-portlet__head--lg'" [viewLoading$]="dataSource.loading$">
+		<ng-container ktPortletTitle>
+			<div class="kt-form__filtration">
+				<h3 class="kt-portlet__head-title">
+					<span translate="OBJECT.LIST" [translateParams]="{name:this._name.toLowerCase()}"></span>
+				</h3>
+			</div>
+		</ng-container>
+		<ng-container ktPortletTools>
+			<div *ngIf="selection.selected.length > 0">
+				<label class="kt--font-bold kt-font-danger-">
+					Số lượng đã chọn:
+					{{ selection.selected.length }}
+				</label>
+				<button mat-raised-button color="warn" (click)="xoas()" matTooltip="Xóa thông báo được chọn">
+					Xóa
+				</button>
+			</div>
+			<button mat-raised-button (click)="markAsRead()" matTooltip="Đánh dấu tất cả là đã đọc" color="primary">
+				Đánh dấu tất cả là đã đọc
+			</button>
+			<button mat-raised-button (click)="markAsRead(true)" matTooltip="Xóa thông báo đã đọc" color="warn">
+				Xóa thông báo đã đọc
+			</button>
+			<span></span>
+		</ng-container>
+	</kt-portlet-header>
+	<div class="kt-portlet__body">
+		<div class="kt-form">
+			<div class="row">
+				<div class="col-md-6">
+					<button mat-stroked-button (click)="loadDataList()" [ngClass]="{'selected-button':loai==null}">Tất cả</button>&nbsp;
+					<button mat-stroked-button color="primary" (click)="loadDataList(true,2)" [ngClass]="{'selected-button':loai==2}">Hồ sơ NCC</button>&nbsp;
+					<button mat-stroked-button color="accent" (click)="loadDataList(true,1)" [ngClass]="{'selected-button':loai==1}">Đề xuất</button>&nbsp;
+					<button mat-stroked-button color="warn" (click)="loadDataList(true,3)" [ngClass]="{'selected-button':loai==3}">Số liệu hàng năm</button>&nbsp;
+					<button mat-stroked-button color="info" (click)="loadDataList(true,0)" [ngClass]="{'selected-button':loai==0}">Khác</button>
+				</div>
+				<div class="col-md-2 kt-margin-bottom-10-mobile">
+					<mat-form-field class="mat-form-field-fluid">
+						<input matInput [matDatepicker]="pickerbd_tungay" placeholder="Thời gian từ ngày" [(ngModel)]="from" [max]="to">
+						<mat-datepicker-toggle matSuffix [for]="pickerbd_tungay"></mat-datepicker-toggle>
+						<mat-datepicker #pickerbd_tungay></mat-datepicker>
+						<mat-hint>Định dạng dd/mm/yyyy</mat-hint>
+						<mat-error>
+							Ngày hoặc khoảng thời gian
+							<strong> không hợp lệ</strong>
+						</mat-error>
+					</mat-form-field>
+				</div>
+				<div class="col-md-2 kt-margin-bottom-10-mobile">
+					<mat-form-field class="mat-form-field-fluid">
+						<input matInput [matDatepicker]="pickerbd_denngay" placeholder="Đến ngày" [(ngModel)]="to" [min]="from">
+						<mat-datepicker-toggle matSuffix [for]="pickerbd_denngay"></mat-datepicker-toggle>
+						<mat-datepicker #pickerbd_denngay></mat-datepicker>
+						<mat-hint>Định dạng dd/mm/yyyy</mat-hint>
+						<mat-error>
+							Ngày hoặc khoảng thời gian
+							<strong> không hợp lệ</strong>
+						</mat-error>
+					</mat-form-field>
+				</div>
+			</div>
+		</div>
+		<div class="mat-table__wrapper">
+			<!-- Checkbox Column -->
+			<!-- Table with selection -->
+			<!-- https://run.stackblitz.com/api/angular/v1?file=app%2Ftable-selection-example.ts -->
+			<table mat-table class="lmat-elevation-z8" [dataSource]="dataSource" matSort matSortActive="CreatedDate"
+				   matSortDirection="desc" matSortDisableClear>
+				<!-- Checkbox Column -->
+				<ng-container matColumnDef="select">
+					<th mat-header-cell *matHeaderCellDef class="mat-column-checkbox hiden-print select-cell" style="padding-right: 20px;">
+						<mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()" [color]="'primary'" [disabled]="thaotac==0">
+						</mat-checkbox>
+					</th>
+					<td mat-cell *matCellDef="let row" class="mat-column-checkbox hiden-print select-cell" style="padding-right: 20px;">
+						<mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)" [color]="'primary'" [disabled]="thaotac==0 || (thaotac==1 && !row.visibleGuiDuyet) || (thaotac==2 && !row.visibleThuHoi)">
+						</mat-checkbox>
+					</td>
+				</ng-container>
+				<ng-container matColumnDef="STT">
+					<th mat-header-cell *matHeaderCellDef class="mat-column-vinCode stt-cell"
+						style="flex: 0 0 8%">
+						{{'COMMON.STT'|translate}}
+					</th>
+					<td mat-cell *matCellDef="let dantoc; let i=index" class="mat-column-vinCode stt-cell" style="flex: 0 0 8%">
+						{{i+1}}
+					</td>
+				</ng-container>
+				<ng-container matColumnDef="NoiDung">
+					<th mat-header-cell *matHeaderCellDef mat-sort-header class="mat-column-vinCode"
+						style="flex: 0 0 55%">
+						Nội dung
+					</th>
+					<td mat-cell *matCellDef="let dantoc" class="mat-column-vinCode" style="flex: 0 0 55%">
+						{{dantoc.NoiDung}}
+						<!--<a href="javascript:;" (click)="xem()">{{dantoc.NoiDung}}</a>-->
+					</td>
+				</ng-container>
+				<ng-container matColumnDef="CreatedDate">
+					<th mat-header-cell *matHeaderCellDef mat-sort-header class="mat-column-vinCode"
+						style="flex: 0 0 55%">
+						Ngày nhận
+					</th>
+					<td mat-cell *matCellDef="let dantoc" class="mat-column-vinCode" style="flex: 0 0 55%">
+						{{dantoc.CreatedDate}}
+					</td>
+				</ng-container>
+				<ng-container matColumnDef="CreatedBy">
+					<th mat-header-cell *matHeaderCellDef mat-sort-header class="mat-column-vinCode"
+						style="flex: 0 0 55%">
+						Người gửi
+					</th>
+					<td mat-cell *matCellDef="let dantoc" class="mat-column-vinCode" style="flex: 0 0 55%">
+						{{dantoc.NguoiGui}}
+					</td>
+				</ng-container>
+				<ng-container matColumnDef="UpdatedDate">
+					<th mat-header-cell *matHeaderCellDef mat-sort-header class="mat-column-vinCode"
+						style="flex: 0 0 55%">
+						Ngày xem
+					</th>
+					<td mat-cell *matCellDef="let dantoc" class="mat-column-vinCode" style="flex: 0 0 55%">
+						{{dantoc.UpdatedDate}}
+					</td>
+				</ng-container>
+				<ng-container matColumnDef="actions">
+					<th mat-header-cell *matHeaderCellDef style="width: 100px;">
+						<span translate="COMMON.TACVU"></span>
+					</th>
+					<td mat-cell *matCellDef="let dantoc" class="action-cell" [ngClass]="list_button?'list-button':''">
+						<!--<button mat-button [class.mat-raised-button]="list_button" [class.mat-icon-button]="!list_button" (click)="xem(dantoc)"
+								matTooltip="{{ 'COMMON.DETAIL' | translate }}" color="info" type="button">
+							<mat-icon>visibility</mat-icon>
+							<span class="button-text">{{ 'COMMON.DETAIL' | translate }}</span>
+						</button>-->
+						<a href="javascript:;" (click)="xem(dantoc)" mat-button [class.mat-raised-button]="list_button" [class.mat-icon-button]="!list_button" *ngIf="dantoc.Link"
+						   matTooltip="Đến trang" color="info" type="button">
+							<mat-icon>undo</mat-icon>
+							<span class="button-text">Đến trang</span>
+						</a>
+						<button mat-button [class.mat-raised-button]="list_button" [class.mat-icon-button]="!list_button" (click)="xoa(dantoc)"
+								matTooltip="{{ 'COMMON.DELETE' | translate }}" color="warn" type="button">
+							<mat-icon>remove</mat-icon>
+							<span class="button-text">{{ 'COMMON.DELETE' | translate }}</span>
+						</button>
+					</td>
+				</ng-container>
+
+				<tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+				<tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="row.highlighted = !row.highlighted"
+					[ngClass]="{hovered: row.hovered, highlighted: row.highlighted, IsNew: !row.IsRead}" (mouseover)="row.hovered = true"
+					(mouseout)="row.hovered = false"></tr>
+			</table>
+
+			<div class="mat-table__message" *ngIf="!dataSource.hasItems">
+				<span translate="COMMON.NO_RECORD_FOUND"></span>
+			</div>
+		</div>
+
+		<!-- start: BOTTOM -->
+		<div class="mat-table__bottom" style="margin-top: 1px;">
+			<mat-spinner [diameter]="20" *ngIf="dataSource.loading$ | async"></mat-spinner>
+			<mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 20, 50, 100]" [length]="dataSource.paginatorTotal$ | async" [showFirstLastButtons]="true"></mat-paginator>
+		</div>
+		<!-- end: BOTTOM -->
+	</div>
+	<!-- end::Body -->
+</kt-portlet>

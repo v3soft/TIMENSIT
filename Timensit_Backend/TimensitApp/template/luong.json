@@ -1,0 +1,219 @@
+{
+	"folder_path": "/views/pages/Timensit/quan-tri",
+	"name": "Luong",
+	"text": "Luồng",
+	"Sub_menu_tree": "",
+	"modulePage": "",
+	"listOptions": {
+		"nColumnsFilterInOneRow": 2,
+		"sortOrder": "asc",
+		"sortField": "Luong"
+	},
+	"editOptions": {
+		"nColumnsFilterInOneRow": 2
+	},
+	"numberOfFixedPoint": 0,
+	"attributes": [
+		{
+			"className": "Luong",
+			"tableName": "Tbl_Luong",
+			"content": [
+				{
+					"name": "IdRow",
+					"type": "number",
+					"required": false,
+					"title": "Id",
+					"display": {
+						"isDisplay": false,
+						"isShow": false
+					},
+					"formtype": "input",
+					"control_type": "",
+					"css_status": false,
+					"sortable": false,
+					"filter": 0,
+					"updateOnGrid": false,
+					"haveDrpFilter": false,
+					"filterGrp": [],
+					"isKeyModel": true
+				},
+				{
+					"name": "Luong",
+					"type": "string",
+					"required": true,
+					"maxLength": 100,
+					"title": "Tên luồng",
+					"display": {
+						"isDisplay": true,
+						"isShow": true
+					},
+					"control_type": "",
+					"formtype": "input",
+					"css_status": false,
+					"sortable": true,
+					"filter": 0,
+					"updateOnGrid": false,
+					"haveDrpFilter": true,
+					"filterGrp": []
+				},
+				{
+					"name": "MaLuong",
+					"type": "string",
+					"required": true,
+					"maxLength": 100,
+					"title": "Mã luồng",
+					"display": {
+						"isDisplay": true,
+						"isShow": true
+					},
+					"control_type": "",
+					"formtype": "input",
+					"css_status": false,
+					"sortable": true,
+					"filter": 0,
+					"updateOnGrid": false,
+					"haveDrpFilter": true,
+					"filterGrp": []
+				},
+				{
+					"name": "IdDonVi",
+					"type": "number",
+					"required": true,
+					"title": "Đơn vị",
+					"display": {
+						"isDisplay": true,
+						"isShow": true
+					},
+					"formtype": "dropdowntree",
+					"control_type": "",
+					"dropdownOptions": {
+						"options": {
+							"Data": [],
+							"IDKey": "id",
+							"NameKey": "title",
+							"ChildrensKey": "data",
+							"api": "/lite/DM_PhongBan_Tree"
+						}
+					},
+					"css_status": false,
+					"sortable": true,
+					"filter": 0,
+					"updateOnGrid": false,
+					"haveDrpFilter": false,
+					"filterGrp": [],
+					"isKeyModel": true
+				},
+				{
+					"name": "IdDoiTuong",
+					"type": "number",
+					"required": true,
+					"title": "Loại đối tượng",
+					"display": {
+						"isDisplay": true,
+						"isShow": true
+					},
+					"formtype": "select",
+					"control_type": "",
+					"dropdownOptions": {
+						"options": {
+							"Data": [],
+							"IDKey": "id",
+							"NameKey": "title",
+							"api": "/lite/danh-muc-theo-user?loai=6"
+						}
+					},
+					"css_status": false,
+					"sortable": true,
+					"filter": 0,
+					"updateOnGrid": false,
+					"haveDrpFilter": false,
+					"filterGrp": [],
+					"isKeyModel": true
+				},
+				{
+					"name": "IsDefault",
+					"type": "boolean",
+					"required": false,
+					"title": "Mặc định",
+					"display": {
+						"isDisplay": true,
+						"isShow": true
+					},
+					"control_type": "",
+					"formtype": "checkbox",
+					"css_status": true,
+					"sortable": true,
+					"filter": 0,
+					"updateOnGrid": false,
+					"haveDrpFilter": true,
+					"filterGrp": [
+						{
+							"name": "Không",
+							"value": "False"
+						},
+						{
+							"name": "Mặc định",
+							"value": "True"
+						}
+					]
+				},
+				{
+					"name": "Locked",
+					"type": "boolean",
+					"required": false,
+					"title": "Tình trạng",
+					"display": {
+						"isDisplay": true,
+						"isShow": true
+					},
+					"control_type": "",
+					"formtype": "checkbox",
+					"css_status": true,
+					"sortable": true,
+					"filter": 0,
+					"updateOnGrid": false,
+					"haveDrpFilter": true,
+					"filterGrp": [
+						{
+							"name": "Hoạt động",
+							"value": "False"
+						},
+						{
+							"name": "Khóa",
+							"value": "True"
+						}
+					]
+				}
+			]
+		}
+	],
+	"methods": {
+		"api": "/luong",
+		"list": {
+			"api": "/list",
+			"option": "POST"
+		},
+		"create": "/create",
+		"update": "/update",
+		"delete": "/delete?id=${itemId}",
+		"delete_multi": "",
+		"getbyid": "/detail?id=${itemId}",
+		"loadDataImport": "",
+		"ImportFile": "",
+		"Export": "",
+		"DownloadFileMau": ""
+	},
+	"classbuttons": {
+		"import": "accent",
+		"export": "info",
+		"print": "info",
+		"add": "primary",
+		"back": "default",
+		"reset": "accent",
+		"saveAndBack": "primary",
+		"saveAndAdd": "primary",
+		"zoom": "accent",
+		"delete": "warn",
+		"edit": "primary"
+	}
+}

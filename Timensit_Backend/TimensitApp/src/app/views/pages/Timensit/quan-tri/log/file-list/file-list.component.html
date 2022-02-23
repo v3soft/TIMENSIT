@@ -1,0 +1,68 @@
+<style>
+	.selected-button {
+		background-color: #ececec;
+	}
+</style>
+<div class="row">
+	<div class="col-md-12">
+		<button mat-stroked-button color="primary" (click)="load('theochucnang')" [ngClass]="{'selected-button':folder=='theochucnang'}">Theo chức năng</button>&nbsp;
+		<button mat-stroked-button color="accent" (click)="load('theongay')"[ngClass]="{'selected-button':folder=='theongay'}">Theo thời gian</button>&nbsp;
+		<button mat-stroked-button color="info" (click)="load('theonguoidung')" [ngClass]="{'selected-button':folder=='theonguoidung'}">Theo người dùng</button>
+	</div>
+</div>
+<div class="mat-table__wrapper">
+	<!-- Checkbox Column -->
+	<table mat-table [dataSource]="dataSource" matSort #sort1="matSort" matSortActive="Name" matSortDirection="desc"
+		   matSortDisableClear cdkDropListGroup>
+		<ng-container matColumnDef="STT">
+			<th mat-header-cell *matHeaderCellDef class="mat-column-vinCode stt-cell"
+				style="flex: 0 0 8%">
+				{{'COMMON.STT'|translate}}
+			</th>
+			<td mat-cell *matCellDef="let dantoc; let i=index" class="mat-column-vinCode stt-cell" style="flex: 0 0 8%">
+				{{i+1}}
+			</td>
+		</ng-container>
+		<ng-container matColumnDef="Name">
+			<th mat-header-cell *matHeaderCellDef class="mat-column-vinCode" mat-sort-header style="flex: 0 0 55%">
+				File log
+			</th>
+			<td mat-cell *matCellDef="let dantoc" class="mat-column-vinCode" style="flex: 0 0 55%">
+				<a href="viewer/file-dinh-kem/0?path={{dantoc.path}}">{{dantoc.Name}}</a>
+			</td>
+		</ng-container>
+		<ng-container matColumnDef="actions">
+			<th mat-header-cell *matHeaderCellDef style="width: 100px;">
+				<span translate="COMMON.TACVU"></span>
+			</th>
+			<td mat-cell *matCellDef="let dantoc" class="action-cell" [ngClass]="list_button?'list-button':''">
+				<a href="viewer/file-dinh-kem/0?path={{dantoc.path}}" target="_blank" mat-button [class.mat-raised-button]="list_button" [class.mat-icon-button]="!list_button"
+				   matTooltip="{{ 'COMMON.DETAIL' | translate }}" color="info" type="button">
+					<mat-icon>visibility</mat-icon>
+					<span class="button-text">{{ 'COMMON.DETAIL' | translate }}</span>
+				</a>
+				<button (click)="Download(dantoc)" mat-button [class.mat-raised-button]="list_button" [class.mat-icon-button]="!list_button"
+						matTooltip="{{ 'COMMON.DOWNLOAD' | translate }}" color="info" type="button">
+					<mat-icon>cloud_download</mat-icon>
+					<span class="button-text">{{ 'COMMON.DOWNLOAD' | translate }}</span>
+				</button>
+			</td>
+		</ng-container>
+
+		<tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+		<tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="row.highlighted = !row.highlighted"
+			[ngClass]="{hovered: row.hovered, highlighted: row.highlighted}" (mouseover)="row.hovered = true"
+			(mouseout)="row.hovered = false"></tr>
+	</table>
+
+	<div class="mat-table__message" *ngIf="!dataSource.hasItems">
+		<span translate="COMMON.NO_RECORD_FOUND"></span>
+	</div>
+</div>
+
+<!-- start: BOTTOM -->
+<div class="mat-table__bottom" style="margin-top: 1px;">
+	<mat-spinner [diameter]="20" *ngIf="dataSource.loading$ | async"></mat-spinner>
+	<mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 20, 50, 100]" [length]="dataSource.paginatorTotal$ | async" [showFirstLastButtons]="true"></mat-paginator>
+</div>
+<!-- end: BOTTOM -->

@@ -1,0 +1,176 @@
+<style>
+	.button-color {
+		background-color: blue;
+	}
+
+	form__actions--solid {
+		border-color: #f7f8fa;
+		justify-items: center;
+	}
+
+	.obligate-center {
+		justify-content: center;
+	}
+
+	.require {
+		color: #16A851 !important;
+	}
+
+	.kt-form .kt-form__actions {
+		padding: 10px;
+		margin-bottom: 15px
+	}
+
+	.mat-table__wrapper .mat-table {
+		min-width: 0;
+		width: 100%;
+	}
+</style>
+<div class="btn-close-container">
+	<button class="btn-close" type="button" mat-mini-fab color="" (click)="close()" [disabled]="disabledBtn"
+		title="Đóng">
+		<mat-icon>clear</mat-icon>
+	</button>
+</div>
+<div class="kt-portlet"
+	[ngClass]="{ 'kt-portlet--body-progress' : viewLoading, 'kt-portlet--body-progress-overlay' : loadingAfterSubmit }">
+	<div class="kt-portlet__head kt-portlet__head__custom">
+		<div class="col-md-{{id_cd == 0 ? (isZoomSize ? '7' : '5') : (isZoomSize ? '9' : '7')}} kt-margin-bottom-10-mobile"
+			style="margin-top: 20px;">
+			<h3 class="kt-portlet__head-title">{{getTitle()}}</h3>
+		</div>
+		<div class="col-md-{{id_cd == 0 ? (isZoomSize ? '5' : '7') : (isZoomSize ? '3' : '5')}} kt-margin-bottom-10-mobile"
+			style="margin-top: 10px; text-align: right;" *ngIf="allowEdit">
+			<button type="button" mat-raised-button color="accent" (click)="onSubmit(true)" [disabled]="disabledBtn"
+				matTooltip="{{'COMMON.LUU_DONG' | translate}}">
+				<span translate="COMMON.LUU_DONG"></span>&nbsp;&nbsp;<div *ngIf="disabledBtn"
+					class="spinner-button-pad"></div>
+			</button>
+			<button class="hide-view-sm" type="button" mat-raised-button color="primary" (click)="onSubmit(false)" [disabled]="disabledBtn"
+				*ngIf="id_cd == 0" matTooltip="{{'COMMON.LUU_TIEPTUC' | translate}}">
+				<span translate="COMMON.LUU_TIEPTUC"></span>&nbsp;&nbsp;<div *ngIf="disabledBtn"
+					class="spinner-button-pad"></div>
+			</button>
+		</div>
+	</div>
+	<!--begin::Form-->
+	<form [formGroup]="itemForm" *ngIf="item" class="kt-form kt-form--group-seperator-dashed">
+		<div class="kt-portlet__body">
+			<kt-alert *ngIf="hasFormErrors" type="warn" [showCloseButton]="true" [duration]="0"
+				(close)="onAlertClose($event)">
+				Không thể lưu, vui lòng nhập đủ thông tin!
+			</kt-alert>
+			<div class="kt-form__section kt-form__section--first">
+				<div class="kt-form__group">
+					<div class="row align-items-center">
+						<div class="col-md-6 m--margin-bottom-10-mobile">
+							<mat-form-field class="mat-form-field-fluid">
+								<mat-select [(value)]="filterChucDanh" id="id"
+									placeholder="{{'SO_DO_TO_CHUC.chonchucdanh' | translate}}"
+									formControlName="ID_ChucDanh" class="require" required
+									(selectionChange)="loadChucVuTheoNhomChucDanh()">
+									<mat-option value="{{cd.id_cv}}" *ngFor="let cd of listchucdanh">
+										{{cd.tencv}}</mat-option>
+								</mat-select>
+							</mat-form-field>
+						</div>
+						<div class="col-md-6 m--margin-bottom-10-mobile">
+							<m-dropdown-tree [data]="datatree" [FieldTitle]="'title'" [FieldId]="'id'"
+								[FieldChildren]="'data'" [DropdownTitle]="'Cơ cấu tổ chức'"
+								(SelectedItemTree)="GetValueNode($event)" [formControl]="itemForm.controls['StuctItem']"
+								class="require drop-popup" required>
+							</m-dropdown-tree>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6 m--margin-bottom-10-mobile">
+							<mat-form-field class="mat-form-field mat-form-field-fluid">
+								<mat-select [(value)]="filterChucVu"
+									placeholder="{{ 'SO_DO_TO_CHUC.chonchucvu' | translate }}"
+									formControlName="ID_ChucVu" id="namechucvu" class="require" required
+									(selectionChange)="loadTextJobTitle(filterChucVu)">
+									<mat-option value="{{cv.id_row}}" *ngFor="let cv of listchucvu">
+										{{cv.tenchucdanh}}</mat-option>
+								</mat-select>
+								<!--<button (click)="$event.stopPropagation();ThemMoiChucVu();" style="color: green; background: transparent;
+                                border: none;" mat-stroked-button-pad matTooltip="{{ 'COMMON.CREATE' | translate }}"
+									type="button" matSuffix>
+									<mat-icon>add</mat-icon>
+								</button>-->
+							</mat-form-field>
+						</div>
+						<div class="col-md-6 m--margin-bottom-10-mobile">
+							<mat-form-field class="mat-form-field-fluid">
+								<mat-select placeholder="{{'SO_DO_TO_CHUC.choncapquanly' | translate}}"
+									formControlName="ID_Cap">
+									<mat-option value=""></mat-option>
+									<mat-option value="{{cql.rowid}}" *ngFor="let cql of listcapquanly">
+										{{cql.title}}</mat-option>
+								</mat-select>
+							</mat-form-field>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6 m--margin-bottom-10-mobile">
+							<mat-form-field class="mat-form-field-fluid">
+								<input matInput placeholder="{{ 'SO_DO_TO_CHUC.tenchucvu' | translate }}"
+									class="require" required formControlName="TenChucVu" />
+							</mat-form-field>
+						</div>
+
+						<div class="col-md-3 m--margin-bottom-10-mobile">
+							<mat-form-field class="mat-form-field-fluid">
+								<input matInput placeholder="{{ 'SO_DO_TO_CHUC.SoNhanVien' | translate }}"
+									pattern="(^[1-9][0-9]*$)" type="number" class="require" required
+									formControlName="SoNhanVien" />
+							</mat-form-field>
+						</div>
+						<div class="col-md-3 m--margin-bottom-10-mobile">
+							<mat-form-field class="mat-form-field-fluid">
+								<input matInput placeholder="{{ 'SO_DO_TO_CHUC.ViTri' | translate }}"
+									pattern="(^[1-9][0-9]*$)" type="number" class="require" required
+									formControlName="ViTri" />
+							</mat-form-field>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-6 m--margin-bottom-20-mobile">
+							<div class="m-section__content">
+								<mat-checkbox formControlName="HienThiDonVi">
+									<span translate="SO_DO_TO_CHUC.HienThiDonVi" style="color: black"></span>
+								</mat-checkbox>
+							</div>
+						</div>
+						<div class="col-lg-6 m--margin-bottom-20-mobile" hidden>
+							<div class="m-section__content">
+								<mat-checkbox formControlName="DungChuyenCap"><span
+										translate="SO_DO_TO_CHUC.DungChuyenCap" style="color: black"></span>
+								</mat-checkbox>
+							</div>
+						</div>
+						<div class="col-lg-6 m--margin-bottom-20-mobile">
+							<div class="m-section__content">
+								<mat-checkbox formControlName="HienThiID"><span translate="SO_DO_TO_CHUC.HienThiID"
+										style="color: black"></span></mat-checkbox>
+							</div>
+						</div>
+						<!-- <div class="col-lg-3 m--margin-bottom-20-mobile">
+							<div class="m-section__content">
+								<mat-checkbox formControlName="HienThiCap">
+									<span translate="SO_DO_TO_CHUC.HienThiCap" style="color: black"></span></mat-checkbox>
+							</div>
+						</div> -->
+						<!-- <div class="col-lg-4 m--margin-bottom-20-mobile">
+                            <div class="m-section__content">
+                                <mat-checkbox formControlName="HienThiPhongBan">
+                                    <span translate="SO_DO_TO_CHUC.HienThiPhongBan" style="color: black"></span>
+                                </mat-checkbox>
+                            </div>
+                        </div> -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<!--end::Form-->
+</div>

@@ -1,0 +1,325 @@
+{
+	"folder_path": "/views/pages/nfc",
+	"name": "Test",
+	"text": "Test",
+	"Sub_menu_tree": "NFC, Menu, Test",
+	"modulePage": "",
+	"listOptions": {
+		"nColumnsFilterInOneRow": 3,
+		"sortOrder": "asc",
+		"sortField": "zip"
+	},
+	"editOptions": {
+		"nColumnsFilterInOneRow": 3
+	},
+	"attributes": [
+		{
+			"className": "Test",
+			"content": [
+				{
+					"name": "id",
+					"type": "string",
+					"required": true,
+					"title": "id",
+					"display": {
+						"isDisplay": false,
+						"isShow": false
+					},
+					"formtype": "input",
+					"control_type": "",
+					"css_status": false,
+					"filter": 0,
+					"updateOnGrid": false,
+					"haveDrpFilter": false,
+					"filterGrp": []
+				},
+				{
+					"name": "zip",
+					"type": "number",
+					"required": true,
+					"title": "Zip Code",
+					"display": {
+						"isDisplay": true,
+						"isShow": true
+					},
+					"control_type": "",
+					"formtype": "input",
+					"css_status": false,
+					"filter": 1,
+					"updateOnGrid": true,
+					"haveDrpFilter": true,
+					"filterGrp": []
+				},
+				{
+					"name": "first_name",
+					"type": "string",
+					"required": true,
+					"title": "First Name",
+					"display": {
+						"isDisplay": true,
+						"isShow": true
+					},
+					"control_type": "",
+					"formtype": "input",
+					"css_status": false,
+					"filter": 1,
+					"updateOnGrid": true,
+					"haveDrpFilter": true,
+					"filterGrp": [
+						{
+							"name": "Option 1",
+							"value": 1
+						},
+						{
+							"name": "Option 2",
+							"value": 2
+						},
+						{
+							"name": "Option 2",
+							"value": 3
+						}
+					]
+				},
+				{
+					"name": "last_name",
+					"type": "string",
+					"required": true,
+					"title": "Last Name",
+					"display": {
+						"isDisplay": true,
+						"isShow": true
+					},
+					"control_type": "",
+					"formtype": "input",
+					"css_status": false,
+					"filter": 0,
+					"updateOnGrid": true,
+					"haveDrpFilter": true,
+					"filterGrp": "/nhanhieu/getFilterGroup?column="
+				},
+				{
+					"name": "county",
+					"type": "string",
+					"required": true,
+					"title": "Country",
+					"display": {
+						"isDisplay": true,
+						"isShow": true
+					},
+					"control_type": "autocomplete",
+					"formtype": "input",
+					"css_status": false,
+					"filter": 1,
+					"updateOnGrid": true,
+					"haveDrpFilter": false,
+					"filterGrp": []
+				},
+				{
+					"name": "company_name",
+					"type": "string",
+					"required": false,
+					"title": "Company Name",
+					"display": {
+						"isDisplay": false,
+						"isShow": false
+					},
+					"control_type": "",
+					"formtype": "dropdown",
+					"dropdownOptions": {
+						"type": {
+							"dropdownType": "static",
+							"choiceType": "multi"
+						},
+						"options": [
+							{
+								"key": 1,
+								"value": "A"
+							},
+							{
+								"key": 2,
+								"value": "B"
+							}
+						]
+					},
+					"css_status": false,
+					"filter": 1,
+					"updateOnGrid": false
+				},
+				{
+					"name": "email",
+					"type": "string",
+					"required": false,
+					"title": "Email",
+					"display": {
+						"isDisplay": true,
+						"isShow": true
+					},
+					"control_type": "",
+					"formtype": "input",
+					"css_status": false,
+					"filter": 1,
+					"updateOnGrid": true,
+					"haveDrpFilter": true,
+					"filterGrp": []
+				},
+				{
+					"name": "phone1",
+					"type": "string",
+					"required": false,
+					"title": "Phone",
+					"display": {
+						"isDisplay": true,
+						"isShow": true
+					},
+					"control_type": "",
+					"formtype": "input",
+					"css_status": false,
+					"filter": 0,
+					"updateOnGrid": true,
+					"haveDrpFilter": true,
+					"filterGrp": []
+				},
+				{
+					"name": "active",
+					"type": "string",
+					"required": false,
+					"title": "Active",
+					"display": {
+						"isDisplay": true,
+						"isShow": true
+					},
+					"control_type": "",
+					"formtype": "checkbox",
+					"css_status": true,
+					"filter": 0,
+					"updateOnGrid": false,
+					"haveDrpFilter": false,
+					"filterGrp": []
+				},
+				{
+					"name": "IdTruong",
+					"type": "number",
+					"required": true,
+					"title": "Trường",
+					"display": {
+						"isDisplay": false,
+						"isShow": false
+					},
+					"control_type": "",
+					"formtype": "dropdown",
+					"dropdownOptions": {
+						"type": {
+							"dropdownType": "dynamic",
+							"choiceType": "single"
+						},
+						"options": {
+							"startKey": "First",
+							"IDKey": "IDChiNhanh",
+							"NameKey": "TenChiNhanh",
+							"api": "/danhmuc/ListTruong",
+							"dependOn": []
+						}
+					},
+					"css_status": false,
+					"filter": 1,
+					"updateOnGrid": false,
+					"haveDrpFilter": false,
+					"filterGrp": []
+				},
+				{
+					"name": "IdLop",
+					"type": "array",
+					"required": true,
+					"title": "Lớp",
+					"display": {
+						"isDisplay": false,
+						"isShow": false
+					},
+					"control_type": "",
+					"formtype": "dropdown",
+					"dropdownOptions": {
+						"type": {
+							"dropdownType": "dynamic",
+							"choiceType": "multi"
+						},
+						"options": {
+							"startKey": "First",
+							"IDKey": "IDNhomKH",
+							"NameKey": "TenNhomKH",
+							"api": "/quanlyhocsinh/ListLopHoc",
+							"dependOn": [
+								"IdTruong"
+							]
+						}
+					},
+					"css_status": false,
+					"filter": 1,
+					"updateOnGrid": false,
+					"haveDrpFilter": false,
+					"filterGrp": []
+				},
+				{
+					"name": "IdLopVer2",
+					"type": "array",
+					"required": true,
+					"title": "Lớp 2",
+					"display": {
+						"isDisplay": false,
+						"isShow": false
+					},
+					"control_type": "",
+					"formtype": "dropdown",
+					"dropdownOptions": {
+						"type": {
+							"dropdownType": "dynamic",
+							"choiceType": "multi"
+						},
+						"options": {
+							"startKey": "First",
+							"IDKey": "IDNhomKH",
+							"NameKey": "TenNhomKH",
+							"api": "/quanlyhocsinh/ListLopHoc",
+							"dependOn": [
+								"IdLop"
+							]
+						}
+					},
+					"css_status": false,
+					"filter": 1,
+					"updateOnGrid": false,
+					"haveDrpFilter": false,
+					"filterGrp": []
+				}
+			]
+		}
+	],
+	"methods": {
+		"api": "/static-data",
+		"list": {
+			"api": "/getData",
+			"option": "POST"
+		},
+		"create": "/create-user",
+		"update": "/update-user",
+		"delete": "/delete/${itemId}",
+		"delete_multi": "/deleteSelect",
+		"getbyid": "/getUserById/${itemId}",
+		"loadDataImport": "/DM_LoaiThanhPham_UploadFile",
+		"ImportFile": "/DM_LoaiThanhPham_Import",
+		"Export": "/DM_LoaiThanhPham_Export",
+		"DownloadFileMau": "/DownLoadFileImportMau"
+	},
+	"classbuttons": {
+		"import": "accent",
+		"export": "info",
+		"print": "info",
+		"add": "primary",
+		"back": "default",
+		"reset": "accent",
+		"saveAndBack": "primary",
+		"saveAndAdd": "primary",
+		"zoom": "accent",
+		"delete": "warn",
+		"edit": "primary"
+	}
+}

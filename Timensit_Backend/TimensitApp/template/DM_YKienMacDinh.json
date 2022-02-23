@@ -1,0 +1,246 @@
+{
+  "folder_path": "/views/pages/Timensit/danh-muc",
+  "name": "DM_YKien",
+  "text": "Ý kiến mặc định",
+  "modulePage": "",
+  "Sub_menu_tree": "",
+  "listOptions": {
+    "nColumnsFilterInOneRow": 2
+  },
+  "editOptions": {
+    "nColumnsFilterInOneRow": 2
+  },
+  "numberOfFixedPoint": 0,
+  "attributes": [
+    {
+      "className": "DM_YKien",
+      "content": [
+        {
+          "name": "Id",
+          "isKeyModel": true,
+          "type": "number",
+          "required": true,
+          "title": "Id",
+          "display": {
+            "isDisplay": true,
+            "isShow": false
+          },
+          "formtype": "input",
+          "control_type": "",
+          "css_status": false,
+          "filter": 0,
+          "updateOnGrid": false,
+          "haveDrpFilter": false,
+          "filterGrp": [],
+          "columnName": "Id"
+        },
+        {
+          "name": "NoiDung",
+          "type": "string",
+          "required": true,
+          "title": "Nội dung ý kiến",
+          "display": {
+            "isDisplay": true,
+            "isShow": true
+          },
+          "control_type": "",
+          "formtype": "input",
+          "css_status": false,
+          "filter": 1,
+          "updateOnGrid": true,
+          "haveDrpFilter": true,
+          "filterGrp": [],
+          "columnName": "NoiDung"
+        },
+        {
+          "name": "Loai",
+          "type": "number",
+          "required": true,
+          "title": "Loại",
+          "display": {
+            "isDisplay": true,
+            "isShow": true
+          },
+          "control_type": "",
+          "formtype": "input",
+          "css_status": false,
+          "filter": 1,
+          "updateOnGrid": true,
+          "haveDrpFilter": false,
+          "filterGrp": [],
+          "columnName": "Loai"
+        },
+        {
+          "name": "Priority",
+          "type": "number",
+          "required": true,
+          "title": "Thứ tự ưu tiên",
+          "display": {
+            "isDisplay": true,
+            "isShow": true
+          },
+          "control_type": "",
+          "formtype": "input",
+          "css_status": false,
+          "filter": 1,
+          "updateOnGrid": false,
+          "haveDrpFilter": false,
+          "filterGrp": [],
+          "columnName": "Priority"
+        },
+        {
+          "name": "Locked",
+          "type": "boolean",
+          "required": true,
+          "title": "Trạng thái",
+          "display": {
+            "isDisplay": true,
+            "isShow": true
+          },
+          "control_type": "",
+          "formtype": "input",
+          "css_status": false,
+          "filter": 1,
+          "updateOnGrid": false,
+          "haveDrpFilter": false,
+          "filterGrp": [],
+          "columnName": "Locked"
+        },
+        {
+          "name": "CreatedBy",
+          "type": "number",
+          "required": true,
+          "title": "Người tạo",
+          "display": {
+            "isDisplay": false,
+            "isShow": false
+          },
+          "control_type": "",
+          "formtype": "input",
+          "css_status": false,
+          "filter": 1,
+          "updateOnGrid": false,
+          "haveDrpFilter": false,
+          "filterGrp": [],
+          "columnName": "CreatedBy"
+        },
+        {
+          "name": "CreatedDate",
+          "type": "string",
+          "required": true,
+          "title": "Ngày tạo",
+          "display": {
+            "isDisplay": true,
+            "isShow": true
+          },
+          "control_type": "",
+          "formtype": "input",
+          "css_status": false,
+          "filter": 1,
+          "updateOnGrid": false,
+          "haveDrpFilter": false,
+          "filterGrp": [],
+          "columnName": "CreatedDate"
+        },
+        {
+          "name": "UpdatedBy",
+          "type": "string",
+          "required": true,
+          "title": "UpdatedBy",
+          "display": {
+            "isDisplay": false,
+            "isShow": false
+          },
+          "control_type": "",
+          "formtype": "input",
+          "css_status": false,
+          "filter": 1,
+          "updateOnGrid": false,
+          "haveDrpFilter": false,
+          "filterGrp": [],
+          "columnName": "UpdatedBy"
+        },
+        {
+          "name": "UpdatedBy",
+          "type": "string",
+          "required": true,
+          "title": "UpdatedBy",
+          "display": {
+            "isDisplay": false,
+            "isShow": false
+          },
+          "control_type": "",
+          "formtype": "input",
+          "css_status": false,
+          "filter": 1,
+          "updateOnGrid": false,
+          "haveDrpFilter": false,
+          "filterGrp": [],
+          "columnName": "UpdatedBy"
+        },
+        {
+          "name": "UpdatedDate",
+          "type": "string",
+          "required": true,
+          "title": "UpdatedDate",
+          "display": {
+            "isDisplay": false,
+            "isShow": false
+          },
+          "control_type": "",
+          "formtype": "input",
+          "css_status": false,
+          "filter": 1,
+          "updateOnGrid": false,
+          "haveDrpFilter": false,
+          "filterGrp": [],
+          "columnName": "UpdatedDate"
+        },
+        {
+          "name": "Disabled",
+          "type": "boolean",
+          "required": true,
+          "title": "Disabled",
+          "display": {
+            "isDisplay": false,
+            "isShow": false
+          },
+          "control_type": "",
+          "formtype": "input",
+          "css_status": false,
+          "filter": 1,
+          "updateOnGrid": false,
+          "haveDrpFilter": false,
+          "filterGrp": [],
+          "columnName": "Disabled"
+        }
+      ]
+    }
+  ],
+  "methods": {
+    "api": "/y-kien",
+    "list": {
+      "api": "/DM_YKien",
+      "option": "GET"
+    },
+    "create": "/DM_YKien_Insert",
+    "update": "/DM_YKien_Update",
+    "delete": "/DM_YKien_Delete?Id=${itemId}",
+    "delete_multi": "/DM_YKien_Multi_Delete",
+    "getbyid": "/DM_YKien_Detail?Id=${itemId}"
+  },
+  "classbuttons": {
+    "import": "accent",
+    "export": "info",
+    "print": "info",
+    "add": "primary",
+    "back": "default",
+    "reset": "accent",
+    "saveAndBack": "primary",
+    "saveAndAdd": "primary",
+    "zoom": "accent",
+    "delete": "warn",
+    "edit": "primary"
+  },
+  "tbl_name": "DmPhongHop"
+}

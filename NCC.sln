@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32002.185
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Timensit_Backend", "Timensit_Backend\Timensit_Backend.csproj", "{3222A674-39C3-4186-98D1-3A0D787434D8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Timensit_API", "NCC_API\Timensit_API.csproj", "{688E609A-312F-4C52-9FCD-7713D0D5B29E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3222A674-39C3-4186-98D1-3A0D787434D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3222A674-39C3-4186-98D1-3A0D787434D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3222A674-39C3-4186-98D1-3A0D787434D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3222A674-39C3-4186-98D1-3A0D787434D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{688E609A-312F-4C52-9FCD-7713D0D5B29E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{688E609A-312F-4C52-9FCD-7713D0D5B29E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{688E609A-312F-4C52-9FCD-7713D0D5B29E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{688E609A-312F-4C52-9FCD-7713D0D5B29E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E69616BA-D6C1-477E-B831-E46F501E5AFC}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 3
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://dev.azure.com/vuvanviet92
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Timensit_Backend\\Timensit_Backend.csproj
+		SccProjectName1 = Timensit_Backend
+		SccLocalPath1 = Timensit_Backend
+		SccProjectUniqueName2 = NCC_API\\Timensit_API.csproj
+		SccProjectName2 = NCC_API
+		SccLocalPath2 = NCC_API
+	EndGlobalSection
+EndGlobal

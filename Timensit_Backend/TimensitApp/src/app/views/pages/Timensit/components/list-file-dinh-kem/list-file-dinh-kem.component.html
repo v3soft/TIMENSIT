@@ -1,0 +1,75 @@
+<div class="btn-close-container">
+	<button class="btn-close" type="button" mat-mini-fab color="" (click)="closeDialog()" [disabled]="disabledBtn" title="Đóng">
+		<mat-icon>clear</mat-icon>
+	</button>
+</div>
+<div class="kt-portlet" [ngClass]="{ 'kt-portlet--body-progress kt-portlet--body-progress-overlay' : viewLoading }">
+	<div class="kt-portlet__head kt-portlet__head__custom">
+		<div class="col-md-{{isZoomSize ? '9' : '7'}} kt-margin-bottom-10-mobile" style="margin-top: 20px;">
+			<h3 class="kt-portlet__head-title">Danh sách tệp đính kèm</h3>
+		</div>
+		<div class="col-md-{{isZoomSize ? '3' : '5'}} kt-margin-bottom-10-mobile" style="margin-top: 10px; text-align: right;">
+			<!--<button style="padding: 0px 20px;" type="button" mat-raised-button color="primary" (click)="onSubmit(true)">
+				Lưu
+			</button>-->
+			<!--<button style="padding: 0px 10px;" type="button" color="accent" mat-raised-button (click)="resizeDialog()">
+				{{isZoomSize ? 'Thu nhỏ' : 'Phóng to'}}
+			</button>-->
+		</div>
+	</div>
+	<div class="kt-portlet__body">
+		<div class="kt-portlet__body-progress">
+			<mat-spinner [diameter]="20"></mat-spinner>
+		</div>
+		<table mat-table [dataSource]="datasource" style="width:100%">
+			<ng-container matColumnDef="stt">
+				<th mat-header-cell *matHeaderCellDef class="stt-cell"> STT </th>
+				<td mat-cell *matCellDef="let element; let i=index" class="stt-cell"> {{i+1}} </td>
+			</ng-container>
+
+			<ng-container matColumnDef="filename">
+				<th mat-header-cell *matHeaderCellDef> Tên file </th>
+				<td mat-cell *matCellDef="let element"> {{element.filename}} </td>
+			</ng-container>
+			<ng-container matColumnDef="Version">
+				<th mat-header-cell *matHeaderCellDef> Phiên bản </th>
+				<td mat-cell *matCellDef="let element"> {{element.Version}} </td>
+			</ng-container>
+			<ng-container matColumnDef="CreatedBy">
+				<th mat-header-cell *matHeaderCellDef> Người tạo </th>
+				<td mat-cell *matCellDef="let element"> {{element.CreatedBy}} </td>
+			</ng-container>
+			<ng-container matColumnDef="CreatedDate">
+				<th mat-header-cell *matHeaderCellDef> Ngày tạo </th>
+				<td mat-cell *matCellDef="let element"> {{element.CreatedDate}} </td>
+			</ng-container>
+			<ng-container matColumnDef="UpdatedBy">
+				<th mat-header-cell *matHeaderCellDef> Người sửa </th>
+				<td mat-cell *matCellDef="let element"> {{element.UpdatedBy}} </td>
+			</ng-container>
+			<ng-container matColumnDef="UpdatedDate">
+				<th mat-header-cell *matHeaderCellDef>Ngày sửa </th>
+				<td mat-cell *matCellDef="let element"> {{element.UpdatedDate}} </td>
+			</ng-container>
+
+			<ng-container matColumnDef="actions">
+				<th mat-header-cell *matHeaderCellDef style="width:150px"> Thao tác </th>
+				<td mat-cell *matCellDef="let element;let i=index">
+					<a href="viewer/file-dinh-kem/{{element.IdRow}}" target="_blank">
+						<button mat-icon-button color="primary" type="button" matTooltip="Xem">
+							<mat-icon>visibility</mat-icon>
+						</button>
+					</a>
+					<button mat-icon-button color="primary" type="button" (click)="download(i)" matTooltip="Tải">
+						<mat-icon>cloud_download</mat-icon>
+					</button>
+				</td>
+			</ng-container>
+
+			<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+			<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+		</table>
+		<div class="mat-table__message text-center" *ngIf="datasource.data.length==0">{{'COMMON.NO_RECORD_FOUND'|translate}}</div>
+
+	</div>
+</div>

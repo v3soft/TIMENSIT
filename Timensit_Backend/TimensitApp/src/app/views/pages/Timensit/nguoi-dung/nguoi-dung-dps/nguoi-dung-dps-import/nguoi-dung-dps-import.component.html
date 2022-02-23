@@ -1,0 +1,70 @@
+<style>
+    .kt-portlet__head-title {
+        font-size: medium;
+        font-family: sans-serif;
+    }
+</style>
+<div class="btn-close-container">
+    <button class="btn-close" type="button" mat-mini-fab color="" (click)="closeDialog()" [disabled]="disabledBtn"
+        title="Đóng">
+        <mat-icon>clear</mat-icon>
+    </button>
+</div>
+<div class="kt-portlet" [ngClass]="{ 'kt-portlet--body-progress kt-portlet--body-progress-overlay' : viewLoading }">
+    <div class="kt-portlet__head kt-portlet__head__custom">
+        <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">Import dữ liệu từ excel</h3>
+            <!-- <div class="button-dialog" [ngStyle]="{'position' : 'absolute', 'left' : '85%' }">
+				<button style="padding: 0px 30px;" type="button" color="warn" mat-raised-button (click)="closeDialog()">
+					Trở lại
+				</button>&nbsp;
+			</div> -->
+        </div>
+    </div>
+    <form class="kt-form" [formGroup]="NguoiDungDPSForm">
+        <div class="kt-portlet__body">
+            <div class="kt-portlet__body-progress">
+                <mat-spinner [diameter]="20"></mat-spinner>
+            </div>
+            <kt-alert *ngIf="hasFormErrors" type="warn" [duration]="30000" [showCloseButton]="true"
+                (close)="onAlertClose($event)">
+                Không thể lưu, vui lòng nhập đủ thông tin!
+            </kt-alert>
+            <div class="form-group kt-form__group row">
+                <div class="col-md-6 kt-margin-bottom-10-mobile" style="color: red;"
+                    [innerHTML]="NguoiDungDPSForm.controls['ErrorMessage'].value">
+
+                </div>
+                <div class="col-md-8 kt-margin-bottom-10-mobile">
+                    <mat-form-field class="mat-form-field-fluid">
+                        <input matInput placeholder="Chọn file dữ liệu*" formControlName="FileDuLieu" readonly
+                            type="text">
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4 kt-margin-bottom-10-mobile">
+                    <mat-form-field class="mat-form-field-fluid" appearance="none">
+                        <input matInput placeholder="" formControlName="FileDuLieu" style="display:none;" readonly
+                            (click)="selectFile()">
+                        <button mat-raised-button style="padding: 0px 20px;" color="primary" (click)="selectFile()"
+                            type="button">
+                            Chọn file
+                        </button>
+                        <input placeholder="Chọn file" #fileUpload id="fileUploadExcel" type="file" name="fileUpload"
+                            accept=".xls,.xlsx" (change)="FileSelected($event)" style="display: none">
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6 kt-margin-bottom-10-mobile" style="margin-top: 2%">
+                    <button style="padding: 0px 20px;" type="button" color="primary"
+                        *ngIf="NguoiDungDPSForm.controls['ErrorMessage'].value=='' && NguoiDungDPSForm.controls['FileDuLieu'].value!=''"
+                        mat-raised-button (click)="luuImport()">
+                        Import dữ liệu
+                    </button>&nbsp;
+                    <button style="padding: 0px 20px;" type="button" mat-raised-button color="info"
+                        (click)="ImportFileMau()">
+                        Tải file mẫu
+                    </button>&nbsp;
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
